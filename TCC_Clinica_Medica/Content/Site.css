@@ -1,0 +1,41 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.TextBoxSearch
+{
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+height: 32px;
+width: 168px;
+padding: 2px 2 2 2px;
+border: 1px solid #BEBEBE;
+color: gray;
+font-size: 10pt;
+font-family:Verdana;
+background:url("../Imagens/lupa.png") no-repeat ;
+margin-bottom:10px;
+background-position:96% center; padding:10px; width:100%;
+}

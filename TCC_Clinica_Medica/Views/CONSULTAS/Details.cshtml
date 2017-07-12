@@ -1,0 +1,74 @@
+﻿@model TCC_Clinica_Medica.CONSULTAS
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CONSULTAS</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DATA_INICIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DATA_INICIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DATA_FIM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DATA_FIM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.REALIZADA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.REALIZADA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RETORNO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RETORNO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CONSULTAS2.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CONSULTAS2.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MEDICOS.CRM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MEDICOS.CRM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PACIENTES.ENDERECO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PACIENTES.ENDERECO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

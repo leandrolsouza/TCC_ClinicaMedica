@@ -1,0 +1,34 @@
+﻿@model TCC_Clinica_Medica.MEDICO_CLINICA
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>MEDICO_CLINICA</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CLINICAS.NOME)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CLINICAS.NOME)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MEDICOS.CRM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MEDICOS.CRM)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

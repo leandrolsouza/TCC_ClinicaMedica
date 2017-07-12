@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinica Medica - @ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/simply-toast.js"></script>
+    <script src="~/Scripts/simply-toast.js"></script>
+    <link href="~/Content/simply-toast.css" rel="stylesheet" />
+    <link href="~/Content/listbox.css" rel="stylesheet" />
+    <script src="~/Scripts/jssor.slider.min.js"></script>
+    <script>
+        function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) {
+                    return sParameterName[1];
+                }
+            }
+        }
+
+        $(function () {
+            $(document).tooltip();
+        });
+
+        jssor_slider1_init = function (containerId) {
+            var options = { $AutoPlay: 1 };
+            var jssor_slider1 = new $JssorSlider$(containerId, options);
+        };
+
+
+       
+    </script>
+    <link href="~/Content/jquery-ui.structure.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui.theme.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <link href="~/Content/tooltipster.css" rel="stylesheet" />
+       <script src="~/Scripts/jquery.tooltipster.min.js"></script>
+    <script src="~/Scripts/listbox.js"></script>
+    <script src="~/Scripts/jquery.maxlength.js"></script>
+    <script src="~/Scripts/jquery.timer.js"></script>
+    <script src="~/Scripts/jquery.timepicker.js"></script>
+    <link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.numeric.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <span class="navbar-brand"><img src="~/Imagens/logo.png" width="80" /></span>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="menu-item">@Html.ActionLink("Inicio", "Index", "Home")</li>
+                    <li class="menu-item dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Consultas
+                            <img src="~/Imagens/seta_baixo.gif" />
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="menu-item dropdown dropdown-submenu">
+                                @Html.ActionLink("Marcação", "Index", "Avaliacaos")
+                            </li>
+                            <li class="menu-item dropdown dropdown-submenu">
+                                @Html.ActionLink("Agenda", "Index", "Perguntas")
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item dropdown">
+                        <a href="index.php?id=15" class="dropdown-toggle" data-toggle="dropdown">
+                            Exames
+                            <img src="~/Imagens/seta_baixo.gif" />
+                        </a>
+                         <ul class="dropdown-menu">
+                            <li class="menu-item dropdown dropdown-submenu">
+                                @Html.ActionLink("Solicitados", "Funcionario", "Relatorios")
+                            </li>
+                            <li class="menu-item dropdown dropdown-submenu">
+                                @Html.ActionLink("Resultados", "GerentePorAvaliacao", "Relatorios")
+                            </li>
+                            @*<li class="menu-item dropdown dropdown-submenu">
+                            <a href="#" title="" class="dropdown-toggle" data-toggle="dropdown">Page 3.2</a>
+                            <ul class="dropdown-menu">
+                                <li class="menu-item"><a href="#" title="">Page 3.2.1</a></li>
+                                <li class="menu-item"><a href="#" title="">Page 3.2.2</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-item"><a href="#" title="T">Page 3.3</a></li>*@
+                        </ul>
+                    </li>
+                    <li class="menu-item dropdown">
+
+                        <a href="index.php?id=15" class="dropdown-toggle" data-toggle="dropdown">
+                            Cadastros
+                            <img src="~/Imagens/seta_baixo.gif" />
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="menu-item dropdown dropdown-submenu">
+                                @Html.ActionLink("Plano de Saude", "Index", "PLANO_SAUDE")
+                            </li>
+                            <li class="menu-item dropdown dropdown-submenu">
+                                @Html.ActionLink("Medicamentos", "Index", "MEDICAMENTOS")
+                            </li>
+                            <li class="menu-item dropdown dropdown-submenu">
+                                @Html.ActionLink("Doenças", "Index", "DOENCAS")
+                            </li>
+                            <li class="menu-item dropdown dropdown-submenu">
+                                @Html.ActionLink("Clinicas", "Index", "CLINICAS")
+                            </li>
+                            <li class="menu-item dropdown dropdown-submenu">
+                                @Html.ActionLink("Especialidades", "Index", "ESPECIALIDADES")
+                            </li>
+                            <li class="menu-item dropdown dropdown-submenu">
+                                @Html.ActionLink("Horarios Atendimentos", "Index", "HORARIOS_ATENDIMENTO")
+                            </li>
+                            <li class="menu-item dropdown dropdown-submenu">
+                                @Html.ActionLink("Usuarios", "Index", "USUARIOS")
+                            </li>
+                            <li class="menu-item dropdown dropdown-submenu">
+                                @Html.ActionLink("Pacientes", "Index", "PACIENTES")
+                            </li>
+                            <li class="menu-item dropdown dropdown-submenu">
+                                @Html.ActionLink("Exames", "Index", "EXAMES")
+                            </li>
+                            @*<li class="menu-item dropdown dropdown-submenu">
+                    <a href="#" title="" class="dropdown-toggle" data-toggle="dropdown">Page 3.2</a>
+                    <ul class="dropdown-menu">
+                        <li class="menu-item"><a href="#" title="">Page 3.2.1</a></li>
+                        <li class="menu-item"><a href="#" title="">Page 3.2.2</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item"><a href="#" title="T">Page 3.3</a></li>*@
+                        </ul>
+                    </li>
+                </ul>
+                <p class="nav navbar-text navbar-right">
+                    <img src="~/Imagens/user.png" />&nbsp; Olá, Leandro &nbsp;|&nbsp; 
+                  <span><a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="~/Imagens/sair.png" height="30" width="30" alt="Sair" /></a></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year -By Leandro Luiz de Souza (Build 1.0.0.1)</p>
+        </footer>
+    </div>
+
+
+
+    <script>
+
+        function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) {
+                    return sParameterName[1];
+                }
+            }
+        }
+        $(function () {
+            $(document).tooltip();
+
+
+
+        });
+
+   
+
+
+
+       
+    </script>
+</body>
+</html>

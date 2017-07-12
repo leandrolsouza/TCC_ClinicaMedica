@@ -1,0 +1,66 @@
+﻿@model TCC_Clinica_Medica.HORARIOS_ATENDIMENTO
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>HORARIOS_ATENDIMENTO</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DESCRICAO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DESCRICAO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HORA_INICIO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HORA_INICIO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HORA_FIM)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HORA_FIM)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DATA_CRIACAO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DATA_CRIACAO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DATA_MODIFICACAO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DATA_MODIFICACAO)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ATIVO)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ATIVO)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

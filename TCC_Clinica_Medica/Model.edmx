@@ -1,0 +1,1370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TCC_CLINICA_MEDICAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CLINICAS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOME" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="CNPJ" Type="varchar" MaxLength="14" />
+          <Property Name="DATA_CRIACAO" Type="datetime" Nullable="false" />
+          <Property Name="DATA_MODIFICACAO" Type="date" />
+          <Property Name="ATIVO" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CONSULTA_DOENCA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_CONSULTA" Type="int" />
+          <Property Name="ID_DOENCA" Type="int" />
+        </EntityType>
+        <EntityType Name="CONSULTAS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_MEDICO" Type="int" Nullable="false" />
+          <Property Name="ID_PACIENTE" Type="int" Nullable="false" />
+          <Property Name="DATA_INICIO" Type="datetime" Nullable="false" />
+          <Property Name="DATA_FIM" Type="datetime" Nullable="false" />
+          <Property Name="REALIZADA" Type="bit" Nullable="false" />
+          <Property Name="RETORNO" Type="bit" Nullable="false" />
+          <Property Name="ID_CONSULTA_RETORNO" Type="int" />
+        </EntityType>
+        <EntityType Name="DOENCAS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="DESCRICAO" Type="varchar" MaxLength="5000" Nullable="false" />
+          <Property Name="DATA_CRIACAO" Type="datetime" Nullable="false" />
+          <Property Name="DATA_MODIFICACAO" Type="datetime" />
+          <Property Name="ATIVO" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ESPECIALIDADES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRICAO" Type="varchar" MaxLength="500" />
+          <Property Name="ATIVO" Type="bit" Nullable="false" />
+          <Property Name="DATA_CRIACAO" Type="datetime" Nullable="false" />
+          <Property Name="DATA_MODIFICACAO" Type="datetime" />
+        </EntityType>
+        <EntityType Name="EXAME_RESULTADO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRICAO" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="ID_EXAMES_SOLICITADO" Type="int" Nullable="false" />
+          <Property Name="DATA_CRIACAO" Type="datetime" Nullable="false" />
+          <Property Name="ENTREGUE_PACIENTE" Type="bit" />
+        </EntityType>
+        <EntityType Name="EXAMES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRICAO" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DATA_CRIAÇÃO" Type="datetime" Nullable="false" />
+          <Property Name="DATA_MODIFICACAO" Type="date" />
+          <Property Name="ATIVO" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EXAMES_SOLICITADOS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_EXAME" Type="int" Nullable="false" />
+          <Property Name="ID_CONSULTA" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HORARIOS_ATENDIMENTO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRICAO" Type="varchar" MaxLength="500" />
+          <Property Name="HORA_INICIO" Type="datetime" />
+          <Property Name="HORA_FIM" Type="datetime" />
+          <Property Name="DATA_CRIACAO" Type="datetime" Nullable="false" />
+          <Property Name="DATA_MODIFICACAO" Type="datetime" />
+          <Property Name="ATIVO" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MEDICAMENTOS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOME_GENERICO" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="FABRICA" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="FABRICANTE" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DATA_CRIACAO" Type="datetime" Nullable="false" />
+          <Property Name="DATA_MODIFICACAO" Type="datetime" />
+          <Property Name="ATIVO" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MEDICO_CLINICA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_MEDICO" Type="int" Nullable="false" />
+          <Property Name="ID_CLINICA" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MEDICO_ESPECIALIDADE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_MEDICO" Type="int" Nullable="false" />
+          <Property Name="ID_ESPECIALIDADE" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MEDICO_HORARIO_ATENDIMENTO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_MEDICO" Type="int" Nullable="false" />
+          <Property Name="ID_HORARIO_ATENDIMENTO" Type="int" />
+        </EntityType>
+        <EntityType Name="MEDICOS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CRM" Type="varchar" MaxLength="50" />
+          <Property Name="ID_USUARIO" Type="int" />
+        </EntityType>
+        <EntityType Name="PACIENTE_HISTORICO_CLINICO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRICAO" Type="varchar(max)" />
+          <Property Name="ID_CONSULTA" Type="int" />
+        </EntityType>
+        <EntityType Name="PACIENTES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ENDERECO" Type="varchar" MaxLength="5000" />
+          <Property Name="ID_PLANO_SAUDE" Type="int" />
+          <Property Name="ID_USUARIO" Type="int" />
+          <Property Name="TELEFONE" Type="varchar" MaxLength="14" />
+        </EntityType>
+        <EntityType Name="PLANO_SAUDE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRICAO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DATA_CRIACAO" Type="datetime" />
+          <Property Name="DATA_MODIFICACAO" Type="datetime" />
+          <Property Name="ATIVO" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RECEITAS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_MEDICAMENTO" Type="int" />
+          <Property Name="ID_CONSULTA" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="USUARIOS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOME" Type="varchar" MaxLength="500" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="500" />
+          <Property Name="CPF" Type="varchar" MaxLength="11" />
+          <Property Name="SENHA" Type="varchar" MaxLength="500" />
+          <Property Name="TIPO_ACESSO" Type="smallint" />
+          <Property Name="FOTO" Type="image" />
+        </EntityType>
+        <Association Name="FK_CONSULTA_DOENCA_CONSULTAS">
+          <End Role="CONSULTAS" Type="Self.CONSULTAS" Multiplicity="0..1" />
+          <End Role="CONSULTA_DOENCA" Type="Self.CONSULTA_DOENCA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONSULTAS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CONSULTA_DOENCA">
+              <PropertyRef Name="ID_CONSULTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONSULTA_DOENCA_DOENCAS">
+          <End Role="DOENCAS" Type="Self.DOENCAS" Multiplicity="0..1" />
+          <End Role="CONSULTA_DOENCA" Type="Self.CONSULTA_DOENCA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOENCAS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CONSULTA_DOENCA">
+              <PropertyRef Name="ID_DOENCA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONSULTAS_CONSULTAS">
+          <End Role="CONSULTAS" Type="Self.CONSULTAS" Multiplicity="0..1" />
+          <End Role="CONSULTAS1" Type="Self.CONSULTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONSULTAS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CONSULTAS1">
+              <PropertyRef Name="ID_CONSULTA_RETORNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONSULTAS_MEDICOS">
+          <End Role="MEDICOS" Type="Self.MEDICOS" Multiplicity="1" />
+          <End Role="CONSULTAS" Type="Self.CONSULTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MEDICOS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CONSULTAS">
+              <PropertyRef Name="ID_MEDICO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONSULTAS_PACIENTES">
+          <End Role="PACIENTES" Type="Self.PACIENTES" Multiplicity="1" />
+          <End Role="CONSULTAS" Type="Self.CONSULTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PACIENTES">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CONSULTAS">
+              <PropertyRef Name="ID_PACIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EXAME_RESULTADO_EXAMES_SOLICITADOS">
+          <End Role="EXAMES_SOLICITADOS" Type="Self.EXAMES_SOLICITADOS" Multiplicity="1" />
+          <End Role="EXAME_RESULTADO" Type="Self.EXAME_RESULTADO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EXAMES_SOLICITADOS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EXAME_RESULTADO">
+              <PropertyRef Name="ID_EXAMES_SOLICITADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EXAMES_SOLICITADOS_CONSULTAS">
+          <End Role="CONSULTAS" Type="Self.CONSULTAS" Multiplicity="1" />
+          <End Role="EXAMES_SOLICITADOS" Type="Self.EXAMES_SOLICITADOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONSULTAS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EXAMES_SOLICITADOS">
+              <PropertyRef Name="ID_CONSULTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EXAMES_SOLICITADOS_EXAMES">
+          <End Role="EXAMES" Type="Self.EXAMES" Multiplicity="1" />
+          <End Role="EXAMES_SOLICITADOS" Type="Self.EXAMES_SOLICITADOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EXAMES">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EXAMES_SOLICITADOS">
+              <PropertyRef Name="ID_EXAME" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MEDICO_CLINICA_CLINICAS">
+          <End Role="CLINICAS" Type="Self.CLINICAS" Multiplicity="1" />
+          <End Role="MEDICO_CLINICA" Type="Self.MEDICO_CLINICA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLINICAS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MEDICO_CLINICA">
+              <PropertyRef Name="ID_CLINICA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MEDICO_CLINICA_MEDICOS">
+          <End Role="MEDICOS" Type="Self.MEDICOS" Multiplicity="1" />
+          <End Role="MEDICO_CLINICA" Type="Self.MEDICO_CLINICA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MEDICOS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MEDICO_CLINICA">
+              <PropertyRef Name="ID_MEDICO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MEDICO_ESPECIALIDADE_ESPECIALIDADES">
+          <End Role="ESPECIALIDADES" Type="Self.ESPECIALIDADES" Multiplicity="1" />
+          <End Role="MEDICO_ESPECIALIDADE" Type="Self.MEDICO_ESPECIALIDADE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESPECIALIDADES">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MEDICO_ESPECIALIDADE">
+              <PropertyRef Name="ID_ESPECIALIDADE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MEDICO_ESPECIALIDADE_MEDICOS">
+          <End Role="MEDICOS" Type="Self.MEDICOS" Multiplicity="1" />
+          <End Role="MEDICO_ESPECIALIDADE" Type="Self.MEDICO_ESPECIALIDADE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MEDICOS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MEDICO_ESPECIALIDADE">
+              <PropertyRef Name="ID_MEDICO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MEDICO_HORARIO_ATENDIMENTO_HORARIOS_ATENDIMENTO">
+          <End Role="HORARIOS_ATENDIMENTO" Type="Self.HORARIOS_ATENDIMENTO" Multiplicity="0..1" />
+          <End Role="MEDICO_HORARIO_ATENDIMENTO" Type="Self.MEDICO_HORARIO_ATENDIMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HORARIOS_ATENDIMENTO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MEDICO_HORARIO_ATENDIMENTO">
+              <PropertyRef Name="ID_HORARIO_ATENDIMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MEDICO_HORARIO_ATENDIMENTO_MEDICOS">
+          <End Role="MEDICOS" Type="Self.MEDICOS" Multiplicity="1" />
+          <End Role="MEDICO_HORARIO_ATENDIMENTO" Type="Self.MEDICO_HORARIO_ATENDIMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MEDICOS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MEDICO_HORARIO_ATENDIMENTO">
+              <PropertyRef Name="ID_MEDICO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MEDICOS_USUARIOS">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="0..1" />
+          <End Role="MEDICOS" Type="Self.MEDICOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MEDICOS">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS">
+          <End Role="CONSULTAS" Type="Self.CONSULTAS" Multiplicity="0..1" />
+          <End Role="PACIENTE_HISTORICO_CLINICO" Type="Self.PACIENTE_HISTORICO_CLINICO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONSULTAS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PACIENTE_HISTORICO_CLINICO">
+              <PropertyRef Name="ID_CONSULTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PACIENTES_PLANO_SAUDE">
+          <End Role="PLANO_SAUDE" Type="Self.PLANO_SAUDE" Multiplicity="0..1" />
+          <End Role="PACIENTES" Type="Self.PACIENTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PLANO_SAUDE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PACIENTES">
+              <PropertyRef Name="ID_PLANO_SAUDE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PACIENTES_USUARIOS">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="0..1" />
+          <End Role="PACIENTES" Type="Self.PACIENTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PACIENTES">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECEITAS_CONSULTAS">
+          <End Role="CONSULTAS" Type="Self.CONSULTAS" Multiplicity="0..1" />
+          <End Role="RECEITAS" Type="Self.RECEITAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONSULTAS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RECEITAS">
+              <PropertyRef Name="ID_CONSULTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECEITAS_MEDICAMENTOS">
+          <End Role="MEDICAMENTOS" Type="Self.MEDICAMENTOS" Multiplicity="0..1" />
+          <End Role="RECEITAS" Type="Self.RECEITAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MEDICAMENTOS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RECEITAS">
+              <PropertyRef Name="ID_MEDICAMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TCC_CLINICA_MEDICAModelStoreContainer">
+          <EntitySet Name="CLINICAS" EntityType="Self.CLINICAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONSULTA_DOENCA" EntityType="Self.CONSULTA_DOENCA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CONSULTAS" EntityType="Self.CONSULTAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DOENCAS" EntityType="Self.DOENCAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ESPECIALIDADES" EntityType="Self.ESPECIALIDADES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EXAME_RESULTADO" EntityType="Self.EXAME_RESULTADO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EXAMES" EntityType="Self.EXAMES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EXAMES_SOLICITADOS" EntityType="Self.EXAMES_SOLICITADOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HORARIOS_ATENDIMENTO" EntityType="Self.HORARIOS_ATENDIMENTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MEDICAMENTOS" EntityType="Self.MEDICAMENTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MEDICO_CLINICA" EntityType="Self.MEDICO_CLINICA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MEDICO_ESPECIALIDADE" EntityType="Self.MEDICO_ESPECIALIDADE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MEDICO_HORARIO_ATENDIMENTO" EntityType="Self.MEDICO_HORARIO_ATENDIMENTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MEDICOS" EntityType="Self.MEDICOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PACIENTE_HISTORICO_CLINICO" EntityType="Self.PACIENTE_HISTORICO_CLINICO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PACIENTES" EntityType="Self.PACIENTES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PLANO_SAUDE" EntityType="Self.PLANO_SAUDE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RECEITAS" EntityType="Self.RECEITAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIOS" EntityType="Self.USUARIOS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CONSULTA_DOENCA_CONSULTAS" Association="Self.FK_CONSULTA_DOENCA_CONSULTAS">
+            <End Role="CONSULTAS" EntitySet="CONSULTAS" />
+            <End Role="CONSULTA_DOENCA" EntitySet="CONSULTA_DOENCA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONSULTA_DOENCA_DOENCAS" Association="Self.FK_CONSULTA_DOENCA_DOENCAS">
+            <End Role="DOENCAS" EntitySet="DOENCAS" />
+            <End Role="CONSULTA_DOENCA" EntitySet="CONSULTA_DOENCA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONSULTAS_CONSULTAS" Association="Self.FK_CONSULTAS_CONSULTAS">
+            <End Role="CONSULTAS" EntitySet="CONSULTAS" />
+            <End Role="CONSULTAS1" EntitySet="CONSULTAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONSULTAS_MEDICOS" Association="Self.FK_CONSULTAS_MEDICOS">
+            <End Role="MEDICOS" EntitySet="MEDICOS" />
+            <End Role="CONSULTAS" EntitySet="CONSULTAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONSULTAS_PACIENTES" Association="Self.FK_CONSULTAS_PACIENTES">
+            <End Role="PACIENTES" EntitySet="PACIENTES" />
+            <End Role="CONSULTAS" EntitySet="CONSULTAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EXAME_RESULTADO_EXAMES_SOLICITADOS" Association="Self.FK_EXAME_RESULTADO_EXAMES_SOLICITADOS">
+            <End Role="EXAMES_SOLICITADOS" EntitySet="EXAMES_SOLICITADOS" />
+            <End Role="EXAME_RESULTADO" EntitySet="EXAME_RESULTADO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EXAMES_SOLICITADOS_CONSULTAS" Association="Self.FK_EXAMES_SOLICITADOS_CONSULTAS">
+            <End Role="CONSULTAS" EntitySet="CONSULTAS" />
+            <End Role="EXAMES_SOLICITADOS" EntitySet="EXAMES_SOLICITADOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EXAMES_SOLICITADOS_EXAMES" Association="Self.FK_EXAMES_SOLICITADOS_EXAMES">
+            <End Role="EXAMES" EntitySet="EXAMES" />
+            <End Role="EXAMES_SOLICITADOS" EntitySet="EXAMES_SOLICITADOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MEDICO_CLINICA_CLINICAS" Association="Self.FK_MEDICO_CLINICA_CLINICAS">
+            <End Role="CLINICAS" EntitySet="CLINICAS" />
+            <End Role="MEDICO_CLINICA" EntitySet="MEDICO_CLINICA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MEDICO_CLINICA_MEDICOS" Association="Self.FK_MEDICO_CLINICA_MEDICOS">
+            <End Role="MEDICOS" EntitySet="MEDICOS" />
+            <End Role="MEDICO_CLINICA" EntitySet="MEDICO_CLINICA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MEDICO_ESPECIALIDADE_ESPECIALIDADES" Association="Self.FK_MEDICO_ESPECIALIDADE_ESPECIALIDADES">
+            <End Role="ESPECIALIDADES" EntitySet="ESPECIALIDADES" />
+            <End Role="MEDICO_ESPECIALIDADE" EntitySet="MEDICO_ESPECIALIDADE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MEDICO_ESPECIALIDADE_MEDICOS" Association="Self.FK_MEDICO_ESPECIALIDADE_MEDICOS">
+            <End Role="MEDICOS" EntitySet="MEDICOS" />
+            <End Role="MEDICO_ESPECIALIDADE" EntitySet="MEDICO_ESPECIALIDADE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MEDICO_HORARIO_ATENDIMENTO_HORARIOS_ATENDIMENTO" Association="Self.FK_MEDICO_HORARIO_ATENDIMENTO_HORARIOS_ATENDIMENTO">
+            <End Role="HORARIOS_ATENDIMENTO" EntitySet="HORARIOS_ATENDIMENTO" />
+            <End Role="MEDICO_HORARIO_ATENDIMENTO" EntitySet="MEDICO_HORARIO_ATENDIMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MEDICO_HORARIO_ATENDIMENTO_MEDICOS" Association="Self.FK_MEDICO_HORARIO_ATENDIMENTO_MEDICOS">
+            <End Role="MEDICOS" EntitySet="MEDICOS" />
+            <End Role="MEDICO_HORARIO_ATENDIMENTO" EntitySet="MEDICO_HORARIO_ATENDIMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MEDICOS_USUARIOS" Association="Self.FK_MEDICOS_USUARIOS">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="MEDICOS" EntitySet="MEDICOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS" Association="Self.FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS">
+            <End Role="CONSULTAS" EntitySet="CONSULTAS" />
+            <End Role="PACIENTE_HISTORICO_CLINICO" EntitySet="PACIENTE_HISTORICO_CLINICO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PACIENTES_PLANO_SAUDE" Association="Self.FK_PACIENTES_PLANO_SAUDE">
+            <End Role="PLANO_SAUDE" EntitySet="PLANO_SAUDE" />
+            <End Role="PACIENTES" EntitySet="PACIENTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PACIENTES_USUARIOS" Association="Self.FK_PACIENTES_USUARIOS">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="PACIENTES" EntitySet="PACIENTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECEITAS_CONSULTAS" Association="Self.FK_RECEITAS_CONSULTAS">
+            <End Role="CONSULTAS" EntitySet="CONSULTAS" />
+            <End Role="RECEITAS" EntitySet="RECEITAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECEITAS_MEDICAMENTOS" Association="Self.FK_RECEITAS_MEDICAMENTOS">
+            <End Role="MEDICAMENTOS" EntitySet="MEDICAMENTOS" />
+            <End Role="RECEITAS" EntitySet="RECEITAS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TCC_CLINICA_MEDICAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TCC_CLINICA_MEDICAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CLINICAS" EntityType="TCC_CLINICA_MEDICAModel.CLINICAS" />
+          <EntitySet Name="CONSULTA_DOENCA" EntityType="TCC_CLINICA_MEDICAModel.CONSULTA_DOENCA" />
+          <EntitySet Name="CONSULTAS" EntityType="TCC_CLINICA_MEDICAModel.CONSULTAS" />
+          <EntitySet Name="DOENCAS" EntityType="TCC_CLINICA_MEDICAModel.DOENCAS" />
+          <EntitySet Name="ESPECIALIDADES" EntityType="TCC_CLINICA_MEDICAModel.ESPECIALIDADES" />
+          <EntitySet Name="EXAME_RESULTADO" EntityType="TCC_CLINICA_MEDICAModel.EXAME_RESULTADO" />
+          <EntitySet Name="EXAMES" EntityType="TCC_CLINICA_MEDICAModel.EXAMES" />
+          <EntitySet Name="EXAMES_SOLICITADOS" EntityType="TCC_CLINICA_MEDICAModel.EXAMES_SOLICITADOS" />
+          <EntitySet Name="HORARIOS_ATENDIMENTO" EntityType="TCC_CLINICA_MEDICAModel.HORARIOS_ATENDIMENTO" />
+          <EntitySet Name="MEDICAMENTOS" EntityType="TCC_CLINICA_MEDICAModel.MEDICAMENTOS" />
+          <EntitySet Name="MEDICO_CLINICA" EntityType="TCC_CLINICA_MEDICAModel.MEDICO_CLINICA" />
+          <EntitySet Name="MEDICO_ESPECIALIDADE" EntityType="TCC_CLINICA_MEDICAModel.MEDICO_ESPECIALIDADE" />
+          <EntitySet Name="MEDICO_HORARIO_ATENDIMENTO" EntityType="TCC_CLINICA_MEDICAModel.MEDICO_HORARIO_ATENDIMENTO" />
+          <EntitySet Name="MEDICOS" EntityType="TCC_CLINICA_MEDICAModel.MEDICOS" />
+          <EntitySet Name="PACIENTE_HISTORICO_CLINICO" EntityType="TCC_CLINICA_MEDICAModel.PACIENTE_HISTORICO_CLINICO" />
+          <EntitySet Name="PACIENTES" EntityType="TCC_CLINICA_MEDICAModel.PACIENTES" />
+          <EntitySet Name="PLANO_SAUDE" EntityType="TCC_CLINICA_MEDICAModel.PLANO_SAUDE" />
+          <EntitySet Name="RECEITAS" EntityType="TCC_CLINICA_MEDICAModel.RECEITAS" />
+          <EntitySet Name="sysdiagrams" EntityType="TCC_CLINICA_MEDICAModel.sysdiagrams" />
+          <EntitySet Name="USUARIOS" EntityType="TCC_CLINICA_MEDICAModel.USUARIOS" />
+          <AssociationSet Name="FK_MEDICO_CLINICA_CLINICAS" Association="TCC_CLINICA_MEDICAModel.FK_MEDICO_CLINICA_CLINICAS">
+            <End Role="CLINICAS" EntitySet="CLINICAS" />
+            <End Role="MEDICO_CLINICA" EntitySet="MEDICO_CLINICA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONSULTA_DOENCA_CONSULTAS" Association="TCC_CLINICA_MEDICAModel.FK_CONSULTA_DOENCA_CONSULTAS">
+            <End Role="CONSULTAS" EntitySet="CONSULTAS" />
+            <End Role="CONSULTA_DOENCA" EntitySet="CONSULTA_DOENCA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONSULTA_DOENCA_DOENCAS" Association="TCC_CLINICA_MEDICAModel.FK_CONSULTA_DOENCA_DOENCAS">
+            <End Role="DOENCAS" EntitySet="DOENCAS" />
+            <End Role="CONSULTA_DOENCA" EntitySet="CONSULTA_DOENCA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONSULTAS_CONSULTAS" Association="TCC_CLINICA_MEDICAModel.FK_CONSULTAS_CONSULTAS">
+            <End Role="CONSULTAS" EntitySet="CONSULTAS" />
+            <End Role="CONSULTAS1" EntitySet="CONSULTAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONSULTAS_MEDICOS" Association="TCC_CLINICA_MEDICAModel.FK_CONSULTAS_MEDICOS">
+            <End Role="MEDICOS" EntitySet="MEDICOS" />
+            <End Role="CONSULTAS" EntitySet="CONSULTAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CONSULTAS_PACIENTES" Association="TCC_CLINICA_MEDICAModel.FK_CONSULTAS_PACIENTES">
+            <End Role="PACIENTES" EntitySet="PACIENTES" />
+            <End Role="CONSULTAS" EntitySet="CONSULTAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EXAMES_SOLICITADOS_CONSULTAS" Association="TCC_CLINICA_MEDICAModel.FK_EXAMES_SOLICITADOS_CONSULTAS">
+            <End Role="CONSULTAS" EntitySet="CONSULTAS" />
+            <End Role="EXAMES_SOLICITADOS" EntitySet="EXAMES_SOLICITADOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS" Association="TCC_CLINICA_MEDICAModel.FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS">
+            <End Role="CONSULTAS" EntitySet="CONSULTAS" />
+            <End Role="PACIENTE_HISTORICO_CLINICO" EntitySet="PACIENTE_HISTORICO_CLINICO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECEITAS_CONSULTAS" Association="TCC_CLINICA_MEDICAModel.FK_RECEITAS_CONSULTAS">
+            <End Role="CONSULTAS" EntitySet="CONSULTAS" />
+            <End Role="RECEITAS" EntitySet="RECEITAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MEDICO_ESPECIALIDADE_ESPECIALIDADES" Association="TCC_CLINICA_MEDICAModel.FK_MEDICO_ESPECIALIDADE_ESPECIALIDADES">
+            <End Role="ESPECIALIDADES" EntitySet="ESPECIALIDADES" />
+            <End Role="MEDICO_ESPECIALIDADE" EntitySet="MEDICO_ESPECIALIDADE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EXAME_RESULTADO_EXAMES_SOLICITADOS" Association="TCC_CLINICA_MEDICAModel.FK_EXAME_RESULTADO_EXAMES_SOLICITADOS">
+            <End Role="EXAMES_SOLICITADOS" EntitySet="EXAMES_SOLICITADOS" />
+            <End Role="EXAME_RESULTADO" EntitySet="EXAME_RESULTADO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EXAMES_SOLICITADOS_EXAMES" Association="TCC_CLINICA_MEDICAModel.FK_EXAMES_SOLICITADOS_EXAMES">
+            <End Role="EXAMES" EntitySet="EXAMES" />
+            <End Role="EXAMES_SOLICITADOS" EntitySet="EXAMES_SOLICITADOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MEDICO_HORARIO_ATENDIMENTO_HORARIOS_ATENDIMENTO" Association="TCC_CLINICA_MEDICAModel.FK_MEDICO_HORARIO_ATENDIMENTO_HORARIOS_ATENDIMENTO">
+            <End Role="HORARIOS_ATENDIMENTO" EntitySet="HORARIOS_ATENDIMENTO" />
+            <End Role="MEDICO_HORARIO_ATENDIMENTO" EntitySet="MEDICO_HORARIO_ATENDIMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RECEITAS_MEDICAMENTOS" Association="TCC_CLINICA_MEDICAModel.FK_RECEITAS_MEDICAMENTOS">
+            <End Role="MEDICAMENTOS" EntitySet="MEDICAMENTOS" />
+            <End Role="RECEITAS" EntitySet="RECEITAS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MEDICO_CLINICA_MEDICOS" Association="TCC_CLINICA_MEDICAModel.FK_MEDICO_CLINICA_MEDICOS">
+            <End Role="MEDICOS" EntitySet="MEDICOS" />
+            <End Role="MEDICO_CLINICA" EntitySet="MEDICO_CLINICA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MEDICO_ESPECIALIDADE_MEDICOS" Association="TCC_CLINICA_MEDICAModel.FK_MEDICO_ESPECIALIDADE_MEDICOS">
+            <End Role="MEDICOS" EntitySet="MEDICOS" />
+            <End Role="MEDICO_ESPECIALIDADE" EntitySet="MEDICO_ESPECIALIDADE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MEDICO_HORARIO_ATENDIMENTO_MEDICOS" Association="TCC_CLINICA_MEDICAModel.FK_MEDICO_HORARIO_ATENDIMENTO_MEDICOS">
+            <End Role="MEDICOS" EntitySet="MEDICOS" />
+            <End Role="MEDICO_HORARIO_ATENDIMENTO" EntitySet="MEDICO_HORARIO_ATENDIMENTO" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MEDICOS_USUARIOS" Association="TCC_CLINICA_MEDICAModel.FK_MEDICOS_USUARIOS">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="MEDICOS" EntitySet="MEDICOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PACIENTES_PLANO_SAUDE" Association="TCC_CLINICA_MEDICAModel.FK_PACIENTES_PLANO_SAUDE">
+            <End Role="PLANO_SAUDE" EntitySet="PLANO_SAUDE" />
+            <End Role="PACIENTES" EntitySet="PACIENTES" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PACIENTES_USUARIOS" Association="TCC_CLINICA_MEDICAModel.FK_PACIENTES_USUARIOS">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="PACIENTES" EntitySet="PACIENTES" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="CLINICAS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOME" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CNPJ" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="DATA_CRIACAO" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DATA_MODIFICACAO" Type="DateTime" Precision="0" />
+          <Property Name="ATIVO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="MEDICO_CLINICA" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICO_CLINICA_CLINICAS" FromRole="CLINICAS" ToRole="MEDICO_CLINICA" />
+        </EntityType>
+        <EntityType Name="CONSULTA_DOENCA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_CONSULTA" Type="Int32" />
+          <Property Name="ID_DOENCA" Type="Int32" />
+          <NavigationProperty Name="CONSULTAS" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTA_DOENCA_CONSULTAS" FromRole="CONSULTA_DOENCA" ToRole="CONSULTAS" />
+          <NavigationProperty Name="DOENCAS" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTA_DOENCA_DOENCAS" FromRole="CONSULTA_DOENCA" ToRole="DOENCAS" />
+        </EntityType>
+        <EntityType Name="CONSULTAS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_MEDICO" Type="Int32" Nullable="false" />
+          <Property Name="ID_PACIENTE" Type="Int32" Nullable="false" />
+          <Property Name="DATA_INICIO" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DATA_FIM" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="REALIZADA" Type="Boolean" Nullable="false" />
+          <Property Name="RETORNO" Type="Boolean" Nullable="false" />
+          <Property Name="ID_CONSULTA_RETORNO" Type="Int32" />
+          <NavigationProperty Name="CONSULTA_DOENCA" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTA_DOENCA_CONSULTAS" FromRole="CONSULTAS" ToRole="CONSULTA_DOENCA" />
+          <NavigationProperty Name="CONSULTAS1" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTAS_CONSULTAS" FromRole="CONSULTAS" ToRole="CONSULTAS1" />
+          <NavigationProperty Name="CONSULTAS2" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTAS_CONSULTAS" FromRole="CONSULTAS1" ToRole="CONSULTAS" />
+          <NavigationProperty Name="MEDICOS" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTAS_MEDICOS" FromRole="CONSULTAS" ToRole="MEDICOS" />
+          <NavigationProperty Name="PACIENTES" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTAS_PACIENTES" FromRole="CONSULTAS" ToRole="PACIENTES" />
+          <NavigationProperty Name="EXAMES_SOLICITADOS" Relationship="TCC_CLINICA_MEDICAModel.FK_EXAMES_SOLICITADOS_CONSULTAS" FromRole="CONSULTAS" ToRole="EXAMES_SOLICITADOS" />
+          <NavigationProperty Name="PACIENTE_HISTORICO_CLINICO" Relationship="TCC_CLINICA_MEDICAModel.FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS" FromRole="CONSULTAS" ToRole="PACIENTE_HISTORICO_CLINICO" />
+          <NavigationProperty Name="RECEITAS" Relationship="TCC_CLINICA_MEDICAModel.FK_RECEITAS_CONSULTAS" FromRole="CONSULTAS" ToRole="RECEITAS" />
+        </EntityType>
+        <EntityType Name="DOENCAS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRICAO" Type="String" Nullable="false" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="DATA_CRIACAO" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DATA_MODIFICACAO" Type="DateTime" Precision="3" />
+          <Property Name="ATIVO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CONSULTA_DOENCA" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTA_DOENCA_DOENCAS" FromRole="DOENCAS" ToRole="CONSULTA_DOENCA" />
+        </EntityType>
+        <EntityType Name="ESPECIALIDADES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRICAO" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ATIVO" Type="Boolean" Nullable="false" />
+          <Property Name="DATA_CRIACAO" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DATA_MODIFICACAO" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="MEDICO_ESPECIALIDADE" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICO_ESPECIALIDADE_ESPECIALIDADES" FromRole="ESPECIALIDADES" ToRole="MEDICO_ESPECIALIDADE" />
+        </EntityType>
+        <EntityType Name="EXAME_RESULTADO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRICAO" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ID_EXAMES_SOLICITADO" Type="Int32" Nullable="false" />
+          <Property Name="DATA_CRIACAO" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ENTREGUE_PACIENTE" Type="Boolean" />
+          <NavigationProperty Name="EXAMES_SOLICITADOS" Relationship="TCC_CLINICA_MEDICAModel.FK_EXAME_RESULTADO_EXAMES_SOLICITADOS" FromRole="EXAME_RESULTADO" ToRole="EXAMES_SOLICITADOS" />
+        </EntityType>
+        <EntityType Name="EXAMES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRICAO" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DATA_CRIAÇÃO" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DATA_MODIFICACAO" Type="DateTime" Precision="0" />
+          <Property Name="ATIVO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="EXAMES_SOLICITADOS" Relationship="TCC_CLINICA_MEDICAModel.FK_EXAMES_SOLICITADOS_EXAMES" FromRole="EXAMES" ToRole="EXAMES_SOLICITADOS" />
+        </EntityType>
+        <EntityType Name="EXAMES_SOLICITADOS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_EXAME" Type="Int32" Nullable="false" />
+          <Property Name="ID_CONSULTA" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CONSULTAS" Relationship="TCC_CLINICA_MEDICAModel.FK_EXAMES_SOLICITADOS_CONSULTAS" FromRole="EXAMES_SOLICITADOS" ToRole="CONSULTAS" />
+          <NavigationProperty Name="EXAME_RESULTADO" Relationship="TCC_CLINICA_MEDICAModel.FK_EXAME_RESULTADO_EXAMES_SOLICITADOS" FromRole="EXAMES_SOLICITADOS" ToRole="EXAME_RESULTADO" />
+          <NavigationProperty Name="EXAMES" Relationship="TCC_CLINICA_MEDICAModel.FK_EXAMES_SOLICITADOS_EXAMES" FromRole="EXAMES_SOLICITADOS" ToRole="EXAMES" />
+        </EntityType>
+        <EntityType Name="HORARIOS_ATENDIMENTO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRICAO" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="HORA_INICIO" Type="DateTime" Precision="3" />
+          <Property Name="HORA_FIM" Type="DateTime" Precision="3" />
+          <Property Name="DATA_CRIACAO" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DATA_MODIFICACAO" Type="DateTime" Precision="3" />
+          <Property Name="ATIVO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="MEDICO_HORARIO_ATENDIMENTO" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICO_HORARIO_ATENDIMENTO_HORARIOS_ATENDIMENTO" FromRole="HORARIOS_ATENDIMENTO" ToRole="MEDICO_HORARIO_ATENDIMENTO" />
+        </EntityType>
+        <EntityType Name="MEDICAMENTOS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOME_GENERICO" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="FABRICA" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="FABRICANTE" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DATA_CRIACAO" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DATA_MODIFICACAO" Type="DateTime" Precision="3" />
+          <Property Name="ATIVO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="RECEITAS" Relationship="TCC_CLINICA_MEDICAModel.FK_RECEITAS_MEDICAMENTOS" FromRole="MEDICAMENTOS" ToRole="RECEITAS" />
+        </EntityType>
+        <EntityType Name="MEDICO_CLINICA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_MEDICO" Type="Int32" Nullable="false" />
+          <Property Name="ID_CLINICA" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CLINICAS" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICO_CLINICA_CLINICAS" FromRole="MEDICO_CLINICA" ToRole="CLINICAS" />
+          <NavigationProperty Name="MEDICOS" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICO_CLINICA_MEDICOS" FromRole="MEDICO_CLINICA" ToRole="MEDICOS" />
+        </EntityType>
+        <EntityType Name="MEDICO_ESPECIALIDADE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_MEDICO" Type="Int32" Nullable="false" />
+          <Property Name="ID_ESPECIALIDADE" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ESPECIALIDADES" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICO_ESPECIALIDADE_ESPECIALIDADES" FromRole="MEDICO_ESPECIALIDADE" ToRole="ESPECIALIDADES" />
+          <NavigationProperty Name="MEDICOS" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICO_ESPECIALIDADE_MEDICOS" FromRole="MEDICO_ESPECIALIDADE" ToRole="MEDICOS" />
+        </EntityType>
+        <EntityType Name="MEDICO_HORARIO_ATENDIMENTO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_MEDICO" Type="Int32" Nullable="false" />
+          <Property Name="ID_HORARIO_ATENDIMENTO" Type="Int32" />
+          <NavigationProperty Name="HORARIOS_ATENDIMENTO" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICO_HORARIO_ATENDIMENTO_HORARIOS_ATENDIMENTO" FromRole="MEDICO_HORARIO_ATENDIMENTO" ToRole="HORARIOS_ATENDIMENTO" />
+          <NavigationProperty Name="MEDICOS" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICO_HORARIO_ATENDIMENTO_MEDICOS" FromRole="MEDICO_HORARIO_ATENDIMENTO" ToRole="MEDICOS" />
+        </EntityType>
+        <EntityType Name="MEDICOS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CRM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ID_USUARIO" Type="Int32" />
+          <NavigationProperty Name="CONSULTAS" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTAS_MEDICOS" FromRole="MEDICOS" ToRole="CONSULTAS" />
+          <NavigationProperty Name="MEDICO_CLINICA" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICO_CLINICA_MEDICOS" FromRole="MEDICOS" ToRole="MEDICO_CLINICA" />
+          <NavigationProperty Name="MEDICO_ESPECIALIDADE" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICO_ESPECIALIDADE_MEDICOS" FromRole="MEDICOS" ToRole="MEDICO_ESPECIALIDADE" />
+          <NavigationProperty Name="MEDICO_HORARIO_ATENDIMENTO" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICO_HORARIO_ATENDIMENTO_MEDICOS" FromRole="MEDICOS" ToRole="MEDICO_HORARIO_ATENDIMENTO" />
+          <NavigationProperty Name="USUARIOS" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICOS_USUARIOS" FromRole="MEDICOS" ToRole="USUARIOS" />
+        </EntityType>
+        <EntityType Name="PACIENTE_HISTORICO_CLINICO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRICAO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ID_CONSULTA" Type="Int32" />
+          <NavigationProperty Name="CONSULTAS" Relationship="TCC_CLINICA_MEDICAModel.FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS" FromRole="PACIENTE_HISTORICO_CLINICO" ToRole="CONSULTAS" />
+        </EntityType>
+        <EntityType Name="PACIENTES">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ENDERECO" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="ID_PLANO_SAUDE" Type="Int32" />
+          <Property Name="ID_USUARIO" Type="Int32" />
+          <Property Name="TELEFONE" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CONSULTAS" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTAS_PACIENTES" FromRole="PACIENTES" ToRole="CONSULTAS" />
+          <NavigationProperty Name="PLANO_SAUDE" Relationship="TCC_CLINICA_MEDICAModel.FK_PACIENTES_PLANO_SAUDE" FromRole="PACIENTES" ToRole="PLANO_SAUDE" />
+          <NavigationProperty Name="USUARIOS" Relationship="TCC_CLINICA_MEDICAModel.FK_PACIENTES_USUARIOS" FromRole="PACIENTES" ToRole="USUARIOS" />
+        </EntityType>
+        <EntityType Name="PLANO_SAUDE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRICAO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DATA_CRIACAO" Type="DateTime" Precision="3" />
+          <Property Name="DATA_MODIFICACAO" Type="DateTime" Precision="3" />
+          <Property Name="ATIVO" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PACIENTES" Relationship="TCC_CLINICA_MEDICAModel.FK_PACIENTES_PLANO_SAUDE" FromRole="PLANO_SAUDE" ToRole="PACIENTES" />
+        </EntityType>
+        <EntityType Name="RECEITAS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_MEDICAMENTO" Type="Int32" />
+          <Property Name="ID_CONSULTA" Type="Int32" />
+          <NavigationProperty Name="CONSULTAS" Relationship="TCC_CLINICA_MEDICAModel.FK_RECEITAS_CONSULTAS" FromRole="RECEITAS" ToRole="CONSULTAS" />
+          <NavigationProperty Name="MEDICAMENTOS" Relationship="TCC_CLINICA_MEDICAModel.FK_RECEITAS_MEDICAMENTOS" FromRole="RECEITAS" ToRole="MEDICAMENTOS" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="USUARIOS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOME" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CPF" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="SENHA" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="TIPO_ACESSO" Type="Int16" />
+          <Property Name="FOTO" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="MEDICOS" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICOS_USUARIOS" FromRole="USUARIOS" ToRole="MEDICOS" />
+          <NavigationProperty Name="PACIENTES" Relationship="TCC_CLINICA_MEDICAModel.FK_PACIENTES_USUARIOS" FromRole="USUARIOS" ToRole="PACIENTES" />
+        </EntityType>
+        <Association Name="FK_MEDICO_CLINICA_CLINICAS">
+          <End Type="TCC_CLINICA_MEDICAModel.CLINICAS" Role="CLINICAS" Multiplicity="1" />
+          <End Type="TCC_CLINICA_MEDICAModel.MEDICO_CLINICA" Role="MEDICO_CLINICA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLINICAS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MEDICO_CLINICA">
+              <PropertyRef Name="ID_CLINICA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONSULTA_DOENCA_CONSULTAS">
+          <End Type="TCC_CLINICA_MEDICAModel.CONSULTAS" Role="CONSULTAS" Multiplicity="0..1" />
+          <End Type="TCC_CLINICA_MEDICAModel.CONSULTA_DOENCA" Role="CONSULTA_DOENCA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONSULTAS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CONSULTA_DOENCA">
+              <PropertyRef Name="ID_CONSULTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONSULTA_DOENCA_DOENCAS">
+          <End Type="TCC_CLINICA_MEDICAModel.DOENCAS" Role="DOENCAS" Multiplicity="0..1" />
+          <End Type="TCC_CLINICA_MEDICAModel.CONSULTA_DOENCA" Role="CONSULTA_DOENCA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DOENCAS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CONSULTA_DOENCA">
+              <PropertyRef Name="ID_DOENCA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONSULTAS_CONSULTAS">
+          <End Type="TCC_CLINICA_MEDICAModel.CONSULTAS" Role="CONSULTAS" Multiplicity="0..1" />
+          <End Type="TCC_CLINICA_MEDICAModel.CONSULTAS" Role="CONSULTAS1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONSULTAS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CONSULTAS1">
+              <PropertyRef Name="ID_CONSULTA_RETORNO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONSULTAS_MEDICOS">
+          <End Type="TCC_CLINICA_MEDICAModel.MEDICOS" Role="MEDICOS" Multiplicity="1" />
+          <End Type="TCC_CLINICA_MEDICAModel.CONSULTAS" Role="CONSULTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MEDICOS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CONSULTAS">
+              <PropertyRef Name="ID_MEDICO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CONSULTAS_PACIENTES">
+          <End Type="TCC_CLINICA_MEDICAModel.PACIENTES" Role="PACIENTES" Multiplicity="1" />
+          <End Type="TCC_CLINICA_MEDICAModel.CONSULTAS" Role="CONSULTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PACIENTES">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CONSULTAS">
+              <PropertyRef Name="ID_PACIENTE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EXAMES_SOLICITADOS_CONSULTAS">
+          <End Type="TCC_CLINICA_MEDICAModel.CONSULTAS" Role="CONSULTAS" Multiplicity="1" />
+          <End Type="TCC_CLINICA_MEDICAModel.EXAMES_SOLICITADOS" Role="EXAMES_SOLICITADOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONSULTAS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EXAMES_SOLICITADOS">
+              <PropertyRef Name="ID_CONSULTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS">
+          <End Type="TCC_CLINICA_MEDICAModel.CONSULTAS" Role="CONSULTAS" Multiplicity="0..1" />
+          <End Type="TCC_CLINICA_MEDICAModel.PACIENTE_HISTORICO_CLINICO" Role="PACIENTE_HISTORICO_CLINICO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONSULTAS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PACIENTE_HISTORICO_CLINICO">
+              <PropertyRef Name="ID_CONSULTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECEITAS_CONSULTAS">
+          <End Type="TCC_CLINICA_MEDICAModel.CONSULTAS" Role="CONSULTAS" Multiplicity="0..1" />
+          <End Type="TCC_CLINICA_MEDICAModel.RECEITAS" Role="RECEITAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONSULTAS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RECEITAS">
+              <PropertyRef Name="ID_CONSULTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MEDICO_ESPECIALIDADE_ESPECIALIDADES">
+          <End Type="TCC_CLINICA_MEDICAModel.ESPECIALIDADES" Role="ESPECIALIDADES" Multiplicity="1" />
+          <End Type="TCC_CLINICA_MEDICAModel.MEDICO_ESPECIALIDADE" Role="MEDICO_ESPECIALIDADE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ESPECIALIDADES">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MEDICO_ESPECIALIDADE">
+              <PropertyRef Name="ID_ESPECIALIDADE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EXAME_RESULTADO_EXAMES_SOLICITADOS">
+          <End Type="TCC_CLINICA_MEDICAModel.EXAMES_SOLICITADOS" Role="EXAMES_SOLICITADOS" Multiplicity="1" />
+          <End Type="TCC_CLINICA_MEDICAModel.EXAME_RESULTADO" Role="EXAME_RESULTADO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EXAMES_SOLICITADOS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EXAME_RESULTADO">
+              <PropertyRef Name="ID_EXAMES_SOLICITADO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EXAMES_SOLICITADOS_EXAMES">
+          <End Type="TCC_CLINICA_MEDICAModel.EXAMES" Role="EXAMES" Multiplicity="1" />
+          <End Type="TCC_CLINICA_MEDICAModel.EXAMES_SOLICITADOS" Role="EXAMES_SOLICITADOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EXAMES">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="EXAMES_SOLICITADOS">
+              <PropertyRef Name="ID_EXAME" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MEDICO_HORARIO_ATENDIMENTO_HORARIOS_ATENDIMENTO">
+          <End Type="TCC_CLINICA_MEDICAModel.HORARIOS_ATENDIMENTO" Role="HORARIOS_ATENDIMENTO" Multiplicity="0..1" />
+          <End Type="TCC_CLINICA_MEDICAModel.MEDICO_HORARIO_ATENDIMENTO" Role="MEDICO_HORARIO_ATENDIMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HORARIOS_ATENDIMENTO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MEDICO_HORARIO_ATENDIMENTO">
+              <PropertyRef Name="ID_HORARIO_ATENDIMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RECEITAS_MEDICAMENTOS">
+          <End Type="TCC_CLINICA_MEDICAModel.MEDICAMENTOS" Role="MEDICAMENTOS" Multiplicity="0..1" />
+          <End Type="TCC_CLINICA_MEDICAModel.RECEITAS" Role="RECEITAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MEDICAMENTOS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="RECEITAS">
+              <PropertyRef Name="ID_MEDICAMENTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MEDICO_CLINICA_MEDICOS">
+          <End Type="TCC_CLINICA_MEDICAModel.MEDICOS" Role="MEDICOS" Multiplicity="1" />
+          <End Type="TCC_CLINICA_MEDICAModel.MEDICO_CLINICA" Role="MEDICO_CLINICA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MEDICOS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MEDICO_CLINICA">
+              <PropertyRef Name="ID_MEDICO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MEDICO_ESPECIALIDADE_MEDICOS">
+          <End Type="TCC_CLINICA_MEDICAModel.MEDICOS" Role="MEDICOS" Multiplicity="1" />
+          <End Type="TCC_CLINICA_MEDICAModel.MEDICO_ESPECIALIDADE" Role="MEDICO_ESPECIALIDADE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MEDICOS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MEDICO_ESPECIALIDADE">
+              <PropertyRef Name="ID_MEDICO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MEDICO_HORARIO_ATENDIMENTO_MEDICOS">
+          <End Type="TCC_CLINICA_MEDICAModel.MEDICOS" Role="MEDICOS" Multiplicity="1" />
+          <End Type="TCC_CLINICA_MEDICAModel.MEDICO_HORARIO_ATENDIMENTO" Role="MEDICO_HORARIO_ATENDIMENTO" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MEDICOS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MEDICO_HORARIO_ATENDIMENTO">
+              <PropertyRef Name="ID_MEDICO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MEDICOS_USUARIOS">
+          <End Type="TCC_CLINICA_MEDICAModel.USUARIOS" Role="USUARIOS" Multiplicity="0..1" />
+          <End Type="TCC_CLINICA_MEDICAModel.MEDICOS" Role="MEDICOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="MEDICOS">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PACIENTES_PLANO_SAUDE">
+          <End Type="TCC_CLINICA_MEDICAModel.PLANO_SAUDE" Role="PLANO_SAUDE" Multiplicity="0..1" />
+          <End Type="TCC_CLINICA_MEDICAModel.PACIENTES" Role="PACIENTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PLANO_SAUDE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PACIENTES">
+              <PropertyRef Name="ID_PLANO_SAUDE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PACIENTES_USUARIOS">
+          <End Type="TCC_CLINICA_MEDICAModel.USUARIOS" Role="USUARIOS" Multiplicity="0..1" />
+          <End Type="TCC_CLINICA_MEDICAModel.PACIENTES" Role="PACIENTES" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PACIENTES">
+              <PropertyRef Name="ID_USUARIO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TCC_CLINICA_MEDICAModelStoreContainer" CdmEntityContainer="TCC_CLINICA_MEDICAEntities">
+          <EntitySetMapping Name="CLINICAS">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.CLINICAS">
+              <MappingFragment StoreEntitySet="CLINICAS">
+                <ScalarProperty Name="ATIVO" ColumnName="ATIVO" />
+                <ScalarProperty Name="DATA_MODIFICACAO" ColumnName="DATA_MODIFICACAO" />
+                <ScalarProperty Name="DATA_CRIACAO" ColumnName="DATA_CRIACAO" />
+                <ScalarProperty Name="CNPJ" ColumnName="CNPJ" />
+                <ScalarProperty Name="NOME" ColumnName="NOME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONSULTA_DOENCA">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.CONSULTA_DOENCA">
+              <MappingFragment StoreEntitySet="CONSULTA_DOENCA">
+                <ScalarProperty Name="ID_DOENCA" ColumnName="ID_DOENCA" />
+                <ScalarProperty Name="ID_CONSULTA" ColumnName="ID_CONSULTA" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CONSULTAS">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.CONSULTAS">
+              <MappingFragment StoreEntitySet="CONSULTAS">
+                <ScalarProperty Name="ID_CONSULTA_RETORNO" ColumnName="ID_CONSULTA_RETORNO" />
+                <ScalarProperty Name="RETORNO" ColumnName="RETORNO" />
+                <ScalarProperty Name="REALIZADA" ColumnName="REALIZADA" />
+                <ScalarProperty Name="DATA_FIM" ColumnName="DATA_FIM" />
+                <ScalarProperty Name="DATA_INICIO" ColumnName="DATA_INICIO" />
+                <ScalarProperty Name="ID_PACIENTE" ColumnName="ID_PACIENTE" />
+                <ScalarProperty Name="ID_MEDICO" ColumnName="ID_MEDICO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DOENCAS">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.DOENCAS">
+              <MappingFragment StoreEntitySet="DOENCAS">
+                <ScalarProperty Name="ATIVO" ColumnName="ATIVO" />
+                <ScalarProperty Name="DATA_MODIFICACAO" ColumnName="DATA_MODIFICACAO" />
+                <ScalarProperty Name="DATA_CRIACAO" ColumnName="DATA_CRIACAO" />
+                <ScalarProperty Name="DESCRICAO" ColumnName="DESCRICAO" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ESPECIALIDADES">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.ESPECIALIDADES">
+              <MappingFragment StoreEntitySet="ESPECIALIDADES">
+                <ScalarProperty Name="DATA_MODIFICACAO" ColumnName="DATA_MODIFICACAO" />
+                <ScalarProperty Name="DATA_CRIACAO" ColumnName="DATA_CRIACAO" />
+                <ScalarProperty Name="ATIVO" ColumnName="ATIVO" />
+                <ScalarProperty Name="DESCRICAO" ColumnName="DESCRICAO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EXAME_RESULTADO">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.EXAME_RESULTADO">
+              <MappingFragment StoreEntitySet="EXAME_RESULTADO">
+                <ScalarProperty Name="ENTREGUE_PACIENTE" ColumnName="ENTREGUE_PACIENTE" />
+                <ScalarProperty Name="DATA_CRIACAO" ColumnName="DATA_CRIACAO" />
+                <ScalarProperty Name="ID_EXAMES_SOLICITADO" ColumnName="ID_EXAMES_SOLICITADO" />
+                <ScalarProperty Name="DESCRICAO" ColumnName="DESCRICAO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EXAMES">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.EXAMES">
+              <MappingFragment StoreEntitySet="EXAMES">
+                <ScalarProperty Name="ATIVO" ColumnName="ATIVO" />
+                <ScalarProperty Name="DATA_MODIFICACAO" ColumnName="DATA_MODIFICACAO" />
+                <ScalarProperty Name="DATA_CRIAÇÃO" ColumnName="DATA_CRIAÇÃO" />
+                <ScalarProperty Name="DESCRICAO" ColumnName="DESCRICAO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EXAMES_SOLICITADOS">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.EXAMES_SOLICITADOS">
+              <MappingFragment StoreEntitySet="EXAMES_SOLICITADOS">
+                <ScalarProperty Name="ID_CONSULTA" ColumnName="ID_CONSULTA" />
+                <ScalarProperty Name="ID_EXAME" ColumnName="ID_EXAME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HORARIOS_ATENDIMENTO">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.HORARIOS_ATENDIMENTO">
+              <MappingFragment StoreEntitySet="HORARIOS_ATENDIMENTO">
+                <ScalarProperty Name="ATIVO" ColumnName="ATIVO" />
+                <ScalarProperty Name="DATA_MODIFICACAO" ColumnName="DATA_MODIFICACAO" />
+                <ScalarProperty Name="DATA_CRIACAO" ColumnName="DATA_CRIACAO" />
+                <ScalarProperty Name="HORA_FIM" ColumnName="HORA_FIM" />
+                <ScalarProperty Name="HORA_INICIO" ColumnName="HORA_INICIO" />
+                <ScalarProperty Name="DESCRICAO" ColumnName="DESCRICAO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MEDICAMENTOS">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.MEDICAMENTOS">
+              <MappingFragment StoreEntitySet="MEDICAMENTOS">
+                <ScalarProperty Name="ATIVO" ColumnName="ATIVO" />
+                <ScalarProperty Name="DATA_MODIFICACAO" ColumnName="DATA_MODIFICACAO" />
+                <ScalarProperty Name="DATA_CRIACAO" ColumnName="DATA_CRIACAO" />
+                <ScalarProperty Name="FABRICANTE" ColumnName="FABRICANTE" />
+                <ScalarProperty Name="FABRICA" ColumnName="FABRICA" />
+                <ScalarProperty Name="NOME_GENERICO" ColumnName="NOME_GENERICO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MEDICO_CLINICA">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.MEDICO_CLINICA">
+              <MappingFragment StoreEntitySet="MEDICO_CLINICA">
+                <ScalarProperty Name="ID_CLINICA" ColumnName="ID_CLINICA" />
+                <ScalarProperty Name="ID_MEDICO" ColumnName="ID_MEDICO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MEDICO_ESPECIALIDADE">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.MEDICO_ESPECIALIDADE">
+              <MappingFragment StoreEntitySet="MEDICO_ESPECIALIDADE">
+                <ScalarProperty Name="ID_ESPECIALIDADE" ColumnName="ID_ESPECIALIDADE" />
+                <ScalarProperty Name="ID_MEDICO" ColumnName="ID_MEDICO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MEDICO_HORARIO_ATENDIMENTO">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.MEDICO_HORARIO_ATENDIMENTO">
+              <MappingFragment StoreEntitySet="MEDICO_HORARIO_ATENDIMENTO">
+                <ScalarProperty Name="ID_HORARIO_ATENDIMENTO" ColumnName="ID_HORARIO_ATENDIMENTO" />
+                <ScalarProperty Name="ID_MEDICO" ColumnName="ID_MEDICO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MEDICOS">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.MEDICOS">
+              <MappingFragment StoreEntitySet="MEDICOS">
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="CRM" ColumnName="CRM" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PACIENTE_HISTORICO_CLINICO">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.PACIENTE_HISTORICO_CLINICO">
+              <MappingFragment StoreEntitySet="PACIENTE_HISTORICO_CLINICO">
+                <ScalarProperty Name="ID_CONSULTA" ColumnName="ID_CONSULTA" />
+                <ScalarProperty Name="DESCRICAO" ColumnName="DESCRICAO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PACIENTES">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.PACIENTES">
+              <MappingFragment StoreEntitySet="PACIENTES">
+                <ScalarProperty Name="TELEFONE" ColumnName="TELEFONE" />
+                <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
+                <ScalarProperty Name="ID_PLANO_SAUDE" ColumnName="ID_PLANO_SAUDE" />
+                <ScalarProperty Name="ENDERECO" ColumnName="ENDERECO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PLANO_SAUDE">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.PLANO_SAUDE">
+              <MappingFragment StoreEntitySet="PLANO_SAUDE">
+                <ScalarProperty Name="ATIVO" ColumnName="ATIVO" />
+                <ScalarProperty Name="DATA_MODIFICACAO" ColumnName="DATA_MODIFICACAO" />
+                <ScalarProperty Name="DATA_CRIACAO" ColumnName="DATA_CRIACAO" />
+                <ScalarProperty Name="DESCRICAO" ColumnName="DESCRICAO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RECEITAS">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.RECEITAS">
+              <MappingFragment StoreEntitySet="RECEITAS">
+                <ScalarProperty Name="ID_CONSULTA" ColumnName="ID_CONSULTA" />
+                <ScalarProperty Name="ID_MEDICAMENTO" ColumnName="ID_MEDICAMENTO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIOS">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.USUARIOS">
+              <MappingFragment StoreEntitySet="USUARIOS">
+                <ScalarProperty Name="FOTO" ColumnName="FOTO" />
+                <ScalarProperty Name="TIPO_ACESSO" ColumnName="TIPO_ACESSO" />
+                <ScalarProperty Name="SENHA" ColumnName="SENHA" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="NOME" ColumnName="NOME" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
