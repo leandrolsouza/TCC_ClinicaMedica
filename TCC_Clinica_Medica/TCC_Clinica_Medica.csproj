@@ -183,6 +183,7 @@
     <Compile Include="Controllers\EXAME_RESULTADOController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HORARIOS_ATENDIMENTOController.cs" />
+    <Compile Include="Controllers\LOGINController.cs" />
     <Compile Include="Controllers\MEDICAMENTOSController.cs" />
     <Compile Include="Controllers\MEDICOSController.cs" />
     <Compile Include="Controllers\MEDICO_CLINICAController.cs" />
@@ -242,6 +243,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Login.cs" />
     <Compile Include="PACIENTES.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -274,6 +276,7 @@
     <Content Include="Content\jquery-ui.theme.min.css" />
     <Content Include="Content\jquery.timepicker.css" />
     <Content Include="Content\listbox.css" />
+    <Content Include="Content\login.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\simply-toast.css" />
     <Content Include="Content\tooltipster.css" />
@@ -387,8 +390,6 @@
     <Content Include="Views\RECEITAS\Edit.cshtml" />
     <Content Include="Views\RECEITAS\Index.cshtml" />
     <Content Include="Views\CLINICAS\Create.cshtml" />
-    <Content Include="Views\CLINICAS\Delete.cshtml" />
-    <Content Include="Views\CLINICAS\Details.cshtml" />
     <Content Include="Views\CLINICAS\Edit.cshtml" />
     <Content Include="Views\CLINICAS\Index.cshtml" />
     <Content Include="Views\DOENCAS\Create.cshtml" />
@@ -427,10 +428,10 @@
     <Content Include="Views\MEDICOS\Details.cshtml" />
     <Content Include="Views\MEDICOS\Edit.cshtml" />
     <Content Include="Views\MEDICOS\Index.cshtml" />
+    <Content Include="Views\LOGIN\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

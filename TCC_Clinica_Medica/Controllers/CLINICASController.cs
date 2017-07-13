@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TCC_Clinica_Medica;
+using PagedList;
 
 namespace TCC_Clinica_Medica.Controllers
 {
@@ -15,26 +16,54 @@ namespace TCC_Clinica_Medica.Controllers
     {
         private TCC_CLINICA_MEDICAEntities db = new TCC_CLINICA_MEDICAEntities();
 
-        // GET: CLINICAS
-        public async Task<ActionResult> Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(await db.CLINICAS.ToListAsync());
+            /*
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            */
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "nome" : "";
+            ViewBag.CnpjSortParm = String.IsNullOrEmpty(sortOrder) ? "cnpj" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var clinicas = db.CLINICAS.ToList().AsEnumerable();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                clinicas = clinicas.Where(s => s.NOME.ToUpper().Contains(searchString.ToUpper()));
+            }
+
+            switch (sortOrder)
+            {
+                case "descricao":
+                    clinicas = clinicas.OrderByDescending(s => s.NOME);
+                    break;
+                case "cnpj":
+                    clinicas = clinicas.OrderByDescending(s => s.CNPJ);
+                    break;
+                default:
+                    clinicas = clinicas.OrderBy(s => s.NOME);
+                    break;
+            }
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(clinicas.ToPagedList(pageNumber, pageSize));
         }
 
-        // GET: CLINICAS/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CLINICAS cLINICAS = await db.CLINICAS.FindAsync(id);
-            if (cLINICAS == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cLINICAS);
-        }
 
         // GET: CLINICAS/Create
         public ActionResult Create()

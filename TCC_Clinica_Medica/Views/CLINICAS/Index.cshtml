@@ -1,57 +1,155 @@
-﻿@model IEnumerable<TCC_Clinica_Medica.CLINICAS>
+﻿@model PagedList.IPagedList<CLINICAS>
+@using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Clínicas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<script>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.NOME)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CNPJ)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DATA_CRIACAO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DATA_MODIFICACAO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ATIVO)
-        </th>
-        <th></th>
-    </tr>
+    $(document).ready(function () {
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NOME)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CNPJ)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DATA_CRIACAO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DATA_MODIFICACAO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ATIVO)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+        $("#dialog-confirm").hide();
+    });
 
-</table>
+    var x = getUrlParameter('mensagem');
+
+    if (x != '' && x != undefined)
+        {
+        $.simplyToast(decodeURIComponent(x), 'success');
+    }
+
+    function Apagar(id) {
+        $("#dialog-confirm").show();
+        $("#dialog-confirm").dialog({
+            resizable: false,
+            height: 160,
+            width: 300,
+            modal: true,
+            buttons: {
+                "Apagar": function () {
+
+                    $.ajax({
+                        type: "POST",
+                        dataType: 'json',
+                        crossDomain: true,
+                        url: '@(Url.Action("DeleteConfirmed", "CLINICAS", null, Request.Url.Scheme))?id=' + id,
+                        success: function (result) {
+                            window.location.href = result;
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            $.simplyToast(xhr.status, 'danger');
+                            $.simplyToast(thrownError, 'danger');
+                            //alert(xhr.responseText);
+                        },
+                        cache: false
+                    });
+
+                  $(this).dialog("close");
+                },
+                "Cancelar": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    }
+
+
+
+</script>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<br />
+<br />
+<div class="jumbotron">
+    <h2>Clínicas</h2>
+
+
+    <table class="table">
+        <tr>
+            <td style="width:65%" valign="top">
+                @using (Html.BeginForm("Index", "CLINICAS", FormMethod.Get))
+                {
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Pesquisar", @class = "TextBoxSearch" })
+                    <button type="submit" class="btn btn-default" id="Procurar">
+                        <i class="glyphicon glyphicon-search"></i> &nbsp; Procurar
+                    </button>
+                }
+            </td>
+            <td style="width:35%; text-align:right">
+                @using (Html.BeginForm("Create", "CLINICAS", FormMethod.Get))
+                {
+                    <button type="submit" class="btn btn-default">
+                        <i class="glyphicon glyphicon-file"></i> &nbsp; Nova clínica
+                    </button>
+                }
+            </td>
+        </tr>
+
+
+    </table>
+
+
+
+    <div class="panel panel-primary">
+        <table class="table  table-bordered">
+            <tr style="background-color:#d1d1d1;font-weight: bold;">
+                <td>
+                    @Html.ActionLink("NOME", "Index", new { sortOrder = ViewBag.NameSortParm })
+                </td>
+                <td>
+                    @Html.ActionLink("CNPJ", "Index", new { sortOrder = ViewBag.CnpjSortParm })
+                </td>
+                <td>ATIVO</td>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NOME)
+                    </td>
+                    <td title="@item.NOME">
+                        @if (item.CNPJ.Length > 50)
+                        {
+                            @item.CNPJ.Substring(0, 50)                                <span>...</span>
+                        }
+                        else
+                        {
+                            @item.CNPJ
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ATIVO)
+                    </td>
+                    <td>
+                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) &nbsp; | &nbsp;
+                        @*@Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "glyphicon glyphicon-trash" })*@
+                        <a href="#"><span class="glyphicon glyphicon-trash" id="trash" onclick="javascript:Apagar(@item.ID);"></span></a>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td align="right" colspan="3">
+
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+ new PagedListRenderOptions
+ {
+
+     LinkToFirstPageFormat = "Primeiro",
+     LinkToPreviousPageFormat = "Anterior",
+     LinkToNextPageFormat = "Próximo",
+     LinkToLastPageFormat = "Última"
+ })
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    <div id="dialog-confirm" title="">
+        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja apagar esse item?</p>
+    </div>
+</div>
