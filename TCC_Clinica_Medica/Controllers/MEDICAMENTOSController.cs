@@ -94,6 +94,9 @@ namespace TCC_Clinica_Medica.Controllers
             mEDICAMENTOS.DATA_CRIACAO = DateTime.Now;
             mEDICAMENTOS.DATA_MODIFICACAO = DateTime.Now;
             mEDICAMENTOS.ATIVO = true;
+                mEDICAMENTOS.FABRICA = mEDICAMENTOS.FABRICA.ToUpper();
+                mEDICAMENTOS.FABRICANTE = mEDICAMENTOS.FABRICANTE.ToUpper();
+                mEDICAMENTOS.NOME_GENERICO = mEDICAMENTOS.NOME_GENERICO.ToUpper();
 
             if (ModelState.IsValid)
             {
@@ -120,18 +123,19 @@ namespace TCC_Clinica_Medica.Controllers
             return View(mEDICAMENTOS);
         }
 
-        // POST: MEDICAMENTOS/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "ID,NOME_GENERICO,FABRICA,FABRICANTE,DATA_CRIACAO,DATA_MODIFICACAO,ATIVO")] MEDICAMENTOS mEDICAMENTOS)
         {
             if (ModelState.IsValid)
             {
+                mEDICAMENTOS.DATA_MODIFICACAO = DateTime.Now;
+                mEDICAMENTOS.FABRICA = mEDICAMENTOS.FABRICA.ToUpper();
+                mEDICAMENTOS.FABRICANTE = mEDICAMENTOS.FABRICANTE.ToUpper();
+                mEDICAMENTOS.NOME_GENERICO = mEDICAMENTOS.NOME_GENERICO.ToUpper();
                 db.Entry(mEDICAMENTOS).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { mensagem = "Registro editado com sucesso!" });
             }
             return View(mEDICAMENTOS);
         }
@@ -152,13 +156,12 @@ namespace TCC_Clinica_Medica.Controllers
         }
 
         // POST: MEDICAMENTOS/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost]
         public ActionResult DeleteConfirmed(int id)
         {
             MEDICAMENTOS mEDICAMENTOS =  db.MEDICAMENTOS.Find(id);
             db.MEDICAMENTOS.Remove(mEDICAMENTOS);
-             db.SaveChangesAsync();
+             db.SaveChanges();
             return Json(Url.Action("Index", new { mensagem = "Registro apagado com sucesso!" }));
         }
 

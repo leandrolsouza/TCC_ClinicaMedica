@@ -42,7 +42,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CODIGO" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="CID" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="DESCRICAO" Type="varchar" MaxLength="5000" Nullable="false" />
           <Property Name="DATA_CRIACAO" Type="datetime" Nullable="false" />
           <Property Name="DATA_MODIFICACAO" Type="datetime" />
@@ -106,7 +106,7 @@
           <Property Name="NOME_GENERICO" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="FABRICA" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="FABRICANTE" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="DATA_CRIACAO" Type="datetime" Nullable="false" />
+          <Property Name="DATA_CRIACAO" Type="datetime" />
           <Property Name="DATA_MODIFICACAO" Type="datetime" />
           <Property Name="ATIVO" Type="bit" Nullable="false" />
         </EntityType>
@@ -696,7 +696,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CODIGO" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="CID" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="DESCRICAO" Type="String" Nullable="false" MaxLength="5000" FixedLength="false" Unicode="false" />
           <Property Name="DATA_CRIACAO" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DATA_MODIFICACAO" Type="DateTime" Precision="3" />
@@ -768,7 +768,7 @@
           <Property Name="NOME_GENERICO" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="FABRICA" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="FABRICANTE" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="DATA_CRIACAO" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DATA_CRIACAO" Type="DateTime" Precision="3" />
           <Property Name="DATA_MODIFICACAO" Type="DateTime" Precision="3" />
           <Property Name="ATIVO" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="RECEITAS" Relationship="TCC_CLINICA_MEDICAModel.FK_RECEITAS_MEDICAMENTOS" FromRole="MEDICAMENTOS" ToRole="RECEITAS" />
@@ -1171,7 +1171,7 @@
                 <ScalarProperty Name="DATA_MODIFICACAO" ColumnName="DATA_MODIFICACAO" />
                 <ScalarProperty Name="DATA_CRIACAO" ColumnName="DATA_CRIACAO" />
                 <ScalarProperty Name="DESCRICAO" ColumnName="DESCRICAO" />
-                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="CID" ColumnName="CID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

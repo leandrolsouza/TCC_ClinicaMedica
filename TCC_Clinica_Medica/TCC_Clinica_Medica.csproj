@@ -392,8 +392,6 @@
     <Content Include="Views\CLINICAS\Edit.cshtml" />
     <Content Include="Views\CLINICAS\Index.cshtml" />
     <Content Include="Views\DOENCAS\Create.cshtml" />
-    <Content Include="Views\DOENCAS\Delete.cshtml" />
-    <Content Include="Views\DOENCAS\Details.cshtml" />
     <Content Include="Views\DOENCAS\Edit.cshtml" />
     <Content Include="Views\DOENCAS\Index.cshtml" />
     <Content Include="Views\ESPECIALIDADES\Create.cshtml" />

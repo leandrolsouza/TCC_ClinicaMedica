@@ -24,7 +24,7 @@ namespace TCC_Clinica_Medica
         public string NOME_GENERICO { get; set; }
         public string FABRICA { get; set; }
         public string FABRICANTE { get; set; }
-        public System.DateTime DATA_CRIACAO { get; set; }
+        public Nullable<System.DateTime> DATA_CRIACAO { get; set; }
         public Nullable<System.DateTime> DATA_MODIFICACAO { get; set; }
         public bool ATIVO { get; set; }
     

@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TCC_Clinica_Medica;
+using PagedList;
 
 namespace TCC_Clinica_Medica.Controllers
 {
@@ -15,26 +16,55 @@ namespace TCC_Clinica_Medica.Controllers
     {
         private TCC_CLINICA_MEDICAEntities db = new TCC_CLINICA_MEDICAEntities();
 
-        // GET: DOENCAS
-        public async Task<ActionResult> Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(await db.DOENCAS.ToListAsync());
+            /*
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            */
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "descricao" : "";
+            ViewBag.CidSortParm = String.IsNullOrEmpty(sortOrder) ? "cid" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var doencas = db.DOENCAS.ToList().AsEnumerable();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                doencas = doencas.Where(s => s.DESCRICAO.ToUpper().Contains(searchString.ToUpper()));
+            }
+
+            switch (sortOrder)
+            {
+                case "descricao":
+                    doencas = doencas.OrderByDescending(s => s.DESCRICAO);
+                    break;
+                case "cid":
+                    doencas = doencas.OrderByDescending(s => s.CID);
+                    break;
+                default:
+                    doencas = doencas.OrderBy(s => s.DESCRICAO);
+                    break;
+            }
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(doencas.ToPagedList(pageNumber, pageSize));
         }
 
-        // GET: DOENCAS/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DOENCAS dOENCAS = await db.DOENCAS.FindAsync(id);
-            if (dOENCAS == null)
-            {
-                return HttpNotFound();
-            }
-            return View(dOENCAS);
-        }
+
 
         // GET: DOENCAS/Create
         public ActionResult Create()
@@ -42,18 +72,22 @@ namespace TCC_Clinica_Medica.Controllers
             return View();
         }
 
-        // POST: DOENCAS/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,CODIGO,DESCRICAO,DATA_CRIACAO,DATA_MODIFICACAO,ATIVO")] DOENCAS dOENCAS)
+        public async Task<ActionResult> Create([Bind(Include = "ID,CID,DESCRICAO")] DOENCAS dOENCAS)
         {
+            dOENCAS.DATA_CRIACAO = DateTime.Now;
+            dOENCAS.DATA_MODIFICACAO = DateTime.Now;
+            dOENCAS.ATIVO = true;
+            dOENCAS.DESCRICAO = dOENCAS.DESCRICAO.ToUpper();
+            dOENCAS.CID = dOENCAS.CID.ToUpper();
+
             if (ModelState.IsValid)
             {
                 db.DOENCAS.Add(dOENCAS);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "DOENCAS", new { mensagem = "Registro criado com sucesso!" });
             }
 
             return View(dOENCAS);
@@ -74,46 +108,30 @@ namespace TCC_Clinica_Medica.Controllers
             return View(dOENCAS);
         }
 
-        // POST: DOENCAS/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,CODIGO,DESCRICAO,DATA_CRIACAO,DATA_MODIFICACAO,ATIVO")] DOENCAS dOENCAS)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,CID,DESCRICAO,DATA_CRIACAO,DATA_MODIFICACAO,ATIVO")] DOENCAS dOENCAS)
         {
             if (ModelState.IsValid)
             {
+                dOENCAS.DATA_MODIFICACAO = DateTime.Now;
+                dOENCAS.DESCRICAO = dOENCAS.DESCRICAO.ToUpper();
+                dOENCAS.CID = dOENCAS.CID.ToUpper();
                 db.Entry(dOENCAS).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { mensagem = "Registro editado com sucesso!" });
             }
             return View(dOENCAS);
         }
 
-        // GET: DOENCAS/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        // POST: PLANO_SAUDE/Delete/5
+        [HttpPost]
+        public ActionResult DeleteConfirmed(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DOENCAS dOENCAS = await db.DOENCAS.FindAsync(id);
-            if (dOENCAS == null)
-            {
-                return HttpNotFound();
-            }
-            return View(dOENCAS);
-        }
-
-        // POST: DOENCAS/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            DOENCAS dOENCAS = await db.DOENCAS.FindAsync(id);
+            DOENCAS dOENCAS = db.DOENCAS.Find(id);
             db.DOENCAS.Remove(dOENCAS);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            db.SaveChanges();
+            return Json(Url.Action("Index", new { mensagem = "Registro apagado com sucesso!" }));
         }
 
         protected override void Dispose(bool disposing)

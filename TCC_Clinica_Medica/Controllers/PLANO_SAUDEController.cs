@@ -76,6 +76,7 @@ namespace TCC_Clinica_Medica.Controllers
             pLANO_SAUDE.DATA_CRIACAO = DateTime.Now;
             pLANO_SAUDE.DATA_MODIFICACAO = DateTime.Now;
             pLANO_SAUDE.ATIVO = true;
+            pLANO_SAUDE.DESCRICAO = pLANO_SAUDE.DESCRICAO.ToUpper();
 
             if (ModelState.IsValid)
             {
@@ -102,33 +103,17 @@ namespace TCC_Clinica_Medica.Controllers
             return View(pLANO_SAUDE);
         }
 
-        // POST: PLANO_SAUDE/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "ID,DESCRICAO,DATA_CRIACAO,DATA_MODIFICACAO,ATIVO")] PLANO_SAUDE pLANO_SAUDE)
         {
             if (ModelState.IsValid)
             {
+                pLANO_SAUDE.DATA_MODIFICACAO = DateTime.Now;
+                pLANO_SAUDE.DESCRICAO = pLANO_SAUDE.DESCRICAO.ToUpper();
                 db.Entry(pLANO_SAUDE).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(pLANO_SAUDE);
-        }
-
-        // GET: PLANO_SAUDE/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PLANO_SAUDE pLANO_SAUDE = await db.PLANO_SAUDE.FindAsync(id);
-            if (pLANO_SAUDE == null)
-            {
-                return HttpNotFound();
+                return RedirectToAction("Index", new { mensagem = "Registro editado com sucesso!" });
             }
             return View(pLANO_SAUDE);
         }
@@ -139,7 +124,7 @@ namespace TCC_Clinica_Medica.Controllers
         {
             PLANO_SAUDE pLANO_SAUDE = db.PLANO_SAUDE.Find(id);
             db.PLANO_SAUDE.Remove(pLANO_SAUDE);
-            db.SaveChangesAsync();
+            db.SaveChanges();
             return Json(Url.Action("Index", new { mensagem = "Registro apagado com sucesso!" }));
         }
 

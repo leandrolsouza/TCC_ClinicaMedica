@@ -1,7 +1,7 @@
 ﻿@model TCC_Clinica_Medica.PLANO_SAUDE
 
 @{
-    ViewBag.Title = "Clinica Medica - Plano de Saúde - Editar";
+    ViewBag.Title = "Plano de Saúde - Editar";
 }
 <script>
 
@@ -69,7 +69,8 @@
                     </div>
                 </div>
             </div>
-
+            @Html.HiddenFor(model => model.DATA_CRIACAO)
+            @Html.HiddenFor(model => model.DATA_MODIFICACAO)
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Salvar" class="btn btn-default" />

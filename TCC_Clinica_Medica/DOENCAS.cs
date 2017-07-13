@@ -21,7 +21,7 @@ namespace TCC_Clinica_Medica
         }
     
         public int ID { get; set; }
-        public string CODIGO { get; set; }
+        public string CID { get; set; }
         public string DESCRICAO { get; set; }
         public System.DateTime DATA_CRIACAO { get; set; }
         public Nullable<System.DateTime> DATA_MODIFICACAO { get; set; }
