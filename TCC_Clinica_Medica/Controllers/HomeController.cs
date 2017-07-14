@@ -10,14 +10,18 @@ namespace TCC_Clinica_Medica.Controllers
     {
         public ActionResult Index()
         {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Exit()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            Session["Usuario"] = null;
+            return RedirectToAction("Index", "LOGIN");
         }
 
         public ActionResult Contact()

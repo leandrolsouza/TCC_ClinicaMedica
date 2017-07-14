@@ -10,6 +10,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color">
     <link rel="SHORTCUT ICON" href="http://cscdev.direcional.com.br:8085/imagens/pote.ico" />
     <title>Clínica Medica</title>
     <title>Clinica Medica - @ViewBag.Title</title>
@@ -18,10 +19,91 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     <link href="~/Content/login.css" rel="stylesheet" />
+    <script src="~/Scripts/simply-toast.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            function getUrlParameter(sParam) {
+                var sPageURL = window.location.search.substring(1);
+                var sURLVariables = sPageURL.split('&');
+                for (var i = 0; i < sURLVariables.length; i++) {
+                    var sParameterName = sURLVariables[i].split('=');
+                    if (sParameterName[0] == sParam) {
+                        return sParameterName[1];
+                    }
+                }
+            }
+
+            var x = getUrlParameter('mensagem');
+
+            if (x != '' && x != undefined) {
+                $.simplyToast(decodeURIComponent(x), 'danger', {
+                    align: "center",
+                    minWidth: 250,
+                    maxWidth: 450,
+                    delay: 5000,
+                });
+            }
+
+        $('#Entrar').click(function (e) {
+            var CamposFaltando = false;
+
+            $('input[type="text"]').each(function () {
+                if ($.trim($(this).val()) == '') {
+                    CamposFaltando = true;
+                    $(this).css({
+                        "border": "1px solid red",
+                        "background": "#FFCECE"
+                    });
+                }
+                else {
+                    $(this).css({
+                        "border": "",
+                        "background": ""
+                    });
+                }
+            });
+
+            $('input[type="password"]').each(function () {
+                if ($.trim($(this).val()) == '') {
+                    CamposFaltando = true;
+                    $(this).css({
+                        "border": "1px solid red",
+                        "background": "#FFCECE"
+                    });
+                }
+                else {
+                    $(this).css({
+                        "border": "",
+                        "background": ""
+                    });
+                }
+            });
+
+            if (CamposFaltando) {
+                $.simplyToast('Favor preencher os campos obrigatorios!', 'danger', {
+                    align: "center",
+                    minWidth: 250,
+                    maxWidth: 450,
+                    delay: 5000,
+                });
+                e.preventDefault();
+            }
+            else {
+                return true;
+            }
+
+        });
+    });
+
+   
+    </script>
 </head>
 <body>
 @using (Html.BeginForm("LOGIN", "Login", FormMethod.Post))
 {
+    @Html.AntiForgeryToken()
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
@@ -40,21 +122,21 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="CPF ou E-mail" value="">
+                                            <input type="text" name="login" id="login" tabindex="1" class="form-control" placeholder="CPF ou E-mail" value="">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6 col-sm-offset-3">
-                                                <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Senha">
+                                                <input type="password" name="senha" id="senha" tabindex="2" class="form-control" placeholder="Senha">
                                             </div>
                                         </div>
                                     </div>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-12 col-sm-offset-3">
-                                            <button type="submit" class="btn btn-primary" id="Criar">
+                                            <button type="submit" class="btn btn-primary" id="Entrar">
                                                 <i class="glyphicon glyphicon-arrow-right"></i> &nbsp; ENTRAR
                                             </button>
                                         </div>
@@ -66,6 +148,12 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="container body-content">
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year -By Leandro Luiz de Souza (Build 1.0.0.1)</p>
+        </footer>
     </div>
 }
 </body>

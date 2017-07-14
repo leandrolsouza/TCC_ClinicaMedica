@@ -11,8 +11,6 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script src="~/Scripts/simply-toast.js"></script>
-    <script src="~/Scripts/simply-toast.js"></script>
-    <link href="~/Content/simply-toast.css" rel="stylesheet" />
     <link href="~/Content/listbox.css" rel="stylesheet" />
     <script src="~/Scripts/jssor.slider.min.js"></script>
     <script>
@@ -148,8 +146,10 @@
                     </li>
                 </ul>
                 <p class="nav navbar-text navbar-right">
-                    <img src="~/Imagens/user.png" />&nbsp; Olá, Leandro &nbsp;|&nbsp; 
-                  <span><a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="~/Imagens/sair.png" height="30" width="30" alt="Sair" /></a></span>
+                    <img src="~/Imagens/user.png" />&nbsp; Olá, @Session["Nome"].ToString() &nbsp;|&nbsp; 
+                    <a href="@Url.Action("Exit", "Home")" class="btn btn-warning">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                    </a>
                 </p>
             </div>
         </div>
@@ -161,33 +161,5 @@
             <p>&copy; @DateTime.Now.Year -By Leandro Luiz de Souza (Build 1.0.0.1)</p>
         </footer>
     </div>
-
-
-
-    <script>
-
-        function getUrlParameter(sParam) {
-            var sPageURL = window.location.search.substring(1);
-            var sURLVariables = sPageURL.split('&');
-            for (var i = 0; i < sURLVariables.length; i++) {
-                var sParameterName = sURLVariables[i].split('=');
-                if (sParameterName[0] == sParam) {
-                    return sParameterName[1];
-                }
-            }
-        }
-        $(function () {
-            $(document).tooltip();
-
-
-
-        });
-
-   
-
-
-
-       
-    </script>
 </body>
 </html>

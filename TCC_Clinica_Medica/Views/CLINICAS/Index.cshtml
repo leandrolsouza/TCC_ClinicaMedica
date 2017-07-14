@@ -17,7 +17,7 @@
 
     if (x != '' && x != undefined)
         {
-        $.simplyToast(decodeURIComponent(x), 'success');
+        $.simplyToast(decodeURIComponent(x), 'info');
     }
 
     function Apagar(id) {
@@ -108,18 +108,19 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NOME)
-                    </td>
                     <td title="@item.NOME">
-                        @if (item.CNPJ.Length > 50)
+                        @if (item.NOME.Length > 50)
                         {
-                            @item.CNPJ.Substring(0, 50)                                <span>...</span>
+                            @item.NOME.Substring(0, 50)                                <span>...</span>
                         }
                         else
                         {
-                            @item.CNPJ
+                            @item.NOME
                         }
+                      
+                    </td>
+                    <td >
+                        @Html.DisplayFor(modelItem => item.CNPJ)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.ATIVO)

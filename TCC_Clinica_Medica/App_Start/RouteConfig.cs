@@ -16,7 +16,7 @@ namespace TCC_Clinica_Medica
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "LOGIN", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

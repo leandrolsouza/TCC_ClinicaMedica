@@ -13,19 +13,28 @@ namespace TCC_Clinica_Medica.Controllers
         // GET: LOGIN
         public ActionResult Index()
         {
+            if (Session["Usuario"] != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
         public ActionResult Login(string login, string senha)
         {
-            USUARIOS uSUARIOS = db.USUARIOS.FirstOrDefault(x => (x.CPF == login || x.EMAIL == login) && x.SENHA == senha);
+            string senhaCrypto = new Crypto.Crypto().Encrypt(senha);
+            USUARIOS uSUARIOS = db.USUARIOS.FirstOrDefault(x => (x.CPF == login || x.EMAIL == login) && x.SENHA == senhaCrypto);
 
-            if (uSUARIOS == null)
+            if (uSUARIOS != null)
             {
+                Session["Usuario"] = uSUARIOS;
+                Session["Nome"] = uSUARIOS.NOME;
                 return RedirectToAction("Index", "HOME");
             }
 
-            return View();
+            return RedirectToAction("Index", "LOGIN", new { mensagem = "Usuario ou senha invalidos!"});
+       
         }
     }
 }

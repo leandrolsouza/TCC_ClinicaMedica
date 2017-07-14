@@ -18,12 +18,11 @@ namespace TCC_Clinica_Medica.Controllers
 
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            /*
             if (Session["Usuario"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "LOGIN");
             }
-            */
+
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "descricao" : "";
             ViewBag.CidSortParm = String.IsNullOrEmpty(sortOrder) ? "cid" : "";
@@ -44,6 +43,11 @@ namespace TCC_Clinica_Medica.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 doencas = doencas.Where(s => s.DESCRICAO.ToUpper().Contains(searchString.ToUpper()));
+
+                if(doencas == null)
+                {
+                    doencas = doencas.Where(s => s.CID.ToUpper().Contains(searchString.ToUpper()));
+                }
             }
 
             switch (sortOrder)
@@ -64,11 +68,12 @@ namespace TCC_Clinica_Medica.Controllers
             return View(doencas.ToPagedList(pageNumber, pageSize));
         }
 
-
-
-        // GET: DOENCAS/Create
         public ActionResult Create()
         {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
             return View();
         }
 
@@ -93,13 +98,18 @@ namespace TCC_Clinica_Medica.Controllers
             return View(dOENCAS);
         }
 
-        // GET: DOENCAS/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             DOENCAS dOENCAS = await db.DOENCAS.FindAsync(id);
             if (dOENCAS == null)
             {
@@ -124,7 +134,6 @@ namespace TCC_Clinica_Medica.Controllers
             return View(dOENCAS);
         }
 
-        // POST: PLANO_SAUDE/Delete/5
         [HttpPost]
         public ActionResult DeleteConfirmed(int id)
         {

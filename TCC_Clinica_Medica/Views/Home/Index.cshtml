@@ -2,8 +2,7 @@
     ViewBag.Title = "Home Page";
 }
 <br /><br />
-<div class="jumbotron">
-    <script type="text/javascript">
+<script type="text/javascript">
         jssor_1_slider_init = function() {
 
             var jssor_1_SlideshowTransitions = [
@@ -50,34 +49,37 @@
             $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
             /*#endregion responsive code end*/
         };
-    </script>
-    <style>
-        .jssora061 {
-            display: block;
-            position: absolute;
-            cursor: pointer;
+</script>
+<style>
+    .jssora061 {
+        display: block;
+        position: absolute;
+        cursor: pointer;
+    }
+
+        .jssora061 .a {
+            fill: none;
+            stroke: #fff;
+            stroke-width: 360;
+            stroke-linecap: round;
         }
 
-            .jssora061 .a {
-                fill: none;
-                stroke: #fff;
-                stroke-width: 360;
-                stroke-linecap: round;
-            }
+        .jssora061:hover {
+            opacity: .8;
+        }
 
-            .jssora061:hover {
-                opacity: .8;
-            }
+        .jssora061.jssora061dn {
+            opacity: .5;
+        }
 
-            .jssora061.jssora061dn {
-                opacity: .5;
-            }
+        .jssora061.jssora061ds {
+            opacity: .3;
+            pointer-events: none;
+        }
+</style>
 
-            .jssora061.jssora061ds {
-                opacity: .3;
-                pointer-events: none;
-            }
-    </style>
+<div class="jumbotron">
+   
     <div id="jssor_1" style="position:relative;margin:0 auto;top:0px;left:0px;width:740px;height:300px;overflow:hidden;visibility:hidden;">
         <!-- Loading Screen -->
         <div data-u="loading" style="position:absolute;top:0px;left:0px;background:url('img/loading.gif') no-repeat 50% 50%;background-color:rgba(0, 0, 0, 0.7);"></div>
@@ -88,7 +90,7 @@
             </div>
             <div>
                 <img data-u="image" src="~/Imagens/banner2.jpg" />
-                <div u="thumb">Os melhores medicos e serviços de Belo Horizonte</div>
+                <div u="thumb">Os melhores médicos e serviços de Belo Horizonte</div>
             </div>
             <div>
                 <img data-u="image" src="~/Imagens/banner3.jpg" />
@@ -98,7 +100,6 @@
                 <img data-u="image" src="~/Imagens/banner4.jpg" />
                 <div u="thumb">A Clinica Medica foi avaliada com nota maxima pelo seus pacientes!</div>
             </div>
-            <a data-u="any" href="https://www.jssor.com" style="display:none">bootstrap slideshow</a>
         </div>
         <!-- Thumbnail Navigator -->
         <div u="thumbnavigator" style="position:absolute;bottom:0px;left:0px;width:980px;height:50px;color:#FFF;overflow:hidden;cursor:default;background-color:rgba(0,0,0,.5);">
@@ -121,13 +122,13 @@
         </div>
     </div>
     <script type="text/javascript">jssor_1_slider_init();</script>
-    </div>
+</div>
 
 <div class="row">
     <div class="col-md-12">
         <h2>Missão</h2>
         <p>A Clínica Médica é a especialidade da Medicina focada no diagnóstico e tratamento clínico das patologias em adultos, ou seja, sem cirurgia.O médico desta especialidade é responsável por avaliar o paciente de maneira completa e está apto a resolver a maioria das enfermidades, além de gerenciar o cuidado do paciente indicando o especialista adequado, caso haja necessidade.
         A Rede de Saúde coloca à disposição dos clientes, 24 horas por dia, clínicos médicos capacitados para o atendimento de urgência e emergência, Além disso, a Rede disponibiliza toda a estrutura necessária para que o diagnóstico seja feito da maneira mais rápida e eficaz possível.
-</p>
+        </p>
     </div>
 </div>

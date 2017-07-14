@@ -18,12 +18,11 @@ namespace TCC_Clinica_Medica.Controllers
         
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            /*
             if (Session["Usuario"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "LOGIN");
             }
-            */
+            
             ViewBag.CurrentSort = sortOrder;
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 
@@ -60,15 +59,16 @@ namespace TCC_Clinica_Medica.Controllers
             return View(planos.ToPagedList(pageNumber, pageSize));
         }
 
-        // GET: PLANO_SAUDE/Create
         public ActionResult Create()
         {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
             return View();
         }
 
-        // POST: PLANO_SAUDE/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "ID,DESCRICAO")] PLANO_SAUDE pLANO_SAUDE)
@@ -88,14 +88,20 @@ namespace TCC_Clinica_Medica.Controllers
             return View(pLANO_SAUDE);
         }
 
-        // GET: PLANO_SAUDE/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             PLANO_SAUDE pLANO_SAUDE = await db.PLANO_SAUDE.FindAsync(id);
+
             if (pLANO_SAUDE == null)
             {
                 return HttpNotFound();
@@ -118,7 +124,6 @@ namespace TCC_Clinica_Medica.Controllers
             return View(pLANO_SAUDE);
         }
 
-        // POST: PLANO_SAUDE/Delete/5
         [HttpPost]
         public ActionResult DeleteConfirmed(int id)
         {

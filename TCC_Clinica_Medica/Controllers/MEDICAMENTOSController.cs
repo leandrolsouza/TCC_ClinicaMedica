@@ -18,12 +18,12 @@ namespace TCC_Clinica_Medica.Controllers
 
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            /*
+            
             if (Session["Usuario"] == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "LOGIN");
             }
-            */
+            
             ViewBag.CurrentSort = sortOrder;
             ViewBag.GenericoSortParm = String.IsNullOrEmpty(sortOrder) ? "nome_generico" : "";
             ViewBag.FabricaSortParm = String.IsNullOrEmpty(sortOrder) ? "fabrica" : "";
@@ -83,10 +83,14 @@ namespace TCC_Clinica_Medica.Controllers
 
         public ActionResult Create()
         {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
             return View();
         }
-
-        // GET: MEDICAMENTOS/Create
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "NOME_GENERICO,FABRICA,FABRICANTE")] MEDICAMENTOS mEDICAMENTOS)
@@ -111,6 +115,11 @@ namespace TCC_Clinica_Medica.Controllers
         // GET: MEDICAMENTOS/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

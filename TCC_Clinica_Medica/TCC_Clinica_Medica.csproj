@@ -192,6 +192,7 @@
     <Compile Include="Controllers\PLANO_SAUDEController.cs" />
     <Compile Include="Controllers\RECEITASController.cs" />
     <Compile Include="Controllers\USUARIOSController.cs" />
+    <Compile Include="Crypto\Crypto.cs" />
     <Compile Include="DOENCAS.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
