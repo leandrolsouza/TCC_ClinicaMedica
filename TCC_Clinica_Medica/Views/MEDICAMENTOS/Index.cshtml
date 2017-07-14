@@ -103,7 +103,6 @@
                 <td>
                     @Html.ActionLink("FABRICANTE", "Index", new { sortOrder = ViewBag.FabricanteSortParm })
                 </td>
-                <td>ATIVO</td>
             </tr>
 
             @foreach (var item in Model)
@@ -117,9 +116,6 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.FABRICANTE)
-                    </td>
-                    <td>
-                       @Html.DisplayFor(modelItem => item.ATIVO)
                     </td>
                     <td>
                         @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) &nbsp; | &nbsp;
