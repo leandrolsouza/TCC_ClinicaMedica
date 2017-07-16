@@ -23,7 +23,6 @@
         <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.PACIENTES" Width="1.5" PointX="3" PointY="11.5" />
         <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.PLANO_SAUDE" Width="1.5" PointX="0.75" PointY="7.625" />
         <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.RECEITAS" Width="1.5" PointX="10.5" PointY="13.375" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.USUARIOS" Width="1.5" PointX="0.75" PointY="11.375" />
         <AssociationConnector Association="TCC_CLINICA_MEDICAModel.FK_MEDICO_CLINICA_CLINICAS" />
         <AssociationConnector Association="TCC_CLINICA_MEDICAModel.FK_CONSULTA_DOENCA_CONSULTAS" />
@@ -45,6 +44,7 @@
         <AssociationConnector Association="TCC_CLINICA_MEDICAModel.FK_MEDICOS_USUARIOS" />
         <AssociationConnector Association="TCC_CLINICA_MEDICAModel.FK_PACIENTES_PLANO_SAUDE" />
         <AssociationConnector Association="TCC_CLINICA_MEDICAModel.FK_PACIENTES_USUARIOS" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

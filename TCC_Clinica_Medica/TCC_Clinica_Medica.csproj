@@ -364,8 +364,6 @@
     <Content Include="Views\PLANO_SAUDE\Edit.cshtml" />
     <Content Include="Views\PLANO_SAUDE\Index.cshtml" />
     <Content Include="Views\USUARIOS\Create.cshtml" />
-    <Content Include="Views\USUARIOS\Delete.cshtml" />
-    <Content Include="Views\USUARIOS\Details.cshtml" />
     <Content Include="Views\USUARIOS\Edit.cshtml" />
     <Content Include="Views\USUARIOS\Index.cshtml" />
     <Content Include="Views\PACIENTES\Create.cshtml" />
@@ -395,8 +393,6 @@
     <Content Include="Views\DOENCAS\Edit.cshtml" />
     <Content Include="Views\DOENCAS\Index.cshtml" />
     <Content Include="Views\ESPECIALIDADES\Create.cshtml" />
-    <Content Include="Views\ESPECIALIDADES\Delete.cshtml" />
-    <Content Include="Views\ESPECIALIDADES\Details.cshtml" />
     <Content Include="Views\ESPECIALIDADES\Edit.cshtml" />
     <Content Include="Views\ESPECIALIDADES\Index.cshtml" />
     <Content Include="Views\EXAME_RESULTADO\Create.cshtml" />

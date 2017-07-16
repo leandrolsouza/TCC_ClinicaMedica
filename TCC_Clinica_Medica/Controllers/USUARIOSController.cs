@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TCC_Clinica_Medica;
+using PagedList;
 
 namespace TCC_Clinica_Medica.Controllers
 {
@@ -15,25 +16,67 @@ namespace TCC_Clinica_Medica.Controllers
     {
         private TCC_CLINICA_MEDICAEntities db = new TCC_CLINICA_MEDICAEntities();
 
-        // GET: USUARIOS
-        public async Task<ActionResult> Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(await db.USUARIOS.ToListAsync());
-        }
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
 
-        // GET: USUARIOS/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.EmailSortParm = String.IsNullOrEmpty(sortOrder) ? "email_desc" : "";
+            ViewBag.CPFSortParm = String.IsNullOrEmpty(sortOrder) ? "cpf_desc" : "";
+
+            if (searchString != null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                page = 1;
             }
-            USUARIOS uSUARIOS = await db.USUARIOS.FindAsync(id);
-            if (uSUARIOS == null)
+            else
             {
-                return HttpNotFound();
+                searchString = currentFilter;
             }
-            return View(uSUARIOS);
+
+            ViewBag.CurrentFilter = searchString;
+
+            var usuarios = db.USUARIOS.ToList().AsEnumerable();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                usuarios = usuarios.Where(s => s.NOME.ToUpper().Contains(searchString.ToUpper()));
+
+                if (usuarios.ToList().Count == 0)
+                {
+                    usuarios = db.USUARIOS.ToList().AsEnumerable();
+                    usuarios = usuarios.Where(s => s.EMAIL.ToUpper().Contains(searchString.ToUpper()));
+                }
+
+                if (usuarios.ToList().Count == 0)
+                {
+                    usuarios = db.USUARIOS.ToList().AsEnumerable();
+                    usuarios = usuarios.Where(s => s.CPF.ToUpper().Contains(searchString.ToUpper()));
+                }
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    usuarios = usuarios.OrderByDescending(s => s.NOME);
+                    break;
+                case "email_desc":
+                    usuarios = usuarios.OrderByDescending(s => s.EMAIL);
+                    break;
+                case "cpf_desc":
+                    usuarios = usuarios.OrderByDescending(s => s.CPF);
+                    break;
+                default:
+                    usuarios = usuarios.OrderBy(s => s.NOME);
+                    break;
+            }
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(usuarios.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: USUARIOS/Create

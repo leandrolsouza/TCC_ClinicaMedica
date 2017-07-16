@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TCC_Clinica_Medica;
+using PagedList;
+
 
 namespace TCC_Clinica_Medica.Controllers
 {
@@ -15,105 +17,122 @@ namespace TCC_Clinica_Medica.Controllers
     {
         private TCC_CLINICA_MEDICAEntities db = new TCC_CLINICA_MEDICAEntities();
 
-        // GET: ESPECIALIDADES
-        public async Task<ActionResult> Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(await db.ESPECIALIDADES.ToListAsync());
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var especialidades = db.ESPECIALIDADES.ToList().AsEnumerable();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                especialidades = especialidades.Where(s => s.DESCRICAO.ToUpper().Contains(searchString.ToUpper()));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    especialidades = especialidades.OrderByDescending(s => s.DESCRICAO);
+                    break;
+                default:
+                    especialidades = especialidades.OrderBy(s => s.DESCRICAO);
+                    break;
+            }
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(especialidades.ToPagedList(pageNumber, pageSize));
         }
 
-        // GET: ESPECIALIDADES/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ESPECIALIDADES eSPECIALIDADES = await db.ESPECIALIDADES.FindAsync(id);
-            if (eSPECIALIDADES == null)
-            {
-                return HttpNotFound();
-            }
-            return View(eSPECIALIDADES);
-        }
 
-        // GET: ESPECIALIDADES/Create
         public ActionResult Create()
         {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
             return View();
         }
 
-        // POST: ESPECIALIDADES/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,DESCRICAO,ATIVO,DATA_CRIACAO,DATA_MODIFICACAO")] ESPECIALIDADES eSPECIALIDADES)
+        public async Task<ActionResult> Create([Bind(Include = "ID,DESCRICAO")] ESPECIALIDADES eSPECIALIDADES)
         {
+            eSPECIALIDADES.DATA_CRIACAO = DateTime.Now;
+            eSPECIALIDADES.DATA_MODIFICACAO = DateTime.Now;
+            eSPECIALIDADES.ATIVO = true;
+            eSPECIALIDADES.DESCRICAO = eSPECIALIDADES.DESCRICAO.ToUpper();
+
             if (ModelState.IsValid)
             {
                 db.ESPECIALIDADES.Add(eSPECIALIDADES);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "ESPECIALIDADES", new { mensagem = "Registro criado com sucesso!" });
             }
 
             return View(eSPECIALIDADES);
         }
 
-        // GET: ESPECIALIDADES/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ESPECIALIDADES eSPECIALIDADES = await db.ESPECIALIDADES.FindAsync(id);
-            if (eSPECIALIDADES == null)
+
+            ESPECIALIDADES eSPECIALIDADE = await db.ESPECIALIDADES.FindAsync(id);
+
+            if (eSPECIALIDADE == null)
             {
                 return HttpNotFound();
             }
-            return View(eSPECIALIDADES);
+            return View(eSPECIALIDADE);
         }
 
-        // POST: ESPECIALIDADES/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,DESCRICAO,ATIVO,DATA_CRIACAO,DATA_MODIFICACAO")] ESPECIALIDADES eSPECIALIDADES)
+        public async Task<ActionResult> Edit([Bind(Include = "ID,DESCRICAO,DATA_CRIACAO,DATA_MODIFICACAO,ATIVO")] ESPECIALIDADES eSPECIALIDADES)
         {
             if (ModelState.IsValid)
             {
+                eSPECIALIDADES.DATA_MODIFICACAO = DateTime.Now;
+                eSPECIALIDADES.DESCRICAO = eSPECIALIDADES.DESCRICAO.ToUpper();
                 db.Entry(eSPECIALIDADES).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { mensagem = "Registro editado com sucesso!" });
             }
             return View(eSPECIALIDADES);
         }
 
-        // GET: ESPECIALIDADES/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        [HttpPost]
+        public ActionResult DeleteConfirmed(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ESPECIALIDADES eSPECIALIDADES = await db.ESPECIALIDADES.FindAsync(id);
-            if (eSPECIALIDADES == null)
-            {
-                return HttpNotFound();
-            }
-            return View(eSPECIALIDADES);
-        }
-
-        // POST: ESPECIALIDADES/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            ESPECIALIDADES eSPECIALIDADES = await db.ESPECIALIDADES.FindAsync(id);
-            db.ESPECIALIDADES.Remove(eSPECIALIDADES);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            ESPECIALIDADES eSPECIALIDADE = db.ESPECIALIDADES.Find(id);
+            db.ESPECIALIDADES.Remove(eSPECIALIDADE);
+            db.SaveChanges();
+            return Json(Url.Action("Index", new { mensagem = "Registro apagado com sucesso!" }));
         }
 
         protected override void Dispose(bool disposing)

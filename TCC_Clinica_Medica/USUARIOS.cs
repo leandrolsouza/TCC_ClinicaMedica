@@ -28,6 +28,9 @@ namespace TCC_Clinica_Medica
         public string SENHA { get; set; }
         public Nullable<short> TIPO_ACESSO { get; set; }
         public byte[] FOTO { get; set; }
+        public bool ATIVO { get; set; }
+        public System.DateTime DATA_CRIACAO { get; set; }
+        public Nullable<System.DateTime> DATA_MODIFICACAO { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MEDICOS> MEDICOS { get; set; }
