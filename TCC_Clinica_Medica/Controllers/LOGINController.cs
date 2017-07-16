@@ -30,7 +30,7 @@ namespace TCC_Clinica_Medica.Controllers
             {
                 Session["Usuario"] = uSUARIOS;
                 Session["Nome"] = uSUARIOS.NOME;
-                return RedirectToAction("Index", "HOME");
+                return RedirectToAction("Index", "HOME"); 
             }
 
             return RedirectToAction("Index", "LOGIN", new { mensagem = "Usuario ou senha invalidos!"});
