@@ -5,25 +5,26 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="ac7cd8148fa14cdf9a0c3b0c5e90fc49" Name="Diagram1">
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.CLINICAS" Width="1.5" PointX="3" PointY="22.875" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.CONSULTA_DOENCA" Width="1.5" PointX="10.5" PointY="10.375" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.CONSULTAS" Width="1.5" PointX="8.25" PointY="12.375" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.DOENCAS" Width="1.5" PointX="8.25" PointY="9.25" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.ESPECIALIDADES" Width="1.5" PointX="3" PointY="19" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.EXAME_RESULTADO" Width="1.5" PointX="12.75" PointY="16.25" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.EXAMES" Width="1.5" PointX="8.25" PointY="22.25" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.EXAMES_SOLICITADOS" Width="1.5" PointX="10.5" PointY="16.25" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.HORARIOS_ATENDIMENTO" Width="1.5" PointX="3" PointY="7.75" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.MEDICAMENTOS" Width="1.5" PointX="8.25" PointY="18.125" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.MEDICO_CLINICA" Width="1.5" PointX="5.25" PointY="18" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.MEDICO_ESPECIALIDADE" Width="1.5" PointX="5.25" PointY="15" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.MEDICO_HORARIO_ATENDIMENTO" Width="1.5" PointX="5.25" PointY="12" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.MEDICOS" Width="1.5" PointX="3" PointY="14.75" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.PACIENTE_HISTORICO_CLINICO" Width="1.5" PointX="10.5" PointY="21.875" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.CLINICAS" Width="1.5" PointX="6" PointY="23.125" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.CONSULTA_DOENCA" Width="1.5" PointX="7.5" PointY="11.5" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.CONSULTAS" Width="1.5" PointX="5.25" PointY="10.5" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.DOENCAS" Width="1.5" PointX="5.25" PointY="2.375" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.ESPECIALIDADES" Width="1.5" PointX="3" PointY="23.25" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.EXAME_RESULTADO" Width="1.5" PointX="12.75" PointY="11.5" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.EXAMES" Width="1.5" PointX="8.25" PointY="5.5" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.EXAMES_SOLICITADOS" Width="1.5" PointX="10.5" PointY="11.5" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.HORARIOS_ATENDIMENTO" Width="1.5" PointX="3" PointY="19.125" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.MEDICAMENTOS" Width="1.5" PointX="5.25" PointY="6.25" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.MEDICO_CLINICA" Width="1.5" PointX="8.25" PointY="15.375" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.MEDICO_ESPECIALIDADE" Width="1.5" PointX="5.25" PointY="18.375" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.MEDICO_HORARIO_ATENDIMENTO" Width="1.5" PointX="5.25" PointY="15.375" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.MEDICOS" Width="1.5" PointX="3" PointY="15.125" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.PACIENTE_HISTORICO_CLINICO" Width="1.5" PointX="7.5" PointY="20" />
         <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.PACIENTES" Width="1.5" PointX="3" PointY="11.5" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.PLANO_SAUDE" Width="1.5" PointX="0.75" PointY="7.625" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.RECEITAS" Width="1.5" PointX="10.5" PointY="13.375" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.USUARIOS" Width="1.5" PointX="0.75" PointY="11.375" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.PLANO_SAUDE" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.RECEITAS" Width="1.5" PointX="7.5" PointY="8.5" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.USUARIOS" Width="1.5" PointX="0.75" PointY="11.125" />
         <AssociationConnector Association="TCC_CLINICA_MEDICAModel.FK_MEDICO_CLINICA_CLINICAS" />
         <AssociationConnector Association="TCC_CLINICA_MEDICAModel.FK_CONSULTA_DOENCA_CONSULTAS" />
         <AssociationConnector Association="TCC_CLINICA_MEDICAModel.FK_CONSULTA_DOENCA_DOENCAS" />
@@ -44,7 +45,6 @@
         <AssociationConnector Association="TCC_CLINICA_MEDICAModel.FK_MEDICOS_USUARIOS" />
         <AssociationConnector Association="TCC_CLINICA_MEDICAModel.FK_PACIENTES_PLANO_SAUDE" />
         <AssociationConnector Association="TCC_CLINICA_MEDICAModel.FK_PACIENTES_USUARIOS" />
-        <EntityTypeShape EntityType="TCC_CLINICA_MEDICAModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

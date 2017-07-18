@@ -1,80 +1,230 @@
 ﻿@model TCC_Clinica_Medica.USUARIOS
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Usuarios - Novo";
 }
+<script>
 
-<h2>Create</h2>
+    $(document).ready(function () {
+
+        $('.paciente').hide();
+        $('.medico').hide();
+
+        $('#TIPO_ACESSO').change(function (e) {
+
+            $('input[type="text"]').each(function () {
+                $(this).css({
+                    "border": "",
+                    "background": ""
+                });
+            });
+
+            if(this.value == 3)
+            {
+                $('.paciente').show();
+                $('.medico').hide();
+            }
+            else if (this.value == 2)
+            {
+                $('.paciente').hide();
+                $('.medico').show();
+            }
+            else
+            {
+                $('.paciente').hide();
+                $('.medico').hide();
+            }
+
+        });
+
+        $('#Criar').click(function (e) {
+            var CamposFaltando = false;
+
+            if ($('#NOME').val() == '')
+            {
+                CamposFaltando = true;
+                $('#NOME').css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+            }
+
+            if ($('#EMAIL').val() == '') {
+                CamposFaltando = true;
+                $('#EMAIL').css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+            }
+
+            if ($('#CPF').val() == '') {
+                CamposFaltando = true;
+                $('#CPF').css({
+                    "border": "1px solid red",
+                    "background": "#FFCECE"
+                });
+            }
+
+            if ($('#TIPO_ACESSO').val() == '2')
+            {
+                if ($('#CRM').val() == '') {
+                    CamposFaltando = true;
+                    $('#CRM').css({
+                        "border": "1px solid red",
+                        "background": "#FFCECE"
+                    });
+                }
+            }
+            if ($('#TIPO_ACESSO').val() == '3') {
+                if ($('#ENDERECO').val() == '') {
+                    CamposFaltando = true;
+                    $('#ENDERECO').css({
+                        "border": "1px solid red",
+                        "background": "#FFCECE"
+                    });
+                }
+                if ($('#TELEFONE').val() == '') {
+                    CamposFaltando = true;
+                    $('#TELEFONE').css({
+                        "border": "1px solid red",
+                        "background": "#FFCECE"
+                    });
+                }
+                if ($('#NUMERO_PLANO').val() == '') {
+                    CamposFaltando = true;
+                    $('#NUMERO_PLANO').css({
+                        "border": "1px solid red",
+                        "background": "#FFCECE"
+                    });
+                }
+            }
 
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>USUARIOS</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.NOME, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NOME, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NOME, "", new { @class = "text-danger" })
+            if (CamposFaltando) {
+                $.simplyToast('Favor preencher os campos obrigatorios!', 'danger');
+                e.preventDefault();
+            }
+            else {
+                return true;
+            }
+
+        });
+    });
+</script>
+<br />
+<br />
+<div class="jumbotron">
+    <h2>Usuarios</h2>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Novo</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <span class="control-label col-md-2">Tipo Acesso</span>
+                <div class="col-md-10">
+                    <select id="TIPO_ACESSO" name="TIPO_ACESSO" class="form-control">
+                        <option value="1">Administrador</option>
+                        <option value="2">Medico</option>
+                        <option value="3">Paciente</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.NOME, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NOME, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NOME, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CPF, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CPF, new { htmlAttributes = new { @class = "form-control", maxlength = "11" } })
+                    @Html.ValidationMessageFor(model => model.CPF, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group paciente" >
+                <span class="control-label col-md-2">Endereco</span>
+              
+                <div class="col-md-10">
+                    @Html.Editor("ENDERECO", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group paciente">
+                <span class="control-label col-md-2">Telefone</span>
+            
+                <div class="col-md-10">
+                    @Html.Editor("TELEFONE", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group paciente">
+                <span class="control-label col-md-2">PLANO</span>
+                <div class="col-md-10">
+                   @Html.DropDownList("PLANO", (IEnumerable<SelectListItem>)ViewBag.Planos, "SELECIONE", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group paciente">
+                <span class="control-label col-md-2">Numero Carteirinha</span>
+                <div class="col-md-10">
+                    @Html.Editor("NUMERO_PLANO", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group medico">
+                <span class="control-label col-md-2">Clinica</span>
+                <div class="col-md-10">
+                    @Html.DropDownList("CLINICA", (IEnumerable<SelectListItem>)ViewBag.Clinicas, "SELECIONE", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group medico">
+                <span class="control-label col-md-2">Especialidade</span>
+                <div class="col-md-10">
+                    @Html.DropDownList("ESPECIALIDADE", (IEnumerable<SelectListItem>)ViewBag.Especialidades, "SELECIONE", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group medico">
+                <span class="control-label col-md-2">Horario</span>
+                <div class="col-md-10">
+                    @Html.DropDownList("HORARIO", (IEnumerable<SelectListItem>)ViewBag.Horarios, "SELECIONE", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group medico">
+                <span class="control-label col-md-2">CRM</span>
+                <div class="col-md-10">
+                    @Html.Editor("CRM", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="submit" class="btn btn-default" id="Criar">
+                        <i class="glyphicon glyphicon-floppy-disk"></i> &nbsp; Criar
+                    </button>
+
+                </div>
             </div>
         </div>
+    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CPF, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CPF, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CPF, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SENHA, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SENHA, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SENHA, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TIPO_ACESSO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TIPO_ACESSO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TIPO_ACESSO, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FOTO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FOTO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FOTO, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
+    <div>
+        @Html.ActionLink("<<< Voltar", "Index")
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

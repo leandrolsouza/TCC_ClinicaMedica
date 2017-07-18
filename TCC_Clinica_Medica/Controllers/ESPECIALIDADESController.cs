@@ -55,6 +55,8 @@ namespace TCC_Clinica_Medica.Controllers
                     break;
             }
 
+            especialidades = especialidades.Where(x => x.ATIVO);
+
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(especialidades.ToPagedList(pageNumber, pageSize));
@@ -130,7 +132,7 @@ namespace TCC_Clinica_Medica.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ESPECIALIDADES eSPECIALIDADE = db.ESPECIALIDADES.Find(id);
-            db.ESPECIALIDADES.Remove(eSPECIALIDADE);
+            eSPECIALIDADE.ATIVO = false;
             db.SaveChanges();
             return Json(Url.Action("Index", new { mensagem = "Registro apagado com sucesso!" }));
         }

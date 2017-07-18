@@ -43,7 +43,7 @@ namespace TCC_Clinica_Medica
         public virtual DbSet<PACIENTES> PACIENTES { get; set; }
         public virtual DbSet<PLANO_SAUDE> PLANO_SAUDE { get; set; }
         public virtual DbSet<RECEITAS> RECEITAS { get; set; }
-        public virtual DbSet<USUARIOS> USUARIOS { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<USUARIOS> USUARIOS { get; set; }
     }
 }

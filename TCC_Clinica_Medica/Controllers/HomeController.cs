@@ -30,5 +30,17 @@ namespace TCC_Clinica_Medica.Controllers
 
             return View();
         }
+
+        public FileContentResult GetImage()
+        {
+            var image = ((USUARIOS)Session["Usuario"]).FOTO;
+
+            if (image != null)
+            {
+                return File(image, "image/png");
+            }
+            else
+                return null;
+        }
     }
 }

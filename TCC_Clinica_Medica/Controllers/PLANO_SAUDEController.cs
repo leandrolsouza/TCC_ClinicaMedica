@@ -54,6 +54,7 @@ namespace TCC_Clinica_Medica.Controllers
                     break;
             }
 
+            planos = planos.Where(x => x.ATIVO);
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(planos.ToPagedList(pageNumber, pageSize));
@@ -128,7 +129,7 @@ namespace TCC_Clinica_Medica.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             PLANO_SAUDE pLANO_SAUDE = db.PLANO_SAUDE.Find(id);
-            db.PLANO_SAUDE.Remove(pLANO_SAUDE);
+            pLANO_SAUDE.ATIVO = false;
             db.SaveChanges();
             return Json(Url.Action("Index", new { mensagem = "Registro apagado com sucesso!" }));
         }

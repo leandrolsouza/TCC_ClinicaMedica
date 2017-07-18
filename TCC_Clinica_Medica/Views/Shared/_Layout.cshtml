@@ -123,29 +123,31 @@
                                 @Html.ActionLink("Especialidades", "Index", "ESPECIALIDADES")
                             </li>
                             <li class="menu-item dropdown dropdown-submenu">
-                                @Html.ActionLink("Horarios Atendimentos", "Index", "HORARIOS_ATENDIMENTO")
-                            </li>
-                            <li class="menu-item dropdown dropdown-submenu">
                                 @Html.ActionLink("Usuarios", "Index", "USUARIOS")
                             </li>
-                            <li class="menu-item dropdown dropdown-submenu">
-                                @Html.ActionLink("Pacientes", "Index", "PACIENTES")
-                            </li>
-                            <li class="menu-item dropdown dropdown-submenu">
-                                @Html.ActionLink("Exames", "Index", "EXAMES")
-                            </li>
-                            @*<li class="menu-item dropdown dropdown-submenu">
-                    <a href="#" title="" class="dropdown-toggle" data-toggle="dropdown">Page 3.2</a>
-                    <ul class="dropdown-menu">
-                        <li class="menu-item"><a href="#" title="">Page 3.2.1</a></li>
-                        <li class="menu-item"><a href="#" title="">Page 3.2.2</a></li>
-                    </ul>
-                </li>
-                <li class="menu-item"><a href="#" title="T">Page 3.3</a></li>*@
+                           @* <li class="menu-item dropdown dropdown-submenu">
+            @Html.ActionLink("Horarios Atendimentos", "Index", "HORARIOS_ATENDIMENTO")
+        </li>
+  
+    <li class="menu-item dropdown dropdown-submenu">
+        @Html.ActionLink("Pacientes", "Index", "PACIENTES")
+    </li>
+    <li class="menu-item dropdown dropdown-submenu">
+        @Html.ActionLink("Exames", "Index", "EXAMES")
+    </li>*@
+                @*<li class="menu-item dropdown dropdown-submenu">
+        <a href="#" title="" class="dropdown-toggle" data-toggle="dropdown">Page 3.2</a>
+        <ul class="dropdown-menu">
+            <li class="menu-item"><a href="#" title="">Page 3.2.1</a></li>
+            <li class="menu-item"><a href="#" title="">Page 3.2.2</a></li>
+        </ul>
+    </li>
+    <li class="menu-item"><a href="#" title="T">Page 3.3</a></li>*@
                         </ul>
                     </li>
                 </ul>
                 <p class="nav navbar-text navbar-right">
+                    <!--<img src="@Url.Action("GetImage", "Home")" />-->
                     <img src="~/Imagens/user.png" />&nbsp; Olá, @Session["Nome"].ToString() &nbsp;|&nbsp; 
                     <a href="@Url.Action("Exit", "Home")" class="btn btn-warning">
                         <span class="glyphicon glyphicon-off" aria-hidden="true"></span>

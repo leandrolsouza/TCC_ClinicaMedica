@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Leandro\Source\Repos\TCC_ClinicaMedica\TCC_Clinica_Medica\Model.edmx'. 
+﻿// T4 code generation is enabled for model 'E:\Pos-Graduacao\13 - Trabalho de Conclusão de Curso\Projeto\TCC_Clinica_Medica\TCC_Clinica_Medica\Model.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

@@ -25,6 +25,7 @@ namespace TCC_Clinica_Medica
         public Nullable<int> ID_PLANO_SAUDE { get; set; }
         public Nullable<int> ID_USUARIO { get; set; }
         public string TELEFONE { get; set; }
+        public string NUMERO_PLANO { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CONSULTAS> CONSULTAS { get; set; }

@@ -64,6 +64,7 @@ namespace TCC_Clinica_Medica.Controllers
                     break;
             }
 
+            clinicas = clinicas.Where(x => x.ATIVO);
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(clinicas.ToPagedList(pageNumber, pageSize));
@@ -140,7 +141,7 @@ namespace TCC_Clinica_Medica.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             CLINICAS cLINICAS = await db.CLINICAS.FindAsync(id);
-            db.CLINICAS.Remove(cLINICAS);
+            cLINICAS.ATIVO = false;
             await db.SaveChangesAsync();
             return Json(Url.Action("Index", new { mensagem = "Registro apagado com sucesso!" }));
         }

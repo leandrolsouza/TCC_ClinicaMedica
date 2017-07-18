@@ -76,6 +76,7 @@ namespace TCC_Clinica_Medica.Controllers
                     break;
             }
 
+            medicamentos = medicamentos.Where(x => x.ATIVO);
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(medicamentos.ToPagedList(pageNumber, pageSize));
@@ -169,8 +170,8 @@ namespace TCC_Clinica_Medica.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             MEDICAMENTOS mEDICAMENTOS =  db.MEDICAMENTOS.Find(id);
-            db.MEDICAMENTOS.Remove(mEDICAMENTOS);
-             db.SaveChanges();
+            mEDICAMENTOS.ATIVO = false;
+            db.SaveChanges();
             return Json(Url.Action("Index", new { mensagem = "Registro apagado com sucesso!" }));
         }
 

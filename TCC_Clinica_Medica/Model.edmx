@@ -159,6 +159,7 @@
           <Property Name="ID_PLANO_SAUDE" Type="int" />
           <Property Name="ID_USUARIO" Type="int" />
           <Property Name="TELEFONE" Type="varchar" MaxLength="14" />
+          <Property Name="NUMERO_PLANO" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PLANO_SAUDE">
           <Key>
@@ -568,6 +569,7 @@
           <EntitySet Name="PACIENTES" EntityType="TCC_CLINICA_MEDICAModel.PACIENTES" />
           <EntitySet Name="PLANO_SAUDE" EntityType="TCC_CLINICA_MEDICAModel.PLANO_SAUDE" />
           <EntitySet Name="RECEITAS" EntityType="TCC_CLINICA_MEDICAModel.RECEITAS" />
+          <EntitySet Name="sysdiagrams" EntityType="TCC_CLINICA_MEDICAModel.sysdiagrams" />
           <EntitySet Name="USUARIOS" EntityType="TCC_CLINICA_MEDICAModel.USUARIOS" />
           <AssociationSet Name="FK_MEDICO_CLINICA_CLINICAS" Association="TCC_CLINICA_MEDICAModel.FK_MEDICO_CLINICA_CLINICAS">
             <End Role="CLINICAS" EntitySet="CLINICAS" />
@@ -649,7 +651,6 @@
             <End Role="USUARIOS" EntitySet="USUARIOS" />
             <End Role="PACIENTES" EntitySet="PACIENTES" />
           </AssociationSet>
-          <EntitySet Name="sysdiagrams" EntityType="TCC_CLINICA_MEDICAModel.sysdiagrams" />
         </EntityContainer>
         <EntityType Name="CLINICAS">
           <Key>
@@ -837,6 +838,7 @@
           <Property Name="ID_PLANO_SAUDE" Type="Int32" />
           <Property Name="ID_USUARIO" Type="Int32" />
           <Property Name="TELEFONE" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
+          <Property Name="NUMERO_PLANO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CONSULTAS" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTAS_PACIENTES" FromRole="PACIENTES" ToRole="CONSULTAS" />
           <NavigationProperty Name="PLANO_SAUDE" Relationship="TCC_CLINICA_MEDICAModel.FK_PACIENTES_PLANO_SAUDE" FromRole="PACIENTES" ToRole="PLANO_SAUDE" />
           <NavigationProperty Name="USUARIOS" Relationship="TCC_CLINICA_MEDICAModel.FK_PACIENTES_USUARIOS" FromRole="PACIENTES" ToRole="USUARIOS" />
@@ -862,6 +864,16 @@
           <NavigationProperty Name="CONSULTAS" Relationship="TCC_CLINICA_MEDICAModel.FK_RECEITAS_CONSULTAS" FromRole="RECEITAS" ToRole="CONSULTAS" />
           <NavigationProperty Name="MEDICAMENTOS" Relationship="TCC_CLINICA_MEDICAModel.FK_RECEITAS_MEDICAMENTOS" FromRole="RECEITAS" ToRole="MEDICAMENTOS" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="USUARIOS">
           <Key>
             <PropertyRef Name="ID" />
@@ -873,11 +885,11 @@
           <Property Name="SENHA" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="TIPO_ACESSO" Type="Int16" />
           <Property Name="FOTO" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="MEDICOS" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICOS_USUARIOS" FromRole="USUARIOS" ToRole="MEDICOS" />
-          <NavigationProperty Name="PACIENTES" Relationship="TCC_CLINICA_MEDICAModel.FK_PACIENTES_USUARIOS" FromRole="USUARIOS" ToRole="PACIENTES" />
           <Property Name="ATIVO" Type="Boolean" Nullable="false" />
           <Property Name="DATA_CRIACAO" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DATA_MODIFICACAO" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="MEDICOS" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICOS_USUARIOS" FromRole="USUARIOS" ToRole="MEDICOS" />
+          <NavigationProperty Name="PACIENTES" Relationship="TCC_CLINICA_MEDICAModel.FK_PACIENTES_USUARIOS" FromRole="USUARIOS" ToRole="PACIENTES" />
         </EntityType>
         <Association Name="FK_MEDICO_CLINICA_CLINICAS">
           <End Type="TCC_CLINICA_MEDICAModel.CLINICAS" Role="CLINICAS" Multiplicity="1" />
@@ -1119,16 +1131,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1298,6 +1300,7 @@
           <EntitySetMapping Name="PACIENTES">
             <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.PACIENTES">
               <MappingFragment StoreEntitySet="PACIENTES">
+                <ScalarProperty Name="NUMERO_PLANO" ColumnName="NUMERO_PLANO" />
                 <ScalarProperty Name="TELEFONE" ColumnName="TELEFONE" />
                 <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
                 <ScalarProperty Name="ID_PLANO_SAUDE" ColumnName="ID_PLANO_SAUDE" />
@@ -1326,6 +1329,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="USUARIOS">
             <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.USUARIOS">
               <MappingFragment StoreEntitySet="USUARIOS">
@@ -1339,17 +1353,6 @@
                 <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
                 <ScalarProperty Name="NOME" ColumnName="NOME" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

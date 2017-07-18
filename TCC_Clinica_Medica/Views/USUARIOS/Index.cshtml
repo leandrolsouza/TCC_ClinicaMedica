@@ -106,9 +106,8 @@
                     @Html.ActionLink("CPF", "Index", new { sortOrder = ViewBag.CPFSortParm })
                 </td>
                 <td>
-                   TIPO
+                    TIPO ACESSO
                 </td>
-                <td>ATIVO</td>
             </tr>
 
             @foreach (var item in Model)
@@ -124,10 +123,18 @@
                         @Html.DisplayFor(modelItem => item.CPF)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.TIPO_ACESSO)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ATIVO)
+                        @if (item.TIPO_ACESSO == 1)
+                        {
+                            <span>Administrador</span>
+                        }
+                        else if (item.TIPO_ACESSO == 2)
+                        {
+                            <span>Medico</span>
+                        }
+                        else
+                        {
+                            <span>Paciente</span>
+                        }
                     </td>
                     <td>
                         @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) &nbsp; | &nbsp;
@@ -137,7 +144,7 @@
                 </tr>
             }
             <tr>
-                <td align="right" colspan="3">
+                <td align="right" colspan="5">
 
                     @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),

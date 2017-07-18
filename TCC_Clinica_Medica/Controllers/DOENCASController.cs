@@ -63,6 +63,7 @@ namespace TCC_Clinica_Medica.Controllers
                     break;
             }
 
+            doencas = doencas.Where(x => x.ATIVO);
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(doencas.ToPagedList(pageNumber, pageSize));
@@ -138,7 +139,7 @@ namespace TCC_Clinica_Medica.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             DOENCAS dOENCAS = db.DOENCAS.Find(id);
-            db.DOENCAS.Remove(dOENCAS);
+            dOENCAS.ATIVO = false;
             db.SaveChanges();
             return Json(Url.Action("Index", new { mensagem = "Registro apagado com sucesso!" }));
         }

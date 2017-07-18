@@ -1,82 +1,215 @@
 ﻿@model TCC_Clinica_Medica.USUARIOS
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Usuarios - Editar";
 }
 
-<h2>Edit</h2>
+
+    <script>
+        $(document).ready(function () {
+
+            //$('select').listbox({
+            //    'searchbar': false,
+            //    'multiselect': false
+            //});
+
+        $('#Criar').click(function (e) {
+            var CamposFaltando = false;
+
+            $('input[type="text"]').each(function () {
+                if ($.trim($(this).val()) == '') {
+                    CamposFaltando = true;
+                    $(this).css({
+                        "border": "1px solid red",
+                        "background": "#FFCECE"
+                    });
+                }
+                else {
+                    $(this).css({
+                        "border": "",
+                        "background": ""
+                    });
+                }
+            });
+
+            $('input[type="select"]').each(function () {
+                if ($.trim($(this).val()) == '') {
+                    CamposFaltando = true;
+                    $(this).css({
+                        "border": "1px solid red",
+                        "background": "#FFCECE"
+                    });
+                }
+                else {
+                    $(this).css({
+                        "border": "",
+                        "background": ""
+                    });
+                }
+            });
+
+            if (CamposFaltando) {
+                $.simplyToast('Favor preencher os campos obrigatorios!', 'danger');
+                e.preventDefault();
+            }
+            else {
+                return true;
+            }
+
+        });
+    });
+        </script>
+<br />
+<br />
+<div class="jumbotron">
+    <h2>Usuarios</h2>
 
 
-@using (Html.BeginForm())
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Editar</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ID)
+            <div class="form-group">
+                @Html.LabelFor(model => model.NOME, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NOME, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NOME, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CPF, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.CPF, new { htmlAttributes = new { @class = "form-control",maxlenght = "11" } })
+                    @Html.ValidationMessageFor(model => model.CPF, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group paciente">
+                <span class="control-label col-md-2">Endereco</span>
+              
+                
+                <div class="col-md-10">
+                    @if (Model.PACIENTES.Count > 0)
+                    {
+                        @Html.TextBox("ENDERECO", Model.PACIENTES.ToList().FirstOrDefault().ENDERECO,  new { @class = "form-control"})
+                    }
+                </div>
+            </div>
+            <div class="form-group paciente">
+                <span class="control-label col-md-2">Telefone</span>
+
+                <div class="col-md-10">
+@if (Model.PACIENTES.Count > 0)
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>USUARIOS</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NOME, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NOME, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NOME, "", new { @class = "text-danger" })
+                    @Html.TextBox("TELEFONE", Model.PACIENTES.ToList().FirstOrDefault().TELEFONE, new { @class = "form-control" })
+}
+                </div>
+            </div>
+            <div class="form-group paciente">
+                <span class="control-label col-md-2">PLANO</span>
+                <div class="col-md-10">
+@if (Model.PACIENTES.Count > 0)
+{
+                    @Html.DropDownList("PLANO", (IEnumerable<SelectListItem>)ViewBag.Planos, "SELECIONE", new { @class = "form-control" })
+}
+                </div>
+            </div>
+            <div class="form-group paciente">
+                <span class="control-label col-md-2">Numero Carteirinha</span>
+                <div class="col-md-10">
+                    @if (Model.PACIENTES.Count > 0)
+                    {
+                    @Html.TextBox("NUMERO_PLANO", Model.PACIENTES.ToList().FirstOrDefault().NUMERO_PLANO, new { @class = "form-control" })
+                    }
+                </div>
+            </div>
+            <div class="form-group medico">
+                <span class="control-label col-md-2">Clinica</span>
+                <div class="col-md-10">
+                    @Html.DropDownList("CLINICA", (IEnumerable<SelectListItem>)ViewBag.Clinicas, "SELECIONE", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group medico">
+                <span class="control-label col-md-2">Especialidade</span>
+                <div class="col-md-10">
+                    @Html.DropDownList("ESPECIALIDADE", (IEnumerable<SelectListItem>)ViewBag.Especialidades, "SELECIONE", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group medico">
+                <span class="control-label col-md-2">Horario</span>
+                <div class="col-md-10">
+                    @Html.DropDownList("HORARIO", (IEnumerable<SelectListItem>)ViewBag.Horarios, "SELECIONE", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group medico">
+                <span class="control-label col-md-2">CRM</span>
+                <div class="col-md-10">
+                    @Html.Editor("CRM", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Salvar" class="btn btn-default" />
+                </div>
             </div>
         </div>
+        @Html.HiddenFor(model => model.ATIVO)
+        @Html.HiddenFor(model => model.DATA_CRIACAO)
+        @Html.HiddenFor(model => model.DATA_MODIFICACAO)
+        @Html.HiddenFor(model => model.SENHA)
+        @Html.HiddenFor(model => model.FOTO)
+        @Html.Hidden("TIPO_ACESSO", Model.TIPO_ACESSO)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.CPF, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CPF, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CPF, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.SENHA, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SENHA, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SENHA, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TIPO_ACESSO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TIPO_ACESSO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TIPO_ACESSO, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FOTO, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FOTO, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FOTO, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+    <div>
+        @Html.ActionLink("<<< Voltar", "Index")
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
 </div>
+<script>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    $(document).ready(function () {
+
+
+        if ($('#TIPO_ACESSO').val() == '3')
+        {
+            console.log($('#TIPO_ACESSO').val());
+            $('.medico').hide();
+            $('.paciente').show();
+        }
+        
+        if ($('#TIPO_ACESSO').val() == '2') {
+            console.log($('#TIPO_ACESSO').val());
+            $('.medico').show();
+
+            $('.paciente').hide();
+        }
+
+        if ($('#TIPO_ACESSO').val() == '1') {
+            console.log($('#TIPO_ACESSO').val());
+            $('.medico').hide();
+
+            $('.paciente').hide();
+        }
+        
+
+    });
+</script>
