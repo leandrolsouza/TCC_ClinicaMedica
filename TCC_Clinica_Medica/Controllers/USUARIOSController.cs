@@ -228,32 +228,48 @@ namespace TCC_Clinica_Medica.Controllers
 
             USUARIOS uSUARIOS = await db.USUARIOS.FindAsync(id);
 
-            ViewBag.Planos = db.PLANO_SAUDE.ToList().AsEnumerable().Select(x =>
-                             new SelectListItem
-                             {
-                                 Value = x.ID.ToString(),
-                                 Text = x.DESCRICAO
-                             }); ;
+            ViewBag.Clinicas = new List<SelectListItem>();
+            ViewBag.Especialidades = new List<SelectListItem>();
+            ViewBag.Horarios = new List<SelectListItem>();
+            ViewBag.Planos = new List<SelectListItem>();
+
+            if (uSUARIOS.TIPO_ACESSO == 3)
+            {
+                ViewBag.Planos =
+                     new SelectList(db.PLANO_SAUDE.ToList().OrderBy(s => s.DESCRICAO).ToList(), "ID", "DESCRICAO", uSUARIOS.PACIENTES.ToList()[0].ID_PLANO_SAUDE);
+            }
 
             if(uSUARIOS.TIPO_ACESSO == 2)
             {
+                List<string> selectedValues = new List<string>();
+                foreach (var item in uSUARIOS.MEDICOS.ToList()[0].MEDICO_CLINICA.ToList())
+                {
+                    selectedValues.Add(item.ID_CLINICA.ToString());
+                }
                 ViewBag.Clinicas =
-                     new SelectList(db.CLINICAS.ToList().OrderBy(s => s.NOME).ToList(), "ID", "NOME", uSUARIOS.MEDICOS.ToList()[0].MEDICO_CLINICA.ToList()[0].ID_CLINICA);
+                     new MultiSelectList(db.CLINICAS.ToList().OrderBy(s => s.NOME).ToList(), "ID", "NOME", selectedValues);
+
+
+                selectedValues = new List<string>();
+                foreach (var item in uSUARIOS.MEDICOS.ToList()[0].MEDICO_ESPECIALIDADE.ToList())
+                {
+                    selectedValues.Add(item.ID_ESPECIALIDADE.ToString());
+                }
+
+                ViewBag.Especialidades =
+                   new MultiSelectList(db.ESPECIALIDADES.ToList().OrderBy(s => s.DESCRICAO).ToList(), "ID", "DESCRICAO", selectedValues);
+
+                selectedValues = new List<string>();
+                foreach (var item in uSUARIOS.MEDICOS.ToList()[0].MEDICO_HORARIO_ATENDIMENTO.ToList())
+                {
+                    selectedValues.Add(item.ID_HORARIO_ATENDIMENTO.ToString());
+                }
+
+                ViewBag.Horarios =
+                  new MultiSelectList(db.HORARIOS_ATENDIMENTO.ToList().OrderBy(s => s.DESCRICAO).ToList(), "ID", "DESCRICAO", selectedValues);
+
+               
             }
-
-            ViewBag.Especialidades = db.ESPECIALIDADES.ToList().AsEnumerable().Select(x =>
-                    new SelectListItem
-                    {
-                        Value = x.ID.ToString(),
-                        Text = x.DESCRICAO
-                    }); ;
-
-            ViewBag.Horarios = db.HORARIOS_ATENDIMENTO.ToList().AsEnumerable().Select(x =>
-                    new SelectListItem
-                    {
-                        Value = x.ID.ToString(),
-                        Text = x.HORA_INICIO.Value.ToShortTimeString() + " - " + x.HORA_FIM.Value.ToShortTimeString()
-                    }); ;
 
           
             if (uSUARIOS == null)
@@ -266,7 +282,7 @@ namespace TCC_Clinica_Medica.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "ID,NOME,EMAIL,CPF,SENHA,TIPO_ACESSO,FOTO,DATA_CRIACAO,DATA_MODIFICACAO,ATIVO")] USUARIOS uSUARIOS,
-            string ENDERECO, string TELEFONE, string PLANO, string NUMERO_PLANO, string CRM, string CLINICA, string ESPECIALIDADE, string HORARIO)
+            string ENDERECO, string TELEFONE, string PLANO, string NUMERO_PLANO, string CRM, string[] CLINICA, string[] ESPECIALIDADE, string[] HORARIO)
         {
             uSUARIOS.DATA_MODIFICACAO = DateTime.Now;
             uSUARIOS.EMAIL = uSUARIOS.EMAIL.ToLower();
@@ -290,7 +306,40 @@ namespace TCC_Clinica_Medica.Controllers
 
                 if (uSUARIOS.TIPO_ACESSO == 2)
                 {
+                    var med = db.MEDICOS.FirstOrDefault(x => x.ID_USUARIO == uSUARIOS.ID);
+                    var mEDICO = db.MEDICOS.Find(uSUARIOS.MEDICOS.ToList()[0].ID);
+                    mEDICO.CRM = CRM;
+                    
+                    db.MEDICO_CLINICA.RemoveRange(med.MEDICO_CLINICA);
+                    db.MEDICO_ESPECIALIDADE.RemoveRange(med.MEDICO_ESPECIALIDADE);
+                    db.MEDICO_HORARIO_ATENDIMENTO.RemoveRange(med.MEDICO_HORARIO_ATENDIMENTO);
 
+                    foreach (var item in CLINICA)
+                    {
+                        var mEDICO_CLINICA = new MEDICO_CLINICA();
+                        mEDICO_CLINICA.ID_CLINICA = int.Parse(item);
+                        mEDICO_CLINICA.ID_MEDICO = uSUARIOS.MEDICOS.ToList()[0].ID;
+                        db.MEDICO_CLINICA.Add(mEDICO_CLINICA);
+                    }
+
+                    foreach (var item in ESPECIALIDADE)
+                    {
+                        var mEDICO_ESPECIALIDADE = new MEDICO_ESPECIALIDADE();
+                        mEDICO_ESPECIALIDADE.ID_ESPECIALIDADE = int.Parse(item);
+                        mEDICO_ESPECIALIDADE.ID_MEDICO = uSUARIOS.MEDICOS.ToList()[0].ID;
+                        db.MEDICO_ESPECIALIDADE.Add(mEDICO_ESPECIALIDADE);
+                    }
+
+                    foreach (var item in HORARIO)
+                    {
+                        var mEDICO_HORARIO = new MEDICO_HORARIO_ATENDIMENTO();
+                        mEDICO_HORARIO.ID_HORARIO_ATENDIMENTO = int.Parse(item);
+                        mEDICO_HORARIO.ID_MEDICO = uSUARIOS.MEDICOS.ToList()[0].ID;
+                        db.MEDICO_HORARIO_ATENDIMENTO.Add(mEDICO_HORARIO);
+                    }
+                    
+                    await db.SaveChangesAsync();
+                    
                 }
 
 

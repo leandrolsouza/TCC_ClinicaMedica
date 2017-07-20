@@ -187,19 +187,19 @@
             <div class="form-group medico">
                 <span class="control-label col-md-2">Clinica</span>
                 <div class="col-md-10">
-                    @Html.DropDownList("CLINICA", (IEnumerable<SelectListItem>)ViewBag.Clinicas, "SELECIONE", new { @class = "form-control" })
+                    @Html.ListBox("CLINICA", (IEnumerable<SelectListItem>)ViewBag.Clinicas, new { @class = "form-control" })
                 </div>
             </div>
             <div class="form-group medico">
                 <span class="control-label col-md-2">Especialidade</span>
                 <div class="col-md-10">
-                    @Html.DropDownList("ESPECIALIDADE", (IEnumerable<SelectListItem>)ViewBag.Especialidades, "SELECIONE", new { @class = "form-control" })
+                    @Html.ListBox("ESPECIALIDADE", (IEnumerable<SelectListItem>)ViewBag.Especialidades, new { @class = "form-control" })
                 </div>
             </div>
             <div class="form-group medico">
                 <span class="control-label col-md-2">Horario</span>
                 <div class="col-md-10">
-                    @Html.DropDownList("HORARIO", (IEnumerable<SelectListItem>)ViewBag.Horarios, "SELECIONE", new { @class = "form-control" })
+                    @Html.ListBox("HORARIO", (IEnumerable<SelectListItem>)ViewBag.Horarios, new { @class = "form-control" })
                 </div>
             </div>
             <div class="form-group medico">
