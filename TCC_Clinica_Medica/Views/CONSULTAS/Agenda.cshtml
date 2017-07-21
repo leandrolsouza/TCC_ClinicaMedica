@@ -1,0 +1,20 @@
+﻿@model List<CONSULTAS>
+<div class="panel panel-primary">
+    <table class="table  table-bordered">
+        <tr style="background-color:#d1d1d1;font-weight: bold;">
+            <td>PACIENTE</td>
+            <td>HORA INICIO/FIM</td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.PACIENTES.USUARIOS.NOME
+                </td>
+                <td>
+                    @item.DATA_INICIO / @item.DATA_FIM
+                </td>
+            </tr>
+        }
+    </table>
+</div>

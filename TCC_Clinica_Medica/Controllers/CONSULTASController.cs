@@ -22,19 +22,49 @@ namespace TCC_Clinica_Medica.Controllers
             return View(await cONSULTAS.ToListAsync());
         }
 
-        // GET: CONSULTAS/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public ActionResult Marcacao()
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CONSULTAS cONSULTAS = await db.CONSULTAS.FindAsync(id);
-            if (cONSULTAS == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cONSULTAS);
+            ViewBag.Especialidades =
+                 new SelectList(db.ESPECIALIDADES.ToList().Where(x => x.ATIVO).OrderBy(s => s.DESCRICAO).ToList(), "ID", "DESCRICAO");
+
+            ViewBag.Medicos = db.USUARIOS.ToList().Where(x => x.TIPO_ACESSO == 2 && x.ATIVO).OrderBy(s => s.NOME).ToList();
+
+            ViewBag.Pacientes =
+                 new SelectList(db.USUARIOS.ToList().Where(x => x.TIPO_ACESSO == 3 && x.ATIVO).OrderBy(s => s.NOME).ToList(), "ID", "NOME");
+
+            ViewBag.ConsultasAntigas = from s in db.CONSULTAS
+                          where s.PACIENTES.ID_USUARIO == 2
+                          select s;
+
+            ViewBag.Agenda = new List<CONSULTAS>();
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult MudarMedico(int id)
+        {
+            ViewBag.Medicos = (from u in db.USUARIOS
+                              join m in db.MEDICOS on u.ID equals m.ID_USUARIO
+                              join me in db.MEDICO_ESPECIALIDADE on m.ID equals me.ID_MEDICO
+                              where me.ID_ESPECIALIDADE == id && u.ATIVO && u.TIPO_ACESSO == 2
+                              select u).ToList();
+
+
+            return PartialView("Medicos", ViewBag.Medicos);
+        }
+
+        [HttpPost]
+        public ActionResult AgendaMedico(int id)
+        {
+            ViewBag.Agenda = (from c in db.CONSULTAS
+                               join m in db.MEDICOS on c.ID equals m.ID_USUARIO
+                               join pa in db.PACIENTES on m.ID equals pa.ID
+                               where c.ID_MEDICO == id
+                               select c).ToList();
+
+
+            return PartialView("Agenda", ViewBag.Agenda);
         }
 
         // GET: CONSULTAS/Create
@@ -100,21 +130,6 @@ namespace TCC_Clinica_Medica.Controllers
             ViewBag.ID_CONSULTA_RETORNO = new SelectList(db.CONSULTAS, "ID", "ID", cONSULTAS.ID_CONSULTA_RETORNO);
             ViewBag.ID_MEDICO = new SelectList(db.MEDICOS, "ID", "CRM", cONSULTAS.ID_MEDICO);
             ViewBag.ID_PACIENTE = new SelectList(db.PACIENTES, "ID", "ENDERECO", cONSULTAS.ID_PACIENTE);
-            return View(cONSULTAS);
-        }
-
-        // GET: CONSULTAS/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CONSULTAS cONSULTAS = await db.CONSULTAS.FindAsync(id);
-            if (cONSULTAS == null)
-            {
-                return HttpNotFound();
-            }
             return View(cONSULTAS);
         }
 

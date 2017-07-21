@@ -11,6 +11,7 @@ using TCC_Clinica_Medica;
 using PagedList;
 using System.IO;
 using System.Data.Entity.Validation;
+using TCC_Clinica_Medica.App_Start;
 
 namespace TCC_Clinica_Medica.Controllers
 {
@@ -18,6 +19,7 @@ namespace TCC_Clinica_Medica.Controllers
     {
         private TCC_CLINICA_MEDICAEntities db = new TCC_CLINICA_MEDICAEntities();
 
+        [CustomAuthorize(Roles = new UserType[] {UserType.Administrador})]
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             if (Session["Usuario"] == null)
@@ -83,7 +85,7 @@ namespace TCC_Clinica_Medica.Controllers
             return View(usuarios.ToPagedList(pageNumber, pageSize));
         }
 
-        // GET: USUARIOS/Create
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         public ActionResult Create()
         {
             if (Session["Usuario"] == null)
@@ -124,6 +126,7 @@ namespace TCC_Clinica_Medica.Controllers
             return View();
         }
 
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         public byte[] ImageToByteArray(System.Drawing.Image imageIn)
         {
             using (var ms = new MemoryStream())
@@ -133,6 +136,7 @@ namespace TCC_Clinica_Medica.Controllers
             }
         }
 
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "ID,NOME,EMAIL,CPF,SENHA,TIPO_ACESSO,FOTO")] USUARIOS uSUARIOS, 
@@ -214,6 +218,7 @@ namespace TCC_Clinica_Medica.Controllers
             return View(uSUARIOS);
         }
 
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         public async Task<ActionResult> Edit(int? id)
         {
             if (Session["Usuario"] == null)
@@ -279,6 +284,7 @@ namespace TCC_Clinica_Medica.Controllers
             return View(uSUARIOS);
         }
 
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "ID,NOME,EMAIL,CPF,SENHA,TIPO_ACESSO,FOTO,DATA_CRIACAO,DATA_MODIFICACAO,ATIVO")] USUARIOS uSUARIOS,
@@ -349,7 +355,7 @@ namespace TCC_Clinica_Medica.Controllers
         }
 
 
-
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         [HttpPost]
         public ActionResult DeleteConfirmed(int id)
         {

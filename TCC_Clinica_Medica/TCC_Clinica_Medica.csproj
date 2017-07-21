@@ -163,6 +163,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Controllers\CLINICASController.cs" />
     <Compile Include="Controllers\CONSULTASController.cs" />
     <Compile Include="Controllers\DOENCASController.cs" />
+    <Compile Include="Controllers\ERRORController.cs" />
     <Compile Include="Controllers\ESPECIALIDADESController.cs" />
     <Compile Include="Controllers\EXAMESController.cs" />
     <Compile Include="Controllers\EXAME_RESULTADOController.cs" />
@@ -244,7 +246,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Agenda.cs" />
     <Compile Include="Models\Login.cs" />
+    <Compile Include="Models\Medico.cs" />
     <Compile Include="PACIENTES.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -292,6 +296,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Imagens\banner3.jpg" />
     <Content Include="Imagens\banner4.jpg" />
+    <Content Include="Imagens\business_users_lock.png" />
     <Content Include="Imagens\Calendar_Icon.png" />
     <Content Include="Imagens\colba_medical_18047.png" />
     <Content Include="Imagens\banner1.jpg" />
@@ -377,8 +382,6 @@
     <Content Include="Views\PACIENTES\Edit.cshtml" />
     <Content Include="Views\PACIENTES\Index.cshtml" />
     <Content Include="Views\CONSULTAS\Create.cshtml" />
-    <Content Include="Views\CONSULTAS\Delete.cshtml" />
-    <Content Include="Views\CONSULTAS\Details.cshtml" />
     <Content Include="Views\CONSULTAS\Edit.cshtml" />
     <Content Include="Views\CONSULTAS\Index.cshtml" />
     <Content Include="Views\EXAMES\Create.cshtml" />
@@ -429,6 +432,10 @@
     <Content Include="Views\MEDICOS\Edit.cshtml" />
     <Content Include="Views\MEDICOS\Index.cshtml" />
     <Content Include="Views\LOGIN\Index.cshtml" />
+    <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\CONSULTAS\Marcacao.cshtml" />
+    <Content Include="Views\CONSULTAS\Medicos.cshtml" />
+    <Content Include="Views\CONSULTAS\Agenda.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

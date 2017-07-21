@@ -1,0 +1,30 @@
+﻿@model List<USUARIOS>
+
+
+    <div class="panel panel-primary">
+        <table class="table  table-bordered">
+            <tr style="background-color:#d1d1d1;font-weight: bold;">
+                <td>
+                    
+                </td>
+                <td>NOME</td>
+                <td>CRM</td>
+            </tr>
+@foreach (var item in Model)
+{
+            <tr>
+                <td>
+                    <input type="radio" id="IDMEDICO" name="IDMEDICO" class="form-control" value="@item.MEDICOS.ToList()[0].ID" onclick="javascript:SelecionarMedico('@item.MEDICOS.ToList()[0].ID')" />
+                </td>
+                <td>
+                    @item.NOME
+                </td>
+                <td>
+                    @item.MEDICOS.ToList()[0].CRM
+                </td>
+            </tr>
+}
+        </table>
+        </div>
+  
+            

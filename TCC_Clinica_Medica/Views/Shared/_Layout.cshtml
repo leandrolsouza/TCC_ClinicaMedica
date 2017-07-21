@@ -71,10 +71,24 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li class="menu-item dropdown dropdown-submenu">
-                                @Html.ActionLink("Marcação", "Index", "Avaliacaos")
+                                @Html.ActionLink("Marcação", "Marcacao", "CONSULTAS")
                             </li>
                             <li class="menu-item dropdown dropdown-submenu">
                                 @Html.ActionLink("Agenda", "Index", "Perguntas")
+                            </li>
+                            <li class="menu-item dropdown dropdown-submenu">
+                                @Html.ActionLink("Consultas", "Marcacao", "CONSULTAS")
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Pacientes
+                            <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="menu-item dropdown dropdown-submenu">
+                                @Html.ActionLink("Historico", "Marcacao", "CONSULTAS")
                             </li>
                         </ul>
                     </li>
@@ -159,7 +173,7 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
+        <footer style="text-align:center">
             <p>&copy; @DateTime.Now.Year -By Leandro Luiz de Souza (Build 1.0.0.1)</p>
         </footer>
     </div>

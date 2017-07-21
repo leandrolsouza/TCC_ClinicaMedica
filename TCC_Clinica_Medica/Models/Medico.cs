@@ -5,8 +5,9 @@ using System.Web;
 
 namespace TCC_Clinica_Medica.Models
 {
-    public class Login
+    public class Medico
     {
-
+        public string Nome { get; set; }
+        public string CRM { get; set; }
     }
 }

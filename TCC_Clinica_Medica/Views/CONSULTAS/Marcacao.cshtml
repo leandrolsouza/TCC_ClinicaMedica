@@ -1,0 +1,127 @@
+﻿@model IEnumerable<TCC_Clinica_Medica.CONSULTAS>
+
+
+@{
+    ViewBag.Title = "Marcação";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        $('select').listbox({
+            'searchbar': true
+        });
+
+        $('#ESPECIALIDADE').change(function () {
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                url: '@(Url.Action("MudarMedico", "CONSULTAS", null, Request.Url.Scheme))?id=' + this.value,
+                success: function (result) {
+                    $('#divMedico').html(result);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                   // $.simplyToast(xhr.status);
+                   // $.simplyToast(thrownError);
+                    alert(xhr.status);
+                    alert(thrownError);
+                    alert(xhr.responseText);
+                },
+                cache: false
+            });
+
+        });
+
+     
+
+      
+    });
+
+    function SelecionarMedico(id) {
+       // alert('teste');
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            url: '@(Url.Action("AgendaMedico", "CONSULTAS", null, Request.Url.Scheme))?id=' + id,
+            success: function (result) {
+                $('#divAgenda').html(result);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                // $.simplyToast(xhr.status);
+                // $.simplyToast(thrownError);
+                alert(xhr.status);
+                alert(thrownError);
+                alert(xhr.responseText);
+            },
+            cache: false
+        });
+    }
+
+
+</script>
+
+
+<br />
+<br />
+<div class="jumbotron">
+@using (Html.BeginForm())
+{
+    <h2>Marcação de consulta</h2>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <span class="control-label col-md-2">Especialidade</span>
+            <div class="col-md-10">
+                @Html.DropDownList("ESPECIALIDADE", (IEnumerable<SelectListItem>)ViewBag.Especialidades, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group" id="">
+            <span class="control-label col-md-2" >Medico</span>
+            <div class="col-md-10" id="divMedico">
+                @Html.Partial("Medicos", (List<USUARIOS>)ViewBag.Medicos)
+            </div>
+        </div>
+        <div class="form-group" id="">
+            <span class="control-label col-md-2">Agenda</span>
+            <div class="col-md-10" id="divAgenda">
+                @Html.Partial("Agenda", (List<CONSULTAS>)ViewBag.Agenda)
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">Paciente</span>
+            <div class="col-md-10">
+                @Html.DropDownList("PACIENTE", (IEnumerable<SelectListItem>)ViewBag.Pacientes, new { @class = "form-control" })
+            </div>
+        </div>
+        @*partial da agenda do medico*@
+        <div class="form-group">
+            <span class="control-label col-md-2">Inicio</span>
+            <div class="col-md-10">
+                @Html.TextBox("INICIO","", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">Fim</span>
+            <div class="col-md-10">
+                @Html.TextBox("FIM","", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">Retorno</span>
+            <div class="col-md-10">
+                @Html.CheckBox("RETORNO",false, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">Antigas consultas do paciente</span>
+
+            <div class="col-md-10">
+            </div>
+        </div>
+    </div>
+    @section Scripts { @Scripts.Render("~/bundles/jqueryval")}
+ }
+</div>
+      

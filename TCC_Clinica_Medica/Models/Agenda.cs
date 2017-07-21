@@ -5,8 +5,7 @@ using System.Web;
 
 namespace TCC_Clinica_Medica.Models
 {
-    public class Login
+    public class Agenda
     {
-
     }
 }
