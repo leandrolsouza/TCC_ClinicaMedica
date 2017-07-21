@@ -24,6 +24,11 @@ namespace TCC_Clinica_Medica.Controllers
 
         public ActionResult Marcacao()
         {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
             ViewBag.Especialidades =
                  new SelectList(db.ESPECIALIDADES.ToList().Where(x => x.ATIVO).OrderBy(s => s.DESCRICAO).ToList(), "ID", "DESCRICAO");
 
@@ -58,9 +63,9 @@ namespace TCC_Clinica_Medica.Controllers
         public ActionResult AgendaMedico(int id)
         {
             ViewBag.Agenda = (from c in db.CONSULTAS
-                               join m in db.MEDICOS on c.ID equals m.ID_USUARIO
-                               join pa in db.PACIENTES on m.ID equals pa.ID
-                               where c.ID_MEDICO == id
+                               join m in db.MEDICOS on c.ID_MEDICO equals m.ID
+                               join pa in db.PACIENTES on c.ID_PACIENTE equals pa.ID
+                               where c.ID_MEDICO == id && !c.REALIZADA && !c.RETORNO
                                select c).ToList();
 
 

@@ -13,32 +13,10 @@
     <script src="~/Scripts/simply-toast.js"></script>
     <link href="~/Content/listbox.css" rel="stylesheet" />
     <script src="~/Scripts/jssor.slider.min.js"></script>
-    <script>
-        function getUrlParameter(sParam) {
-            var sPageURL = window.location.search.substring(1);
-            var sURLVariables = sPageURL.split('&');
-            for (var i = 0; i < sURLVariables.length; i++) {
-                var sParameterName = sURLVariables[i].split('=');
-                if (sParameterName[0] == sParam) {
-                    return sParameterName[1];
-                }
-            }
-        }
-
-        $(function () {
-            $(document).tooltip();
-        });
-
-        jssor_slider1_init = function (containerId) {
-            var options = { $AutoPlay: 1 };
-            var jssor_slider1 = new $JssorSlider$(containerId, options);
-        };
-
-
-       
-    </script>
+    <script src="~/Scripts/nanobar.min.js"></script>
     <link href="~/Content/jquery-ui.structure.css" rel="stylesheet" />
     <link href="~/Content/jquery-ui.theme.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-switch.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-ui.js"></script>
     <link href="~/Content/tooltipster.css" rel="stylesheet" />
        <script src="~/Scripts/jquery.tooltipster.min.js"></script>
@@ -48,6 +26,10 @@
     <script src="~/Scripts/jquery.timepicker.js"></script>
     <link href="~/Content/jquery.timepicker.css" rel="stylesheet" />
     <script src="~/Scripts/jquery.numeric.js"></script>
+    <script src="~/Scripts/jquery.timepicker.min.js"></script>
+    <script src="~/Scripts/ui.datepicker-pt-BR.js"></script>
+    <script src="~/Scripts/jquery.mask.min.js"></script>
+    <script src="~/Scripts/bootstrap-switch.min.js"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -179,3 +161,42 @@
     </div>
 </body>
 </html>
+
+<script>
+        function getUrlParameter(sParam) {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+            for (var i = 0; i < sURLVariables.length; i++) {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) {
+                    return sParameterName[1];
+                }
+            }
+        }
+
+        $(function () {
+            $(document).tooltip();
+        });
+
+        jssor_slider1_init = function (containerId) {
+            var options = { $AutoPlay: 1 };
+            var jssor_slider1 = new $JssorSlider$(containerId, options);
+        };
+
+        var options = {
+            classname: 'my-class',
+            id: 'nanobar'
+        };
+
+        var nanobar = new Nanobar(options);
+        $(document).ajaxStart(function () {
+            nanobar.go(50); // size bar 30%
+
+        });
+        $(document).ajaxStop(function () {
+            nanobar.go(100); // size bar 76%
+        });
+
+
+
+</script>

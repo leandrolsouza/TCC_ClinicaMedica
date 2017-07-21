@@ -276,6 +276,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datepicker.css" />
+    <Content Include="Content\bootstrap-switch.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\jquery-ui.css" />
@@ -287,6 +288,7 @@
     <Content Include="Content\jquery.timepicker.css" />
     <Content Include="Content\listbox.css" />
     <Content Include="Content\login.css" />
+    <Content Include="Content\nprogress.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\simply-toast.css" />
     <Content Include="Content\tooltipster.css" />
@@ -322,6 +324,7 @@
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
+    <Content Include="Scripts\bootstrap-switch.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -340,9 +343,11 @@
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery.mask.min.js" />
     <Content Include="Scripts\jquery.maxlength.js" />
     <Content Include="Scripts\jquery.numeric.js" />
     <Content Include="Scripts\jquery.timepicker.js" />
+    <Content Include="Scripts\jquery.timepicker.min.js" />
     <Content Include="Scripts\jquery.timer.js" />
     <Content Include="Scripts\jquery.tooltipster.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -353,10 +358,13 @@
     <Content Include="Scripts\listbox.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\multiselect.js" />
+    <Content Include="Scripts\nanobar.min.js" />
+    <Content Include="Scripts\nprogress.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\simply-toast.js" />
     <Content Include="Scripts\singleselect.js" />
+    <Content Include="Scripts\ui.datepicker-pt-BR.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -436,6 +444,7 @@
     <Content Include="Views\CONSULTAS\Marcacao.cshtml" />
     <Content Include="Views\CONSULTAS\Medicos.cshtml" />
     <Content Include="Views\CONSULTAS\Agenda.cshtml" />
+    <Content Include="Views\CONSULTAS\ConsultasAntigasPaciente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

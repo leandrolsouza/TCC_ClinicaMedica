@@ -4,14 +4,18 @@
     <div class="panel panel-primary">
         <table class="table  table-bordered">
             <tr style="background-color:#d1d1d1;font-weight: bold;">
-                <td>
+                <td style="min-width: 30px; max-width: 30px">
                     
                 </td>
                 <td>NOME</td>
                 <td>CRM</td>
+                <td>CLINICAS</td>
+                <td>HORARIOS</td>
             </tr>
-@foreach (var item in Model)
-{
+            @if (Model.Count > 0)
+            { 
+            foreach (var item in Model)
+            {
             <tr>
                 <td>
                     <input type="radio" id="IDMEDICO" name="IDMEDICO" class="form-control" value="@item.MEDICOS.ToList()[0].ID" onclick="javascript:SelecionarMedico('@item.MEDICOS.ToList()[0].ID')" />
@@ -22,9 +26,36 @@
                 <td>
                     @item.MEDICOS.ToList()[0].CRM
                 </td>
+                <td>
+                @foreach (var item2 in item.MEDICOS.Where(x => x.ID == @item.MEDICOS.ToList()[0].ID))
+                {
+                    foreach (var item3 in item2.MEDICO_CLINICA)
+                    {
+                     <span>@item3.CLINICAS.NOME</span>
+                    }
+                }
+                </td>
+                <td>
+                    @foreach (var item2 in item.MEDICOS.Where(x => x.ID == @item.MEDICOS.ToList()[0].ID))
+                {
+                        foreach (var item3 in item2.MEDICO_HORARIO_ATENDIMENTO)
+                    {
+                            <span class="label label-danger">@item3.HORARIOS_ATENDIMENTO.HORA_INICIO.Value.ToShortTimeString()/ @item3.HORARIOS_ATENDIMENTO.HORA_FIM.Value.ToShortTimeString()</span>
+                        }
+                    }
+                </td>
             </tr>
-}
-        </table>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5">
+                        <div class="alert alert-success" role="alert"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;NÃO EXISTEM MEDICOS CADASTRADOS PARA ESSA ESPECIALIDADE</div>
+                    </td>
+               </tr>
+                    }
+</table>
         </div>
   
             
