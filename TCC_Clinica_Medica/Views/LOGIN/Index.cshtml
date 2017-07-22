@@ -20,9 +20,15 @@
     @Scripts.Render("~/bundles/bootstrap")
     <link href="~/Content/login.css" rel="stylesheet" />
     <script src="~/Scripts/simply-toast.js"></script>
+    <script src="~/Scripts/nanobar.min.js"></script>
     <script>
 
         $(document).ready(function () {
+
+            var options = {
+                classname: 'my-class',
+                id: 'nanobar'
+            };
 
             function getUrlParameter(sParam) {
                 var sPageURL = window.location.search.substring(1);
@@ -46,7 +52,12 @@
                 });
             }
 
-        $('#Entrar').click(function (e) {
+            $('#Entrar').click(function (e) {
+
+                var nanobar = new Nanobar(options);
+         nanobar.go(50); 
+               
+
             var CamposFaltando = false;
 
             $('input[type="text"]').each(function () {
@@ -81,6 +92,8 @@
                 }
             });
 
+            nanobar.go(99);
+
             if (CamposFaltando) {
                 $.simplyToast('Favor preencher os campos obrigatorios!', 'danger', {
                     align: "center",
@@ -88,9 +101,11 @@
                     maxWidth: 450,
                     delay: 5000,
                 });
+                nanobar.go(100);
                 e.preventDefault();
             }
             else {
+
                 return true;
             }
 

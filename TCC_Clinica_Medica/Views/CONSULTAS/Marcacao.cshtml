@@ -7,7 +7,8 @@
 }
 
 <script>
-   
+
+
     $(document).ready(function () {
         $('select').listbox({
             'searchbar': true
@@ -19,33 +20,62 @@
         $('#INICIO').mask('00:00:00');
         $('#FIM').mask('00:00:00');
         $("#RETORNO").bootstrapSwitch();
+        $("#divConsultasAntigas").hide();
 
-        $('#ESPECIALIDADE').change(function () {
-            SelecionarMedico('0');
-            $.ajax({
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                crossDomain: true,
-                url: '@(Url.Action("MudarMedico", "CONSULTAS", null, Request.Url.Scheme))?id=' + this.value,
-                success: function (result) {
-                    $('#divMedico').html(result);
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                   // $.simplyToast(xhr.status);
-                   // $.simplyToast(thrownError);
-                    alert(xhr.status);
-                    alert(thrownError);
-                    alert(xhr.responseText);
-                },
-                cache: false
-            });
-
+        $('input[name="RETORNO"]').on('switchChange.bootstrapSwitch', function (event, state) {
+            
+            if (state) {
+                $("#divConsultasAntigas").show();
+                console.log($('#IDPACIENTE').val());
+                AgendaPaciente($('#IDPACIENTE').val());
+            }
+            else {
+                $("#divConsultasAntigas").hide();
+            }
         });
 
-     
 
+        $('#IDPACIENTE').change(function ()
+        {
+            var id = this.value;
+            var state=  $('input[name="RETORNO"]').bootstrapSwitch('state');
+
+                if (state) {
+                    $("#divConsultasAntigas").show();
+                    AgendaPaciente(id);
+                }
+                else {
+                    $("#divConsultasAntigas").hide();
+                }
+        });
+     
+        $('#ESPECIALIDADE').change(function () {
+
+            SelecionarEspecialidade(this.value);
+        });
       
     });
+
+    function SelecionarEspecialidade(id)
+    {
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            url: '@(Url.Action("MudarMedico", "CONSULTAS", null, Request.Url.Scheme))?id=' + id,
+            success: function (result) {
+                $('#divMedico').html(result);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $.simplyToast(xhr.status);
+                $.simplyToast(thrownError);
+               // alert(xhr.status);
+               // alert(thrownError);
+               // alert(xhr.responseText);
+            },
+            cache: false
+        });
+    }
 
     function SelecionarMedico(id) {
 
@@ -58,11 +88,32 @@
                 $('#divAgenda').html(result);
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                // $.simplyToast(xhr.status);
-                // $.simplyToast(thrownError);
-                alert(xhr.status);
-                alert(thrownError);
-                alert(xhr.responseText);
+                 $.simplyToast(xhr.status);
+                $.simplyToast(thrownError);
+               // alert(xhr.status);
+               // alert(thrownError);
+               // alert(xhr.responseText);
+            },
+            cache: false
+        });
+    }
+
+    function AgendaPaciente(id) {
+
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            url: '@(Url.Action("AgendaPaciente", "CONSULTAS", null, Request.Url.Scheme))?id=' + id,
+            success: function (result) {
+                $('#divAgendaPaciente').html(result);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $.simplyToast(xhr.status);
+                $.simplyToast(thrownError);
+                // alert(xhr.status);
+                // alert(thrownError);
+                // alert(xhr.responseText);
             },
             cache: false
         });
@@ -76,7 +127,7 @@
 <br />
 <div class="jumbotron">
 @using (Html.BeginForm())
-{
+{    @Html.AntiForgeryToken()
     <h2>Marcação de consulta</h2>
     <div class="form-horizontal">
         <div class="form-group">
@@ -100,7 +151,7 @@
         <div class="form-group">
             <span class="control-label col-md-2">Paciente</span>
             <div class="col-md-10">
-                @Html.DropDownList("PACIENTE", (IEnumerable<SelectListItem>)ViewBag.Pacientes, new { @class = "form-control" })
+                @Html.DropDownList("IDPACIENTE", (IEnumerable<SelectListItem>)ViewBag.Pacientes, new { @class = "form-control" })
             </div>
         </div>
         <div class="form-group">
@@ -124,17 +175,29 @@
         <div class="form-group">
             <span class="control-label col-md-2">Retorno</span>
             <div class="col-md-10">
-                <input type="checkbox" id="RETORNO" name="RETORNO" data-toggle="toggle" data-on-text="SIM" data-off-text="NÃO">
+                <input type="checkbox" id="RETORNO" name="RETORNO" data-toggle="toggle" data-on-text="SIM" data-off-text="NÃO" value="1">
+            </div>
+        </div>
+        <div class="form-group" id="divConsultasAntigas">
+            <span class="control-label col-md-2">Antigas consultas do paciente</span>
+
+            <div class="col-md-10" id="divAgendaPaciente">
+                @Html.Partial("ConsultasAntigasPaciente", (List<CONSULTAS>)ViewBag.ConsultasAntigasPaciente)
             </div>
         </div>
         <div class="form-group">
-            <span class="control-label col-md-2">Antigas consultas do paciente</span>
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-default" id="Criar">
+                    <i class="glyphicon glyphicon-floppy-disk"></i> &nbsp; Marcar
+                </button>
 
-            <div class="col-md-10">
             </div>
         </div>
     </div>
     @section Scripts { @Scripts.Render("~/bundles/jqueryval")}
  }
 </div>
-      
+      <script>
+          console.log($('#ESPECIALIDADE').val());
+          SelecionarEspecialidade($('#ESPECIALIDADE').val());
+      </script>

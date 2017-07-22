@@ -23,7 +23,7 @@ namespace TCC_Clinica_Medica
         public int ID { get; set; }
         public string ENDERECO { get; set; }
         public Nullable<int> ID_PLANO_SAUDE { get; set; }
-        public Nullable<int> ID_USUARIO { get; set; }
+        public int ID_USUARIO { get; set; }
         public string TELEFONE { get; set; }
         public string NUMERO_PLANO { get; set; }
     

@@ -157,7 +157,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ENDERECO" Type="varchar" MaxLength="5000" />
           <Property Name="ID_PLANO_SAUDE" Type="int" />
-          <Property Name="ID_USUARIO" Type="int" />
+          <Property Name="ID_USUARIO" Type="int" Nullable="false" />
           <Property Name="TELEFONE" Type="varchar" MaxLength="14" />
           <Property Name="NUMERO_PLANO" Type="varchar" MaxLength="50" />
         </EntityType>
@@ -409,7 +409,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PACIENTES_USUARIOS">
-          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="0..1" />
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
           <End Role="PACIENTES" Type="Self.PACIENTES" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="USUARIOS">
@@ -836,7 +836,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ENDERECO" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
           <Property Name="ID_PLANO_SAUDE" Type="Int32" />
-          <Property Name="ID_USUARIO" Type="Int32" />
+          <Property Name="ID_USUARIO" Type="Int32" Nullable="false" />
           <Property Name="TELEFONE" Type="String" MaxLength="14" FixedLength="false" Unicode="false" />
           <Property Name="NUMERO_PLANO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CONSULTAS" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTAS_PACIENTES" FromRole="PACIENTES" ToRole="CONSULTAS" />
@@ -1120,7 +1120,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PACIENTES_USUARIOS">
-          <End Type="TCC_CLINICA_MEDICAModel.USUARIOS" Role="USUARIOS" Multiplicity="0..1" />
+          <End Type="TCC_CLINICA_MEDICAModel.USUARIOS" Role="USUARIOS" Multiplicity="1" />
           <End Type="TCC_CLINICA_MEDICAModel.PACIENTES" Role="PACIENTES" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="USUARIOS">

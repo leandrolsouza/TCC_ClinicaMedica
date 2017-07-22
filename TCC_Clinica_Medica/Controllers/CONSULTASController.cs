@@ -19,7 +19,7 @@ namespace TCC_Clinica_Medica.Controllers
         public async Task<ActionResult> Index()
         {
             var cONSULTAS = db.CONSULTAS.Include(c => c.CONSULTAS2).Include(c => c.MEDICOS).Include(c => c.PACIENTES);
-            return View(await cONSULTAS.ToListAsync());
+            return View();
         }
 
         public ActionResult Marcacao()
@@ -32,7 +32,7 @@ namespace TCC_Clinica_Medica.Controllers
             ViewBag.Especialidades =
                  new SelectList(db.ESPECIALIDADES.ToList().Where(x => x.ATIVO).OrderBy(s => s.DESCRICAO).ToList(), "ID", "DESCRICAO");
 
-            ViewBag.Medicos = db.USUARIOS.ToList().Where(x => x.TIPO_ACESSO == 2 && x.ATIVO).OrderBy(s => s.NOME).ToList();
+            ViewBag.Medicos = new List<USUARIOS>();
 
             ViewBag.Pacientes =
                  new SelectList(db.USUARIOS.ToList().Where(x => x.TIPO_ACESSO == 3 && x.ATIVO).OrderBy(s => s.NOME).ToList(), "ID", "NOME");
@@ -42,6 +42,7 @@ namespace TCC_Clinica_Medica.Controllers
                           select s;
 
             ViewBag.Agenda = new List<CONSULTAS>();
+            ViewBag.ConsultasAntigasPaciente = new List<CONSULTAS>();
 
             return View();
         }
@@ -72,7 +73,20 @@ namespace TCC_Clinica_Medica.Controllers
             return PartialView("Agenda", ViewBag.Agenda);
         }
 
-        // GET: CONSULTAS/Create
+        [HttpPost]
+        public ActionResult AgendaPaciente(int id)
+        {
+            ViewBag.ConsultasAntigasPaciente = (from c in db.CONSULTAS
+                              join m in db.MEDICOS on c.ID_MEDICO equals m.ID
+                              join pa in db.PACIENTES on c.ID_PACIENTE equals pa.ID
+                              where c.ID_PACIENTE == id && c.REALIZADA && !c.RETORNO
+                              select c).ToList();
+
+
+            return PartialView("ConsultasAntigasPaciente", ViewBag.ConsultasAntigasPaciente);
+        }
+
+
         public ActionResult Create()
         {
             ViewBag.ID_CONSULTA_RETORNO = new SelectList(db.CONSULTAS, "ID", "ID");
@@ -86,19 +100,32 @@ namespace TCC_Clinica_Medica.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,ID_MEDICO,ID_PACIENTE,DATA_INICIO,DATA_FIM,REALIZADA,RETORNO,ID_CONSULTA_RETORNO")] CONSULTAS cONSULTAS)
+        public async Task<ActionResult> Marcacao(string IDMEDICO,string IDPACIENTE, string DATA, string INICIO, string FIM,string RETORNO,string IDCONSULTARETORNO)
         {
             if (ModelState.IsValid)
             {
+                CONSULTAS cONSULTAS = new CONSULTAS();
+                cONSULTAS.ID_MEDICO = int.Parse(IDMEDICO);
+                cONSULTAS.ID_PACIENTE = int.Parse(IDPACIENTE);
+                cONSULTAS.DATA_INICIO = DateTime.Parse(DATA).AddHours(double.Parse(INICIO.Split(':').ToList()[0])).AddMinutes(double.Parse(INICIO.Split(':').ToList()[1]));
+                cONSULTAS.DATA_FIM = DateTime.Parse(DATA).AddHours(double.Parse(FIM.Split(':').ToList()[0])).AddMinutes(double.Parse(FIM.Split(':').ToList()[1]));
+                if(RETORNO == "1")
+                {
+                    cONSULTAS.RETORNO = true;
+                    cONSULTAS.ID_CONSULTA_RETORNO = int.Parse(IDCONSULTARETORNO);
+                }
+                else
+                {
+                    cONSULTAS.RETORNO = false;
+                }
+
                 db.CONSULTAS.Add(cONSULTAS);
                 await db.SaveChangesAsync();
+
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ID_CONSULTA_RETORNO = new SelectList(db.CONSULTAS, "ID", "ID", cONSULTAS.ID_CONSULTA_RETORNO);
-            ViewBag.ID_MEDICO = new SelectList(db.MEDICOS, "ID", "CRM", cONSULTAS.ID_MEDICO);
-            ViewBag.ID_PACIENTE = new SelectList(db.PACIENTES, "ID", "ENDERECO", cONSULTAS.ID_PACIENTE);
-            return View(cONSULTAS);
+            return View();
         }
 
         // GET: CONSULTAS/Edit/5
