@@ -1,74 +1,18 @@
-﻿@model PagedList.IPagedList<PLANO_SAUDE>
-@using PagedList.Mvc;
-
+﻿
 @{
-    ViewBag.Title = "Plano de Saúde";
+    ViewBag.Title = "Consulta";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<script>
-
-    $(document).ready(function () {
-
-        $("#dialog-confirm").hide();
-    });
-
-    var x = getUrlParameter('mensagem');
-
-    if (x != '' && x != undefined)
-        {
-        $.simplyToast(decodeURIComponent(x), 'success');
-    }
-
-    function Apagar(id) {
-        $("#dialog-confirm").show();
-        $("#dialog-confirm").dialog({
-            resizable: false,
-            height: 160,
-            width: 300,
-            modal: true,
-            buttons: {
-                "Apagar": function () {
-
-                    $.ajax({
-                        type: "POST",
-                        dataType: 'json',
-                        crossDomain: true,
-                        url: '@(Url.Action("DeleteConfirmed", "PLANO_SAUDE", null, Request.Url.Scheme))?id=' + id,
-                        success: function (result) {
-                            window.location.href = result;
-                        },
-                        error: function (xhr, ajaxOptions, thrownError) {
-                            $.simplyToast(xhr.status, 'danger');
-                            $.simplyToast(thrownError, 'danger');
-                            //alert(xhr.responseText);
-                        },
-                        cache: false
-                    });
-
-                  $(this).dialog("close");
-                },
-                "Cancelar": function () {
-                    $(this).dialog("close");
-                }
-            }
-        });
-    }
-
-  
-
-</script>
-
 <br />
 <br />
 <div class="jumbotron">
-    <h2>Plano de saúde</h2>
+    <h2>Consultas</h2>
 
 
     <table class="table">
         <tr>
             <td style="width:65%" valign="top">
-                @using (Html.BeginForm("Index", "PLANO_SAUDE", FormMethod.Get))
+                @using (Html.BeginForm("Index", "CONSULTAS", FormMethod.Get))
                 {
                     @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Pesquisar", @class = "TextBoxSearch" })
                     <button type="submit" class="btn btn-default" id="Procurar">
@@ -107,8 +51,8 @@
                         @Html.DisplayFor(modelItem => item.DESCRICAO)
                     </td>
                     <td>
-                            @Html.DisplayFor(modelItem => item.ATIVO)
-                        </td>
+                        @Html.DisplayFor(modelItem => item.ATIVO)
+                    </td>
                     <td>
                         @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) &nbsp; | &nbsp;
                         @*@Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "glyphicon glyphicon-trash" })*@

@@ -19,7 +19,7 @@ namespace TCC_Clinica_Medica.Controllers
         public async Task<ActionResult> Index()
         {
             var cONSULTAS = db.CONSULTAS.Include(c => c.CONSULTAS2).Include(c => c.MEDICOS).Include(c => c.PACIENTES);
-            return View();
+            return View(await cONSULTAS.ToListAsync());
         }
 
         public ActionResult Marcacao()
@@ -34,8 +34,11 @@ namespace TCC_Clinica_Medica.Controllers
 
             ViewBag.Medicos = new List<USUARIOS>();
 
-            ViewBag.Pacientes =
-                 new SelectList(db.USUARIOS.ToList().Where(x => x.TIPO_ACESSO == 3 && x.ATIVO).OrderBy(s => s.NOME).ToList(), "ID", "NOME");
+            ViewBag.Pacientes = new SelectList((from p in db.PACIENTES
+                                 join usu in db.USUARIOS on p.ID_USUARIO equals usu.ID
+                                 where usu.ATIVO
+                                 select new { NOME = usu.NOME, ID = p.ID }
+                                 ).ToList(), "ID", "NOME");
 
             ViewBag.ConsultasAntigas = from s in db.CONSULTAS
                           where s.PACIENTES.ID_USUARIO == 2
@@ -116,6 +119,7 @@ namespace TCC_Clinica_Medica.Controllers
                 }
                 else
                 {
+                    cONSULTAS.ID_CONSULTA_RETORNO = null;
                     cONSULTAS.RETORNO = false;
                 }
 

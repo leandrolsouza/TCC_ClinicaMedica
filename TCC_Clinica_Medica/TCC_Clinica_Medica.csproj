@@ -391,7 +391,6 @@
     <Content Include="Views\PACIENTES\Index.cshtml" />
     <Content Include="Views\CONSULTAS\Create.cshtml" />
     <Content Include="Views\CONSULTAS\Edit.cshtml" />
-    <Content Include="Views\CONSULTAS\Index.cshtml" />
     <Content Include="Views\EXAMES\Create.cshtml" />
     <Content Include="Views\EXAMES\Delete.cshtml" />
     <Content Include="Views\EXAMES\Details.cshtml" />
@@ -445,6 +444,8 @@
     <Content Include="Views\CONSULTAS\Medicos.cshtml" />
     <Content Include="Views\CONSULTAS\Agenda.cshtml" />
     <Content Include="Views\CONSULTAS\ConsultasAntigasPaciente.cshtml" />
+    <Content Include="Views\CONSULTAS\Consulta.cshtml" />
+    <Content Include="Views\CONSULTAS\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
