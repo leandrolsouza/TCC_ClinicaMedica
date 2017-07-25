@@ -3,82 +3,53 @@
     ViewBag.Title = "Consulta";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<script>
+    $("#RETORNO").bootstrapSwitch();
+</script>
+
 <br />
 <br />
 <div class="jumbotron">
-    <h2>Consultas</h2>
+    <h2>Consulta</h2>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <span class="control-label col-md-2"> Anamnese</span>
+            <div class="col-md-10">
+                @Html.TextArea("ANAMNESE",  new { @class = "form-control" } )
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">Solicitar exames</span>
+            <div class="col-md-10" style="height: 150px; overflow-y: scroll;">
+                @Html.Partial("ExamesPartial", (List<EXAMES>)ViewBag.Exames)
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">Observações Exame</span>
+            <div class="col-md-10">
+                @Html.TextArea("EXAME_OBSERVACOES", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">Doença</span>
+            <div class="col-md-10" style="height: 150px; overflow-y: scroll;">
+                @Html.Partial("DoencasPartial", (List<DOENCAS>)ViewBag.Doencas)
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">RECEITA</span>
+            <div class="col-md-10" style="height: 150px; overflow-y: scroll;">
+                @Html.Partial("MedicamentosPartial", (List<MEDICAMENTOS>)ViewBag.Medicamentos)
+            </div>
+        </div>
 
-
-    <table class="table">
-        <tr>
-            <td style="width:65%" valign="top">
-                @using (Html.BeginForm("Index", "CONSULTAS", FormMethod.Get))
-                {
-                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Pesquisar", @class = "TextBoxSearch" })
-                    <button type="submit" class="btn btn-default" id="Procurar">
-                        <i class="glyphicon glyphicon-search"></i> &nbsp; Procurar
-                    </button>
-                }
-            </td>
-            <td style="width:35%; text-align:right">
-                @using (Html.BeginForm("Create", "PLANO_SAUDE", FormMethod.Get))
-                {
-                    <button type="submit" class="btn btn-default">
-                        <i class="glyphicon glyphicon-file"></i> &nbsp; Novo plano
-                    </button>
-                }
-            </td>
-        </tr>
-
-
-    </table>
-
-
-
-    <div class="panel panel-primary">
-        <table class="table  table-bordered">
-            <tr style="background-color:#d1d1d1;font-weight: bold;">
-                <td>
-                    @Html.ActionLink("DESCRIÇÃO", "Index", new { sortOrder = ViewBag.NameSortParm })
-                </td>
-                <td>ATIVO</td>
-            </tr>
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DESCRICAO)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ATIVO)
-                    </td>
-                    <td>
-                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) &nbsp; | &nbsp;
-                        @*@Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "glyphicon glyphicon-trash" })*@
-                        <a href="#"><span class="glyphicon glyphicon-trash" id="trash" onclick="javascript:Apagar(@item.ID);"></span></a>
-                    </td>
-                </tr>
-            }
-            <tr>
-                <td align="right" colspan="3">
-
-                    @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
- new PagedListRenderOptions
- {
-
-     LinkToFirstPageFormat = "Primeiro",
-     LinkToPreviousPageFormat = "Anterior",
-     LinkToNextPageFormat = "Próximo",
-     LinkToLastPageFormat = "Última"
- })
-                </td>
-            </tr>
-
-        </table>
-    </div>
-    <div id="dialog-confirm" title="">
-        <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja apagar esse item?</p>
+        <div class="form-group">
+            <span class="control-label col-md-2">Necessario retorno?</span>
+            <div class="col-md-10">
+                <input type="checkbox" id="RETORNO" name="RETORNO" data-toggle="toggle" data-on-text="SIM" data-off-text="NÃO" value="1">
+            </div>
+        </div>
     </div>
 </div>
+

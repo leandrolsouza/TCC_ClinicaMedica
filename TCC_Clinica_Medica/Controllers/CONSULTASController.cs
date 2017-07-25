@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TCC_Clinica_Medica;
+using PagedList;
+using TCC_Clinica_Medica.App_Start;
 
 namespace TCC_Clinica_Medica.Controllers
 {
@@ -16,12 +18,204 @@ namespace TCC_Clinica_Medica.Controllers
         private TCC_CLINICA_MEDICAEntities db = new TCC_CLINICA_MEDICAEntities();
 
         // GET: CONSULTAS
-        public async Task<ActionResult> Index()
+        public ActionResult Agendadas(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            var cONSULTAS = db.CONSULTAS.Include(c => c.CONSULTAS2).Include(c => c.MEDICOS).Include(c => c.PACIENTES);
-            return View(await cONSULTAS.ToListAsync());
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var consultas = db.CONSULTAS.ToList().AsEnumerable();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                consultas = consultas.Where(s => s.DATA_INICIO.ToShortDateString() == searchString);
+
+                if (consultas.ToList().Count == 0)
+                {
+                    consultas = db.CONSULTAS.ToList().AsEnumerable();
+                    consultas = consultas.Where(s => s.DATA_INICIO.ToLongTimeString() == searchString);
+                }
+
+                if (consultas.ToList().Count == 0)
+                {
+                    consultas = db.CONSULTAS.ToList().AsEnumerable();
+                    consultas = consultas.Where(s => s.MEDICOS.USUARIOS.NOME.ToUpper().Contains(searchString.ToUpper()));
+                }
+
+                if (consultas.ToList().Count == 0)
+                {
+                    consultas = db.CONSULTAS.ToList().AsEnumerable();
+                    consultas = consultas.Where(s => s.PACIENTES.USUARIOS.NOME.ToUpper().Contains(searchString.ToUpper()));
+                }
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    consultas = consultas.OrderByDescending(s => s.DATA_INICIO);
+                    break;
+                default:
+                    consultas = consultas.OrderBy(s => s.DATA_INICIO);
+                    break;
+            }
+
+            consultas = consultas.Where(x => !x.CANCELADA.Value && !x.REALIZADA);
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(consultas.ToPagedList(pageNumber, pageSize));
         }
 
+        [CustomAuthorize(Roles = new UserType[] { UserType.Medico })]
+        public ActionResult ConsultasMedico(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var consultas = db.CONSULTAS.ToList().AsEnumerable().Where(x => x.ID_MEDICO == ((USUARIOS)Session["Usuario"]).MEDICOS.ToList()[0].ID);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                consultas = consultas.Where(s => s.DATA_INICIO.ToShortDateString() == searchString);
+
+                if (consultas.ToList().Count == 0)
+                {
+                    db.CONSULTAS.ToList().AsEnumerable().Where(x => x.ID_MEDICO == ((USUARIOS)Session["Usuario"]).MEDICOS.ToList()[0].ID);
+                    consultas = consultas.Where(s => s.DATA_INICIO.ToLongTimeString() == searchString);
+                }
+
+                if (consultas.ToList().Count == 0)
+                {
+                    db.CONSULTAS.ToList().AsEnumerable().Where(x => x.ID_MEDICO == ((USUARIOS)Session["Usuario"]).MEDICOS.ToList()[0].ID);
+                    consultas = consultas.Where(s => s.MEDICOS.USUARIOS.NOME.ToUpper().Contains(searchString.ToUpper()));
+                }
+
+                if (consultas.ToList().Count == 0)
+                {
+                    db.CONSULTAS.ToList().AsEnumerable().Where(x => x.ID_MEDICO == ((USUARIOS)Session["Usuario"]).MEDICOS.ToList()[0].ID);
+                    consultas = consultas.Where(s => s.PACIENTES.USUARIOS.NOME.ToUpper().Contains(searchString.ToUpper()));
+                }
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    consultas = consultas.OrderByDescending(s => s.DATA_INICIO);
+                    break;
+                default:
+                    consultas = consultas.OrderBy(s => s.DATA_INICIO);
+                    break;
+            }
+
+            consultas = consultas.Where(x => !x.CANCELADA.Value && !x.REALIZADA);
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(consultas.ToPagedList(pageNumber, pageSize));
+        }
+
+        public ActionResult Finalizadas(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var consultas = db.CONSULTAS.ToList().AsEnumerable();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                consultas = consultas.Where(s => s.DATA_INICIO.ToShortDateString() == searchString);
+
+                if (consultas.ToList().Count == 0)
+                {
+                    consultas = db.CONSULTAS.ToList().AsEnumerable();
+                    consultas = consultas.Where(s => s.DATA_INICIO.ToLongTimeString() == searchString);
+                }
+
+                if (consultas.ToList().Count == 0)
+                {
+                    consultas = db.CONSULTAS.ToList().AsEnumerable();
+                    consultas = consultas.Where(s => s.MEDICOS.USUARIOS.NOME.ToUpper().Contains(searchString.ToUpper()));
+                }
+
+                if (consultas.ToList().Count == 0)
+                {
+                    consultas = db.CONSULTAS.ToList().AsEnumerable();
+                    consultas = consultas.Where(s => s.PACIENTES.USUARIOS.NOME.ToUpper().Contains(searchString.ToUpper()));
+                }
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    consultas = consultas.OrderByDescending(s => s.DATA_INICIO);
+                    break;
+                default:
+                    consultas = consultas.OrderBy(s => s.DATA_INICIO);
+                    break;
+            }
+
+            consultas = consultas.Where(x => x.CANCELADA.Value || x.REALIZADA);
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(consultas.ToPagedList(pageNumber, pageSize));
+        }
+
+        [CustomAuthorize(Roles = new UserType[] { UserType.Medico })]
+        public ActionResult Consulta()
+        {
+            ViewBag.Exames = db.EXAMES.ToList().Where(x=> x.ATIVO).ToList();
+            ViewBag.Doencas = db.DOENCAS.ToList().Where(x => x.ATIVO).ToList();
+            ViewBag.Medicamentos = db.MEDICAMENTOS.ToList().Where(x => x.ATIVO).ToList();
+
+            return View();
+        }
+
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         public ActionResult Marcacao()
         {
             if (Session["Usuario"] == null)
@@ -50,6 +244,7 @@ namespace TCC_Clinica_Medica.Controllers
             return View();
         }
 
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         [HttpPost]
         public ActionResult MudarMedico(int id)
         {
@@ -63,6 +258,7 @@ namespace TCC_Clinica_Medica.Controllers
             return PartialView("Medicos", ViewBag.Medicos);
         }
 
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         [HttpPost]
         public ActionResult AgendaMedico(int id)
         {
@@ -76,6 +272,7 @@ namespace TCC_Clinica_Medica.Controllers
             return PartialView("Agenda", ViewBag.Agenda);
         }
 
+         [CustomAuthorize(Roles = new UserType[] {UserType.Administrador})]
         [HttpPost]
         public ActionResult AgendaPaciente(int id)
         {
@@ -89,18 +286,7 @@ namespace TCC_Clinica_Medica.Controllers
             return PartialView("ConsultasAntigasPaciente", ViewBag.ConsultasAntigasPaciente);
         }
 
-
-        public ActionResult Create()
-        {
-            ViewBag.ID_CONSULTA_RETORNO = new SelectList(db.CONSULTAS, "ID", "ID");
-            ViewBag.ID_MEDICO = new SelectList(db.MEDICOS, "ID", "CRM");
-            ViewBag.ID_PACIENTE = new SelectList(db.PACIENTES, "ID", "ENDERECO");
-            return View();
-        }
-
-        // POST: CONSULTAS/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Marcacao(string IDMEDICO,string IDPACIENTE, string DATA, string INICIO, string FIM,string RETORNO,string IDCONSULTARETORNO)
@@ -132,52 +318,14 @@ namespace TCC_Clinica_Medica.Controllers
             return View();
         }
 
-        // GET: CONSULTAS/Edit/5
-        public async Task<ActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CONSULTAS cONSULTAS = await db.CONSULTAS.FindAsync(id);
-            if (cONSULTAS == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ID_CONSULTA_RETORNO = new SelectList(db.CONSULTAS, "ID", "ID", cONSULTAS.ID_CONSULTA_RETORNO);
-            ViewBag.ID_MEDICO = new SelectList(db.MEDICOS, "ID", "CRM", cONSULTAS.ID_MEDICO);
-            ViewBag.ID_PACIENTE = new SelectList(db.PACIENTES, "ID", "ENDERECO", cONSULTAS.ID_PACIENTE);
-            return View(cONSULTAS);
-        }
-
-        // POST: CONSULTAS/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,ID_MEDICO,ID_PACIENTE,DATA_INICIO,DATA_FIM,REALIZADA,RETORNO,ID_CONSULTA_RETORNO")] CONSULTAS cONSULTAS)
+        public ActionResult Cancelar(int id)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(cONSULTAS).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ID_CONSULTA_RETORNO = new SelectList(db.CONSULTAS, "ID", "ID", cONSULTAS.ID_CONSULTA_RETORNO);
-            ViewBag.ID_MEDICO = new SelectList(db.MEDICOS, "ID", "CRM", cONSULTAS.ID_MEDICO);
-            ViewBag.ID_PACIENTE = new SelectList(db.PACIENTES, "ID", "ENDERECO", cONSULTAS.ID_PACIENTE);
-            return View(cONSULTAS);
-        }
-
-        // POST: CONSULTAS/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            CONSULTAS cONSULTAS = await db.CONSULTAS.FindAsync(id);
-            db.CONSULTAS.Remove(cONSULTAS);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            CONSULTAS consulta = db.CONSULTAS.Find(id);
+            consulta.CANCELADA = true;
+            db.SaveChanges();
+            return Json(Url.Action("Index", new { mensagem = "Registro cancelado com sucesso!" }));
         }
 
         protected override void Dispose(bool disposing)

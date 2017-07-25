@@ -139,13 +139,13 @@
         <div class="form-group" id="">
             <span class="control-label col-md-2" >Medico</span>
             <div class="col-md-10" id="divMedico">
-                @Html.Partial("Medicos", (List<USUARIOS>)ViewBag.Medicos)
+                @Html.Partial("MedicosPartial", (List<USUARIOS>)ViewBag.Medicos)
             </div>
         </div>
         <div class="form-group" id="">
             <span class="control-label col-md-2">Agenda</span>
             <div class="col-md-10" id="divAgenda">
-                @Html.Partial("Agenda", (List<CONSULTAS>)ViewBag.Agenda)
+                @Html.Partial("AgendaMedicoPartial", (List<CONSULTAS>)ViewBag.Agenda)
             </div>
         </div>
         <div class="form-group">

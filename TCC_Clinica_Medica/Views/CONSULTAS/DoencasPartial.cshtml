@@ -1,0 +1,38 @@
+﻿@model List<DOENCAS>
+    <div class="panel panel-primary">
+        <table class="table  table-bordered">
+            <tr style="background-color:#d1d1d1;font-weight: bold;">
+                <td style="min-width: 30px; max-width: 30px">
+                </td>
+                <td>DESCRIÇÃO</td>
+                <td>CID</td>
+            </tr>
+            @if (Model.Count > 0)
+            { 
+            foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                   @Html.CheckBox(@item.ID.ToString(),false, new { @class = "form-control", @value = @item.ID })
+                </td>
+                <td>
+                    @item.DESCRICAO
+                </td>
+                <td>
+                    @item.CID
+                </td>
+            </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5">
+                        <div class="alert alert-success" role="alert"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;NÃO EXISTEM DOENÇAS CADASTRADAS</div>
+                    </td>
+               </tr>
+                    }
+</table>
+        </div>
+  
+            

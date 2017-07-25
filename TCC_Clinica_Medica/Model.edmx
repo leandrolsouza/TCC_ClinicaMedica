@@ -36,6 +36,7 @@
           <Property Name="REALIZADA" Type="bit" Nullable="false" />
           <Property Name="RETORNO" Type="bit" Nullable="false" />
           <Property Name="ID_CONSULTA_RETORNO" Type="int" />
+          <Property Name="CANCELADA" Type="bit" />
         </EntityType>
         <EntityType Name="DOENCAS">
           <Key>
@@ -686,6 +687,7 @@
           <Property Name="REALIZADA" Type="Boolean" Nullable="false" />
           <Property Name="RETORNO" Type="Boolean" Nullable="false" />
           <Property Name="ID_CONSULTA_RETORNO" Type="Int32" />
+          <Property Name="CANCELADA" Type="Boolean" />
           <NavigationProperty Name="CONSULTA_DOENCA" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTA_DOENCA_CONSULTAS" FromRole="CONSULTAS" ToRole="CONSULTA_DOENCA" />
           <NavigationProperty Name="CONSULTAS1" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTAS_CONSULTAS" FromRole="CONSULTAS" ToRole="CONSULTAS1" />
           <NavigationProperty Name="CONSULTAS2" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTAS_CONSULTAS" FromRole="CONSULTAS1" ToRole="CONSULTAS" />
@@ -1161,6 +1163,7 @@
           <EntitySetMapping Name="CONSULTAS">
             <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.CONSULTAS">
               <MappingFragment StoreEntitySet="CONSULTAS">
+                <ScalarProperty Name="CANCELADA" ColumnName="CANCELADA" />
                 <ScalarProperty Name="ID_CONSULTA_RETORNO" ColumnName="ID_CONSULTA_RETORNO" />
                 <ScalarProperty Name="RETORNO" ColumnName="RETORNO" />
                 <ScalarProperty Name="REALIZADA" ColumnName="REALIZADA" />

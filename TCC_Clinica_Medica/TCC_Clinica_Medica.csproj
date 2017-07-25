@@ -389,8 +389,6 @@
     <Content Include="Views\PACIENTES\Details.cshtml" />
     <Content Include="Views\PACIENTES\Edit.cshtml" />
     <Content Include="Views\PACIENTES\Index.cshtml" />
-    <Content Include="Views\CONSULTAS\Create.cshtml" />
-    <Content Include="Views\CONSULTAS\Edit.cshtml" />
     <Content Include="Views\EXAMES\Create.cshtml" />
     <Content Include="Views\EXAMES\Delete.cshtml" />
     <Content Include="Views\EXAMES\Details.cshtml" />
@@ -441,11 +439,16 @@
     <Content Include="Views\LOGIN\Index.cshtml" />
     <Content Include="Views\Error\AccessDenied.cshtml" />
     <Content Include="Views\CONSULTAS\Marcacao.cshtml" />
-    <Content Include="Views\CONSULTAS\Medicos.cshtml" />
-    <Content Include="Views\CONSULTAS\Agenda.cshtml" />
+    <Content Include="Views\CONSULTAS\MedicosPartial.cshtml" />
+    <Content Include="Views\CONSULTAS\AgendaMedicoPartial.cshtml" />
     <Content Include="Views\CONSULTAS\ConsultasAntigasPaciente.cshtml" />
+    <Content Include="Views\CONSULTAS\Agendadas.cshtml" />
+    <Content Include="Views\CONSULTAS\Finalizadas.cshtml" />
+    <Content Include="Views\CONSULTAS\ConsultasMedico.cshtml" />
     <Content Include="Views\CONSULTAS\Consulta.cshtml" />
-    <Content Include="Views\CONSULTAS\Index.cshtml" />
+    <Content Include="Views\CONSULTAS\ExamesPartial.cshtml" />
+    <Content Include="Views\CONSULTAS\DoencasPartial.cshtml" />
+    <Content Include="Views\CONSULTAS\MedicamentosPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

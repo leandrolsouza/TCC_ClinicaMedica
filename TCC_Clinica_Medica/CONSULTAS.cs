@@ -32,6 +32,7 @@ namespace TCC_Clinica_Medica
         public bool REALIZADA { get; set; }
         public bool RETORNO { get; set; }
         public Nullable<int> ID_CONSULTA_RETORNO { get; set; }
+        public Nullable<bool> CANCELADA { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CONSULTA_DOENCA> CONSULTA_DOENCA { get; set; }
