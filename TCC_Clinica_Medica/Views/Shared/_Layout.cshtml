@@ -226,7 +226,12 @@
         var x = getUrlParameter('mensagem');
 
         if (x != '' && x != undefined) {
-            $.simplyToast(decodeURIComponent(x), 'info');
+            $.simplyToast(decodeURIComponent(x), 'info',{
+            align: "right",
+            minWidth: 250,
+            maxWidth: 450,
+            delay: 5000,
+            });
         }
 
 
