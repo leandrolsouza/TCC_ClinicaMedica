@@ -13,12 +13,6 @@
         $("#dialog-confirm").hide();
     });
 
-    var x = getUrlParameter('mensagem');
-
-    if (x != '' && x != undefined)
-        {
-        $.simplyToast(decodeURIComponent(x), 'success');
-    }
 
     function Apagar(id) {
         $("#dialog-confirm").show();

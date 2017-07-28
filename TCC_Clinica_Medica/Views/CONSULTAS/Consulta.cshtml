@@ -5,24 +5,56 @@
 }
 
 <script>
-    $("#RETORNO").bootstrapSwitch();
+ 
+
+    $(document).ready(function ()
+    {
+        $("#RETORNO").bootstrapSwitch();
+
+        $('#BUSCAR_EXAMES').keydown(function () {
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                crossDomain: true,
+                url: '@(Url.Action("PesquisarExame", "CONSULTAS", null, Request.Url.Scheme))?pesquisa=' + this.value,
+                success: function (result) {
+                    $('#divExames').html(result);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $.simplyToast(xhr.status);
+                    $.simplyToast(thrownError);
+                    // alert(xhr.status);
+                    // alert(thrownError);
+                     alert(xhr.responseText);
+                },
+                cache: false
+            });
+        });
+    });
 </script>
 
 <br />
 <br />
 <div class="jumbotron">
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
     <h2>Consulta</h2>
     <div class="form-horizontal">
         <div class="form-group">
             <span class="control-label col-md-2"> Anamnese</span>
             <div class="col-md-10">
-                @Html.TextArea("ANAMNESE",  new { @class = "form-control" } )
+                @Html.TextArea("ANAMNESE", new { @class = "form-control" })
             </div>
         </div>
         <div class="form-group">
             <span class="control-label col-md-2">Solicitar exames</span>
-            <div class="col-md-10" style="height: 150px; overflow-y: scroll;">
-                @Html.Partial("ExamesPartial", (List<EXAMES>)ViewBag.Exames)
+            <div class="col-md-10">
+                <input type="text" class="TextBoxSearch" placeholder="Pesquisar" id="BUSCAR_EXAMES" name="BUSCAR_EXAMES"/>
+                <div id="divExames">
+                    @Html.Partial("ExamesPartial", (List<EXAMES>)ViewBag.Exames)
+                </div>
             </div>
         </div>
         <div class="form-group">
@@ -50,6 +82,16 @@
                 <input type="checkbox" id="RETORNO" name="RETORNO" data-toggle="toggle" data-on-text="SIM" data-off-text="NÃO" value="1">
             </div>
         </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-default" id="Finalizar">
+                    <i class="glyphicon glyphicon-floppy-disk"></i> &nbsp; Finalizar
+                </button>
+               @Html.Hidden("IDCONSULTA", ViewContext.RouteData.Values["ID"])
+            </div>
+        </div>
     </div>
+}
 </div>
+
 

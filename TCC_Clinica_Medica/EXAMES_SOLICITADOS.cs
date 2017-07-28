@@ -23,6 +23,7 @@ namespace TCC_Clinica_Medica
         public int ID { get; set; }
         public int ID_EXAME { get; set; }
         public int ID_CONSULTA { get; set; }
+        public string OBSERVACOES { get; set; }
     
         public virtual CONSULTAS CONSULTAS { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

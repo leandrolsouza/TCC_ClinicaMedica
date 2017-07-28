@@ -5,7 +5,7 @@
 }
 
 <!DOCTYPE html>
-   
+
 <html>
 <head>
     <meta charset="utf-8" />
@@ -55,89 +55,89 @@
             $('#Entrar').click(function (e) {
 
                 var nanobar = new Nanobar(options);
-         nanobar.go(50); 
-               
+                nanobar.go(50);
 
-            var CamposFaltando = false;
 
-            $('input[type="text"]').each(function () {
-                if ($.trim($(this).val()) == '') {
-                    CamposFaltando = true;
-                    $(this).css({
-                        "border": "1px solid red",
-                        "background": "#FFCECE"
-                    });
-                }
-                else {
-                    $(this).css({
-                        "border": "",
-                        "background": ""
-                    });
-                }
-            });
+                var CamposFaltando = false;
 
-            $('input[type="password"]').each(function () {
-                if ($.trim($(this).val()) == '') {
-                    CamposFaltando = true;
-                    $(this).css({
-                        "border": "1px solid red",
-                        "background": "#FFCECE"
-                    });
-                }
-                else {
-                    $(this).css({
-                        "border": "",
-                        "background": ""
-                    });
-                }
-            });
-
-            nanobar.go(99);
-
-            if (CamposFaltando) {
-                $.simplyToast('Favor preencher os campos obrigatorios!', 'danger', {
-                    align: "center",
-                    minWidth: 250,
-                    maxWidth: 450,
-                    delay: 5000,
+                $('input[type="text"]').each(function () {
+                    if ($.trim($(this).val()) == '') {
+                        CamposFaltando = true;
+                        $(this).css({
+                            "border": "1px solid red",
+                            "background": "#FFCECE"
+                        });
+                    }
+                    else {
+                        $(this).css({
+                            "border": "",
+                            "background": ""
+                        });
+                    }
                 });
-                nanobar.go(100);
-                e.preventDefault();
-            }
-            else {
 
-                return true;
-            }
+                $('input[type="password"]').each(function () {
+                    if ($.trim($(this).val()) == '') {
+                        CamposFaltando = true;
+                        $(this).css({
+                            "border": "1px solid red",
+                            "background": "#FFCECE"
+                        });
+                    }
+                    else {
+                        $(this).css({
+                            "border": "",
+                            "background": ""
+                        });
+                    }
+                });
 
+                nanobar.go(99);
+
+                if (CamposFaltando) {
+                    $.simplyToast('Favor preencher os campos obrigatorios!', 'danger', {
+                        align: "center",
+                        minWidth: 250,
+                        maxWidth: 450,
+                        delay: 5000,
+                    });
+                    nanobar.go(100);
+                    e.preventDefault();
+                }
+                else {
+
+                    return true;
+                }
+
+            });
         });
-    });
 
-   
+
     </script>
 </head>
 <body>
-@using (Html.BeginForm("LOGIN", "Login", FormMethod.Post))
-{
-    @Html.AntiForgeryToken()
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="panel panel-login">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <img src="~/Imagens/logo.png" />
+    @using (Html.BeginForm("LOGIN", "Login", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="panel panel-login">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <img src="~/Imagens/logo.png" />
+                                </div>
                             </div>
+                            <hr>
                         </div>
-                        <hr>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-6 col-sm-offset-3">
-                                            <input type="text" name="login" id="login" tabindex="1" class="form-control" placeholder="CPF ou E-mail" value="leandro.souza@gmail.com">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                <input type="text" name="login" id="login" tabindex="1" class="form-control" placeholder="CPF ou E-mail" value="leandro.souza@gmail.com">
                                             </div>
                                         </div>
                                     </div>
@@ -148,12 +148,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-sm-offset-3">
-                                            <button type="submit" class="btn btn-primary" id="Entrar">
-                                                <i class="glyphicon glyphicon-arrow-right"></i> &nbsp; ENTRAR
-                                            </button>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-sm-offset-3">
+                                                <button type="submit" class="btn btn-primary" id="Entrar">
+                                                    <i class="glyphicon glyphicon-arrow-right"></i> &nbsp; ENTRAR
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -163,13 +164,12 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year -By Leandro Luiz de Souza (Build 1.0.0.1)</p>
-        </footer>
-    </div>
-}
+        <div class="container body-content">
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year -By Leandro Luiz de Souza (Build 1.0.0.1)</p>
+            </footer>
+        </div>
+    }
 </body>
 </html>

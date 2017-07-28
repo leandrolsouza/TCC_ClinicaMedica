@@ -13,12 +13,7 @@
         $("#dialog-confirm").hide();
     });
 
-    var x = getUrlParameter('mensagem');
-
-    if (x != '' && x != undefined)
-        {
-        $.simplyToast(decodeURIComponent(x), 'success');
-    }
+ 
 
 </script>
 
@@ -82,7 +77,7 @@
                         @Html.DisplayFor(modelItem => item.PACIENTES.USUARIOS.NOME)
                     </td>
                     <td>
-                        @Html.ActionLink("Iniciar","Consulta")
+                        @Html.ActionLink("Iniciar","Consulta",new { ID = item.ID })
                     </td>
                 </tr>
             }

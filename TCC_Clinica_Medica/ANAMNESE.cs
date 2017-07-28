@@ -12,7 +12,7 @@ namespace TCC_Clinica_Medica
     using System;
     using System.Collections.Generic;
     
-    public partial class PACIENTE_HISTORICO_CLINICO
+    public partial class ANAMNESE
     {
         public int ID { get; set; }
         public string DESCRICAO { get; set; }

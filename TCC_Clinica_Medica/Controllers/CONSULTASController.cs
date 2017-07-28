@@ -74,7 +74,7 @@ namespace TCC_Clinica_Medica.Controllers
                     break;
             }
 
-            consultas = consultas.Where(x => !x.CANCELADA.Value && !x.REALIZADA);
+            consultas = consultas.Where(x => !x.CANCELADA && !x.REALIZADA);
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(consultas.ToPagedList(pageNumber, pageSize));
@@ -137,7 +137,7 @@ namespace TCC_Clinica_Medica.Controllers
                     break;
             }
 
-            consultas = consultas.Where(x => !x.CANCELADA.Value && !x.REALIZADA);
+            consultas = consultas.Where(x => !x.CANCELADA && !x.REALIZADA);
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(consultas.ToPagedList(pageNumber, pageSize));
@@ -199,7 +199,7 @@ namespace TCC_Clinica_Medica.Controllers
                     break;
             }
 
-            consultas = consultas.Where(x => x.CANCELADA.Value || x.REALIZADA);
+            consultas = consultas.Where(x => x.CANCELADA || x.REALIZADA);
             int pageSize = 5;
             int pageNumber = (page ?? 1);
             return View(consultas.ToPagedList(pageNumber, pageSize));
@@ -255,7 +255,7 @@ namespace TCC_Clinica_Medica.Controllers
                               select u).ToList();
 
 
-            return PartialView("Medicos", ViewBag.Medicos);
+            return PartialView("MedicosPartial", ViewBag.Medicos);
         }
 
         [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
@@ -269,7 +269,7 @@ namespace TCC_Clinica_Medica.Controllers
                                select c).ToList();
 
 
-            return PartialView("Agenda", ViewBag.Agenda);
+            return PartialView("AgendaMedicoPartial", ViewBag.Agenda);
         }
 
          [CustomAuthorize(Roles = new UserType[] {UserType.Administrador})]
@@ -279,7 +279,7 @@ namespace TCC_Clinica_Medica.Controllers
             ViewBag.ConsultasAntigasPaciente = (from c in db.CONSULTAS
                               join m in db.MEDICOS on c.ID_MEDICO equals m.ID
                               join pa in db.PACIENTES on c.ID_PACIENTE equals pa.ID
-                              where c.ID_PACIENTE == id && c.REALIZADA && !c.RETORNO
+                              where c.ID_PACIENTE == id && c.REALIZADA && c.TIPO == 1
                               select c).ToList();
 
 
@@ -300,11 +300,13 @@ namespace TCC_Clinica_Medica.Controllers
                 cONSULTAS.DATA_FIM = DateTime.Parse(DATA).AddHours(double.Parse(FIM.Split(':').ToList()[0])).AddMinutes(double.Parse(FIM.Split(':').ToList()[1]));
                 if(RETORNO == "1")
                 {
+                    cONSULTAS.TIPO = 2;
                     cONSULTAS.RETORNO = true;
                     cONSULTAS.ID_CONSULTA_RETORNO = int.Parse(IDCONSULTARETORNO);
                 }
                 else
                 {
+                    cONSULTAS.TIPO = 1;
                     cONSULTAS.ID_CONSULTA_RETORNO = null;
                     cONSULTAS.RETORNO = false;
                 }
@@ -312,7 +314,7 @@ namespace TCC_Clinica_Medica.Controllers
                 db.CONSULTAS.Add(cONSULTAS);
                 await db.SaveChangesAsync();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Agendadas", "CONSULTAS", new { mensagem = "Marcação criada com sucesso!" });
             }
 
             return View();
@@ -328,6 +330,86 @@ namespace TCC_Clinica_Medica.Controllers
             return Json(Url.Action("Index", new { mensagem = "Registro cancelado com sucesso!" }));
         }
 
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador, UserType.Medico })]
+        [HttpPost]
+        public ActionResult PesquisarExame(string pesquisa)
+        {
+            ViewBag.Exames = (from c in db.EXAMES
+                              where c.DESCRICAO.Contains(pesquisa)
+                              select c).ToList();
+
+            return PartialView("ExamesPartial", ViewBag.Exames);
+        }
+
+        [CustomAuthorize(Roles = new UserType[] { UserType.Medico })]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Consulta(int IDCONSULTA, string[] IDDOENCAS, string[] IDEXAMES, string[] IDMEDICAMENTO, string EXAME_OBSERVACOES, string ANAMNESE, string RETORNO)
+        {
+            if (ModelState.IsValid)
+            {
+                var CONSULTA = db.CONSULTAS.Find(IDCONSULTA);
+                CONSULTA.REALIZADA = true;
+                CONSULTA.RETORNO = RETORNO == "1" ? true: false;
+
+                db.SaveChanges();
+
+                var aNAMNESE = new ANAMNESE();
+                aNAMNESE.ID_CONSULTA = IDCONSULTA;
+                aNAMNESE.DESCRICAO = ANAMNESE;
+
+                db.SaveChanges();
+
+                foreach (var item in IDDOENCAS)
+                {
+                    int x = 0;
+                    int.TryParse(item, out x);
+
+                    if(x != 0)
+                    { 
+                        var cONSULTA_DOENCA = new CONSULTA_DOENCA();
+                        cONSULTA_DOENCA.ID_CONSULTA = IDCONSULTA;
+                        cONSULTA_DOENCA.ID_DOENCA = int.Parse(item);
+                        db.SaveChanges();
+                    }
+                }
+
+                foreach (var item in IDEXAMES)
+                {
+                    int x = 0;
+                    int.TryParse(item, out x);
+
+                    if (x != 0)
+                    {
+                        var eXAMES = new EXAMES_SOLICITADOS();
+                        eXAMES.ID_CONSULTA = IDCONSULTA;
+                        eXAMES.ID_CONSULTA = int.Parse(item);
+                        eXAMES.OBSERVACOES = EXAME_OBSERVACOES;
+                        db.SaveChanges();
+                    }
+                }
+
+
+                foreach (var item in IDMEDICAMENTO)
+                {
+                    int x = 0;
+                    int.TryParse(item, out x);
+
+                    if (x != 0)
+                    {
+                        var rECEITAS = new RECEITAS();
+                        rECEITAS.ID_CONSULTA = IDCONSULTA;
+                        rECEITAS.ID_MEDICAMENTO = int.Parse(item);
+                        db.SaveChanges();
+                    }
+                }
+
+
+                return RedirectToAction("ConsultaMedico", "CONSULTAS", new { mensagem = "Consulta finalizada com sucesso!" });
+            }
+
+            return View();
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

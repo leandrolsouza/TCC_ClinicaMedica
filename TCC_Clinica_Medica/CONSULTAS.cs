@@ -17,10 +17,10 @@ namespace TCC_Clinica_Medica
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CONSULTAS()
         {
+            this.ANAMNESE = new HashSet<ANAMNESE>();
             this.CONSULTA_DOENCA = new HashSet<CONSULTA_DOENCA>();
             this.CONSULTAS1 = new HashSet<CONSULTAS>();
             this.EXAMES_SOLICITADOS = new HashSet<EXAMES_SOLICITADOS>();
-            this.PACIENTE_HISTORICO_CLINICO = new HashSet<PACIENTE_HISTORICO_CLINICO>();
             this.RECEITAS = new HashSet<RECEITAS>();
         }
     
@@ -32,8 +32,11 @@ namespace TCC_Clinica_Medica
         public bool REALIZADA { get; set; }
         public bool RETORNO { get; set; }
         public Nullable<int> ID_CONSULTA_RETORNO { get; set; }
-        public Nullable<bool> CANCELADA { get; set; }
+        public bool CANCELADA { get; set; }
+        public int TIPO { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ANAMNESE> ANAMNESE { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CONSULTA_DOENCA> CONSULTA_DOENCA { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -43,8 +46,6 @@ namespace TCC_Clinica_Medica
         public virtual PACIENTES PACIENTES { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EXAMES_SOLICITADOS> EXAMES_SOLICITADOS { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PACIENTE_HISTORICO_CLINICO> PACIENTE_HISTORICO_CLINICO { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RECEITAS> RECEITAS { get; set; }
     }

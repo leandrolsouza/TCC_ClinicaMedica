@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TCC_CLINICA_MEDICAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ANAMNESE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRICAO" Type="varchar(max)" />
+          <Property Name="ID_CONSULTA" Type="int" />
+        </EntityType>
         <EntityType Name="CLINICAS">
           <Key>
             <PropertyRef Name="ID" />
@@ -36,7 +44,8 @@
           <Property Name="REALIZADA" Type="bit" Nullable="false" />
           <Property Name="RETORNO" Type="bit" Nullable="false" />
           <Property Name="ID_CONSULTA_RETORNO" Type="int" />
-          <Property Name="CANCELADA" Type="bit" />
+          <Property Name="CANCELADA" Type="bit" Nullable="false" />
+          <Property Name="TIPO" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DOENCAS">
           <Key>
@@ -86,6 +95,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_EXAME" Type="int" Nullable="false" />
           <Property Name="ID_CONSULTA" Type="int" Nullable="false" />
+          <Property Name="OBSERVACOES" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="HORARIOS_ATENDIMENTO">
           <Key>
@@ -142,14 +152,6 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CRM" Type="varchar" MaxLength="50" />
           <Property Name="ID_USUARIO" Type="int" />
-        </EntityType>
-        <EntityType Name="PACIENTE_HISTORICO_CLINICO">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DESCRICAO" Type="varchar(max)" />
-          <Property Name="ID_CONSULTA" Type="int" />
         </EntityType>
         <EntityType Name="PACIENTES">
           <Key>
@@ -387,12 +389,12 @@
         </Association>
         <Association Name="FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS">
           <End Role="CONSULTAS" Type="Self.CONSULTAS" Multiplicity="0..1" />
-          <End Role="PACIENTE_HISTORICO_CLINICO" Type="Self.PACIENTE_HISTORICO_CLINICO" Multiplicity="*" />
+          <End Role="ANAMNESE" Type="Self.ANAMNESE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="CONSULTAS">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="PACIENTE_HISTORICO_CLINICO">
+            <Dependent Role="ANAMNESE">
               <PropertyRef Name="ID_CONSULTA" />
             </Dependent>
           </ReferentialConstraint>
@@ -446,6 +448,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="TCC_CLINICA_MEDICAModelStoreContainer">
+          <EntitySet Name="ANAMNESE" EntityType="Self.ANAMNESE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CLINICAS" EntityType="Self.CLINICAS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONSULTA_DOENCA" EntityType="Self.CONSULTA_DOENCA" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CONSULTAS" EntityType="Self.CONSULTAS" Schema="dbo" store:Type="Tables" />
@@ -460,7 +463,6 @@
           <EntitySet Name="MEDICO_ESPECIALIDADE" EntityType="Self.MEDICO_ESPECIALIDADE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MEDICO_HORARIO_ATENDIMENTO" EntityType="Self.MEDICO_HORARIO_ATENDIMENTO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MEDICOS" EntityType="Self.MEDICOS" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PACIENTE_HISTORICO_CLINICO" EntityType="Self.PACIENTE_HISTORICO_CLINICO" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PACIENTES" EntityType="Self.PACIENTES" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PLANO_SAUDE" EntityType="Self.PLANO_SAUDE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RECEITAS" EntityType="Self.RECEITAS" Schema="dbo" store:Type="Tables" />
@@ -528,7 +530,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS" Association="Self.FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS">
             <End Role="CONSULTAS" EntitySet="CONSULTAS" />
-            <End Role="PACIENTE_HISTORICO_CLINICO" EntitySet="PACIENTE_HISTORICO_CLINICO" />
+            <End Role="ANAMNESE" EntitySet="ANAMNESE" />
           </AssociationSet>
           <AssociationSet Name="FK_PACIENTES_PLANO_SAUDE" Association="Self.FK_PACIENTES_PLANO_SAUDE">
             <End Role="PLANO_SAUDE" EntitySet="PLANO_SAUDE" />
@@ -552,6 +554,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="TCC_CLINICA_MEDICAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="TCC_CLINICA_MEDICAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ANAMNESE" EntityType="TCC_CLINICA_MEDICAModel.ANAMNESE" />
           <EntitySet Name="CLINICAS" EntityType="TCC_CLINICA_MEDICAModel.CLINICAS" />
           <EntitySet Name="CONSULTA_DOENCA" EntityType="TCC_CLINICA_MEDICAModel.CONSULTA_DOENCA" />
           <EntitySet Name="CONSULTAS" EntityType="TCC_CLINICA_MEDICAModel.CONSULTAS" />
@@ -566,12 +569,15 @@
           <EntitySet Name="MEDICO_ESPECIALIDADE" EntityType="TCC_CLINICA_MEDICAModel.MEDICO_ESPECIALIDADE" />
           <EntitySet Name="MEDICO_HORARIO_ATENDIMENTO" EntityType="TCC_CLINICA_MEDICAModel.MEDICO_HORARIO_ATENDIMENTO" />
           <EntitySet Name="MEDICOS" EntityType="TCC_CLINICA_MEDICAModel.MEDICOS" />
-          <EntitySet Name="PACIENTE_HISTORICO_CLINICO" EntityType="TCC_CLINICA_MEDICAModel.PACIENTE_HISTORICO_CLINICO" />
           <EntitySet Name="PACIENTES" EntityType="TCC_CLINICA_MEDICAModel.PACIENTES" />
           <EntitySet Name="PLANO_SAUDE" EntityType="TCC_CLINICA_MEDICAModel.PLANO_SAUDE" />
           <EntitySet Name="RECEITAS" EntityType="TCC_CLINICA_MEDICAModel.RECEITAS" />
           <EntitySet Name="sysdiagrams" EntityType="TCC_CLINICA_MEDICAModel.sysdiagrams" />
           <EntitySet Name="USUARIOS" EntityType="TCC_CLINICA_MEDICAModel.USUARIOS" />
+          <AssociationSet Name="FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS" Association="TCC_CLINICA_MEDICAModel.FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS">
+            <End Role="CONSULTAS" EntitySet="CONSULTAS" />
+            <End Role="ANAMNESE" EntitySet="ANAMNESE" />
+          </AssociationSet>
           <AssociationSet Name="FK_MEDICO_CLINICA_CLINICAS" Association="TCC_CLINICA_MEDICAModel.FK_MEDICO_CLINICA_CLINICAS">
             <End Role="CLINICAS" EntitySet="CLINICAS" />
             <End Role="MEDICO_CLINICA" EntitySet="MEDICO_CLINICA" />
@@ -599,10 +605,6 @@
           <AssociationSet Name="FK_EXAMES_SOLICITADOS_CONSULTAS" Association="TCC_CLINICA_MEDICAModel.FK_EXAMES_SOLICITADOS_CONSULTAS">
             <End Role="CONSULTAS" EntitySet="CONSULTAS" />
             <End Role="EXAMES_SOLICITADOS" EntitySet="EXAMES_SOLICITADOS" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS" Association="TCC_CLINICA_MEDICAModel.FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS">
-            <End Role="CONSULTAS" EntitySet="CONSULTAS" />
-            <End Role="PACIENTE_HISTORICO_CLINICO" EntitySet="PACIENTE_HISTORICO_CLINICO" />
           </AssociationSet>
           <AssociationSet Name="FK_RECEITAS_CONSULTAS" Association="TCC_CLINICA_MEDICAModel.FK_RECEITAS_CONSULTAS">
             <End Role="CONSULTAS" EntitySet="CONSULTAS" />
@@ -653,6 +655,15 @@
             <End Role="PACIENTES" EntitySet="PACIENTES" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ANAMNESE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRICAO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ID_CONSULTA" Type="Int32" />
+          <NavigationProperty Name="CONSULTAS" Relationship="TCC_CLINICA_MEDICAModel.FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS" FromRole="ANAMNESE" ToRole="CONSULTAS" />
+        </EntityType>
         <EntityType Name="CLINICAS">
           <Key>
             <PropertyRef Name="ID" />
@@ -687,14 +698,15 @@
           <Property Name="REALIZADA" Type="Boolean" Nullable="false" />
           <Property Name="RETORNO" Type="Boolean" Nullable="false" />
           <Property Name="ID_CONSULTA_RETORNO" Type="Int32" />
-          <Property Name="CANCELADA" Type="Boolean" />
+          <Property Name="CANCELADA" Type="Boolean" Nullable="false" />
+          <Property Name="TIPO" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ANAMNESE" Relationship="TCC_CLINICA_MEDICAModel.FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS" FromRole="CONSULTAS" ToRole="ANAMNESE" />
           <NavigationProperty Name="CONSULTA_DOENCA" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTA_DOENCA_CONSULTAS" FromRole="CONSULTAS" ToRole="CONSULTA_DOENCA" />
           <NavigationProperty Name="CONSULTAS1" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTAS_CONSULTAS" FromRole="CONSULTAS" ToRole="CONSULTAS1" />
           <NavigationProperty Name="CONSULTAS2" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTAS_CONSULTAS" FromRole="CONSULTAS1" ToRole="CONSULTAS" />
           <NavigationProperty Name="MEDICOS" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTAS_MEDICOS" FromRole="CONSULTAS" ToRole="MEDICOS" />
           <NavigationProperty Name="PACIENTES" Relationship="TCC_CLINICA_MEDICAModel.FK_CONSULTAS_PACIENTES" FromRole="CONSULTAS" ToRole="PACIENTES" />
           <NavigationProperty Name="EXAMES_SOLICITADOS" Relationship="TCC_CLINICA_MEDICAModel.FK_EXAMES_SOLICITADOS_CONSULTAS" FromRole="CONSULTAS" ToRole="EXAMES_SOLICITADOS" />
-          <NavigationProperty Name="PACIENTE_HISTORICO_CLINICO" Relationship="TCC_CLINICA_MEDICAModel.FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS" FromRole="CONSULTAS" ToRole="PACIENTE_HISTORICO_CLINICO" />
           <NavigationProperty Name="RECEITAS" Relationship="TCC_CLINICA_MEDICAModel.FK_RECEITAS_CONSULTAS" FromRole="CONSULTAS" ToRole="RECEITAS" />
         </EntityType>
         <EntityType Name="DOENCAS">
@@ -749,6 +761,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_EXAME" Type="Int32" Nullable="false" />
           <Property Name="ID_CONSULTA" Type="Int32" Nullable="false" />
+          <Property Name="OBSERVACOES" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CONSULTAS" Relationship="TCC_CLINICA_MEDICAModel.FK_EXAMES_SOLICITADOS_CONSULTAS" FromRole="EXAMES_SOLICITADOS" ToRole="CONSULTAS" />
           <NavigationProperty Name="EXAME_RESULTADO" Relationship="TCC_CLINICA_MEDICAModel.FK_EXAME_RESULTADO_EXAMES_SOLICITADOS" FromRole="EXAMES_SOLICITADOS" ToRole="EXAME_RESULTADO" />
           <NavigationProperty Name="EXAMES" Relationship="TCC_CLINICA_MEDICAModel.FK_EXAMES_SOLICITADOS_EXAMES" FromRole="EXAMES_SOLICITADOS" ToRole="EXAMES" />
@@ -822,15 +835,6 @@
           <NavigationProperty Name="MEDICO_HORARIO_ATENDIMENTO" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICO_HORARIO_ATENDIMENTO_MEDICOS" FromRole="MEDICOS" ToRole="MEDICO_HORARIO_ATENDIMENTO" />
           <NavigationProperty Name="USUARIOS" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICOS_USUARIOS" FromRole="MEDICOS" ToRole="USUARIOS" />
         </EntityType>
-        <EntityType Name="PACIENTE_HISTORICO_CLINICO">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DESCRICAO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="ID_CONSULTA" Type="Int32" />
-          <NavigationProperty Name="CONSULTAS" Relationship="TCC_CLINICA_MEDICAModel.FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS" FromRole="PACIENTE_HISTORICO_CLINICO" ToRole="CONSULTAS" />
-        </EntityType>
         <EntityType Name="PACIENTES">
           <Key>
             <PropertyRef Name="ID" />
@@ -893,6 +897,18 @@
           <NavigationProperty Name="MEDICOS" Relationship="TCC_CLINICA_MEDICAModel.FK_MEDICOS_USUARIOS" FromRole="USUARIOS" ToRole="MEDICOS" />
           <NavigationProperty Name="PACIENTES" Relationship="TCC_CLINICA_MEDICAModel.FK_PACIENTES_USUARIOS" FromRole="USUARIOS" ToRole="PACIENTES" />
         </EntityType>
+        <Association Name="FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS">
+          <End Type="TCC_CLINICA_MEDICAModel.CONSULTAS" Role="CONSULTAS" Multiplicity="0..1" />
+          <End Type="TCC_CLINICA_MEDICAModel.ANAMNESE" Role="ANAMNESE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONSULTAS">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ANAMNESE">
+              <PropertyRef Name="ID_CONSULTA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MEDICO_CLINICA_CLINICAS">
           <End Type="TCC_CLINICA_MEDICAModel.CLINICAS" Role="CLINICAS" Multiplicity="1" />
           <End Type="TCC_CLINICA_MEDICAModel.MEDICO_CLINICA" Role="MEDICO_CLINICA" Multiplicity="*" />
@@ -973,18 +989,6 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="EXAMES_SOLICITADOS">
-              <PropertyRef Name="ID_CONSULTA" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PACIENTE_HISTORICO_CLINICO_CONSULTAS">
-          <End Type="TCC_CLINICA_MEDICAModel.CONSULTAS" Role="CONSULTAS" Multiplicity="0..1" />
-          <End Type="TCC_CLINICA_MEDICAModel.PACIENTE_HISTORICO_CLINICO" Role="PACIENTE_HISTORICO_CLINICO" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CONSULTAS">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="PACIENTE_HISTORICO_CLINICO">
               <PropertyRef Name="ID_CONSULTA" />
             </Dependent>
           </ReferentialConstraint>
@@ -1139,6 +1143,15 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TCC_CLINICA_MEDICAModelStoreContainer" CdmEntityContainer="TCC_CLINICA_MEDICAEntities">
+          <EntitySetMapping Name="ANAMNESE">
+            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.ANAMNESE">
+              <MappingFragment StoreEntitySet="ANAMNESE">
+                <ScalarProperty Name="ID_CONSULTA" ColumnName="ID_CONSULTA" />
+                <ScalarProperty Name="DESCRICAO" ColumnName="DESCRICAO" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="CLINICAS">
             <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.CLINICAS">
               <MappingFragment StoreEntitySet="CLINICAS">
@@ -1163,6 +1176,7 @@
           <EntitySetMapping Name="CONSULTAS">
             <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.CONSULTAS">
               <MappingFragment StoreEntitySet="CONSULTAS">
+                <ScalarProperty Name="TIPO" ColumnName="TIPO" />
                 <ScalarProperty Name="CANCELADA" ColumnName="CANCELADA" />
                 <ScalarProperty Name="ID_CONSULTA_RETORNO" ColumnName="ID_CONSULTA_RETORNO" />
                 <ScalarProperty Name="RETORNO" ColumnName="RETORNO" />
@@ -1223,6 +1237,7 @@
           <EntitySetMapping Name="EXAMES_SOLICITADOS">
             <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.EXAMES_SOLICITADOS">
               <MappingFragment StoreEntitySet="EXAMES_SOLICITADOS">
+                <ScalarProperty Name="OBSERVACOES" ColumnName="OBSERVACOES" />
                 <ScalarProperty Name="ID_CONSULTA" ColumnName="ID_CONSULTA" />
                 <ScalarProperty Name="ID_EXAME" ColumnName="ID_EXAME" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -1287,15 +1302,6 @@
               <MappingFragment StoreEntitySet="MEDICOS">
                 <ScalarProperty Name="ID_USUARIO" ColumnName="ID_USUARIO" />
                 <ScalarProperty Name="CRM" ColumnName="CRM" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PACIENTE_HISTORICO_CLINICO">
-            <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.PACIENTE_HISTORICO_CLINICO">
-              <MappingFragment StoreEntitySet="PACIENTE_HISTORICO_CLINICO">
-                <ScalarProperty Name="ID_CONSULTA" ColumnName="ID_CONSULTA" />
-                <ScalarProperty Name="DESCRICAO" ColumnName="DESCRICAO" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

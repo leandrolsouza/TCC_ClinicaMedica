@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TCC_Clinica_Medica;
+using TCC_Clinica_Medica.App_Start;
 
 namespace TCC_Clinica_Medica.Controllers
 {
@@ -115,6 +116,8 @@ namespace TCC_Clinica_Medica.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+       
 
         protected override void Dispose(bool disposing)
         {

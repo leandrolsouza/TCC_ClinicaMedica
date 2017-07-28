@@ -163,6 +163,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ANAMNESE.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -252,9 +255,6 @@
     <Compile Include="PACIENTES.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="PACIENTE_HISTORICO_CLINICO.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="PLANO_SAUDE.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -302,6 +302,7 @@
     <Content Include="Imagens\Calendar_Icon.png" />
     <Content Include="Imagens\colba_medical_18047.png" />
     <Content Include="Imagens\banner1.jpg" />
+    <Content Include="Imagens\user2.png" />
     <Content Include="Imagens\grid-edit.png" />
     <Content Include="Imagens\ico_lupa.gif" />
     <Content Include="Imagens\logo.png" />

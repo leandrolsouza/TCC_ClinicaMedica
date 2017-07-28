@@ -25,6 +25,7 @@ namespace TCC_Clinica_Medica
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<ANAMNESE> ANAMNESE { get; set; }
         public virtual DbSet<CLINICAS> CLINICAS { get; set; }
         public virtual DbSet<CONSULTA_DOENCA> CONSULTA_DOENCA { get; set; }
         public virtual DbSet<CONSULTAS> CONSULTAS { get; set; }
@@ -39,7 +40,6 @@ namespace TCC_Clinica_Medica
         public virtual DbSet<MEDICO_ESPECIALIDADE> MEDICO_ESPECIALIDADE { get; set; }
         public virtual DbSet<MEDICO_HORARIO_ATENDIMENTO> MEDICO_HORARIO_ATENDIMENTO { get; set; }
         public virtual DbSet<MEDICOS> MEDICOS { get; set; }
-        public virtual DbSet<PACIENTE_HISTORICO_CLINICO> PACIENTE_HISTORICO_CLINICO { get; set; }
         public virtual DbSet<PACIENTES> PACIENTES { get; set; }
         public virtual DbSet<PLANO_SAUDE> PLANO_SAUDE { get; set; }
         public virtual DbSet<RECEITAS> RECEITAS { get; set; }

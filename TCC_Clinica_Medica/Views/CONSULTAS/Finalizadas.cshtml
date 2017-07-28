@@ -13,12 +13,7 @@
         $("#dialog-confirm").hide();
     });
 
-    var x = getUrlParameter('mensagem');
-
-    if (x != '' && x != undefined)
-        {
-        $.simplyToast(decodeURIComponent(x), 'success');
-    }
+ 
 
     function Apagar(id) {
         $("#dialog-confirm").show();
@@ -86,7 +81,7 @@
                    @Html.ActionLink("DATA INICIO", "Index", new { sortOrder = ViewBag.DataSortParm })
                 </th>
                 <th>
-                   RETORNO
+                   TIPO
                 </th>
                 <th>
                    N. RETORNO
@@ -97,7 +92,6 @@
                 <th>
                     @Html.ActionLink("PACIENTE", "Index", new { sortOrder = ViewBag.PacienteSortParm })
                 </th>
-                <th></th>
             </tr>
 
             @foreach (var item in Model)
@@ -106,9 +100,14 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.DATA_INICIO)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RETORNO)
-                    </td>
+                    @if (item.TIPO == 1)
+                    {
+                        <td> NORMAL </td>
+                    }
+                    else
+                    {
+                        <td> RETORNO </td>
+                    }
                     <td>
                         @Html.DisplayFor(modelItem => item.CONSULTAS2.ID)
                     </td>
@@ -117,9 +116,6 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.PACIENTES.USUARIOS.NOME)
-                    </td>
-                    <td>
-                        <a href="#"><span class="glyphicon glyphicon-trash" id="trash" onclick="javascript:Apagar(@item.ID);"></span></a>
                     </td>
                 </tr>
             }
