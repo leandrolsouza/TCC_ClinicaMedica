@@ -450,6 +450,7 @@
     <Content Include="Views\CONSULTAS\ExamesPartial.cshtml" />
     <Content Include="Views\CONSULTAS\DoencasPartial.cshtml" />
     <Content Include="Views\CONSULTAS\MedicamentosPartial.cshtml" />
+    <Content Include="Views\CONSULTAS\DetalhesConsulta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

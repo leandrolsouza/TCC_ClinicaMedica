@@ -43,6 +43,12 @@
     <h2>Consulta</h2>
     <div class="form-horizontal">
         <div class="form-group">
+            <span class="control-label col-md-2"> Consulta anterior</span>
+            <div class="col-md-10">
+               @Html.Partial("DetalhesConsulta", (CONSULTAS)ViewBag.ConsultaAnterior)
+            </div>
+        </div>
+        <div class="form-group">
             <span class="control-label col-md-2"> Anamnese</span>
             <div class="col-md-10">
                 @Html.TextArea("ANAMNESE", new { @class = "form-control" })

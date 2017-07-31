@@ -1,0 +1,40 @@
+﻿@model CONSULTAS
+
+<div>
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+       VIsualizar
+    </button>
+    <div class="collapse" id="collapseExample">
+        <div class="well">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <span class="control-label col-md-2"> ANAMNESE</span>
+                    <div class="col-md-10">
+                        <ul class="list-group">
+                            @foreach (var item in Model.ANAMNESE)
+                            {
+                                <li class="list-group-item">
+                                    <span> @item.DESCRICAO</span>
+                                </li>
+                                    }
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="control-label col-md-2"> Exames</span>
+                    <div class="col-md-10">
+                        <ul class="list-group">
+                            @foreach (var item in Model.EXAMES_SOLICITADOS)
+                            {
+                                <li class="list-group-item">
+                                    <span> @item.EXAMES.DESCRICAO</span> -
+                                    <span> [@item.OBSERVACOES]</span>
+                                </li>
+                            }
+                         </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

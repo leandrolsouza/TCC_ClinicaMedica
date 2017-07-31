@@ -206,11 +206,13 @@ namespace TCC_Clinica_Medica.Controllers
         }
 
         [CustomAuthorize(Roles = new UserType[] { UserType.Medico })]
-        public ActionResult Consulta()
+        public ActionResult Consulta(int id)
         {
             ViewBag.Exames = db.EXAMES.ToList().Where(x=> x.ATIVO).ToList();
             ViewBag.Doencas = db.DOENCAS.ToList().Where(x => x.ATIVO).ToList();
             ViewBag.Medicamentos = db.MEDICAMENTOS.ToList().Where(x => x.ATIVO).ToList();
+            var d = (CONSULTAS)db.CONSULTAS.ToList().Where(x => x.ID == id).First();
+            ViewBag.ConsultaAnterior = (CONSULTAS)db.CONSULTAS.ToList().Where(x => x.ID == d.ID_CONSULTA_RETORNO).First();
 
             return View();
         }
