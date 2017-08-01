@@ -1,0 +1,44 @@
+﻿@model EXAME_RESULTADO
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    <div> 
+        <br />
+        <br />
+        <div>
+            <img src="~/Imagens/logo.png" />
+        </div>
+            <h3>Resultado do Exame</h3>
+        <table class="table">
+            <tr>
+                <td>Paciente:</td>
+                <td>@Model.EXAMES_SOLICITADOS.CONSULTAS.PACIENTES.USUARIOS.NOME</td>
+            </tr>
+            <tr>
+                <td>Medico:</td>
+                <td>@Model.EXAMES_SOLICITADOS.CONSULTAS.MEDICOS.USUARIOS.NOME</td>
+            </tr>
+            <tr>
+                <td><h4>Resultado:</h4></td>
+                <td>@Model.DESCRICAO</td>
+            </tr>
+
+            <tr>
+                <td><h4>Autenticidade:</h4></td>
+                <td>@Model.GUID</td>
+            </tr>
+        </table>
+
+        
+      
+    </div>
+</body>
+</html>

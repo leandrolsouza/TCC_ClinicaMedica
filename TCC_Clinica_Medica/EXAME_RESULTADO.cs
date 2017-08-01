@@ -19,6 +19,7 @@ namespace TCC_Clinica_Medica
         public int ID_EXAMES_SOLICITADO { get; set; }
         public System.DateTime DATA_CRIACAO { get; set; }
         public Nullable<bool> ENTREGUE_PACIENTE { get; set; }
+        public Nullable<System.Guid> GUID { get; set; }
     
         public virtual EXAMES_SOLICITADOS EXAMES_SOLICITADOS { get; set; }
     }

@@ -1,51 +1,85 @@
-﻿@model IEnumerable<TCC_Clinica_Medica.EXAME_RESULTADO>
+﻿
+@model PagedList.IPagedList<EXAME_RESULTADO>
+@using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Exames - resultados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<script>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DESCRICAO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DATA_CRIACAO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ENTREGUE_PACIENTE)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EXAMES_SOLICITADOS.ID)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DESCRICAO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DATA_CRIACAO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ENTREGUE_PACIENTE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EXAMES_SOLICITADOS.ID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+</script>
 
-</table>
+<br />
+<br />
+<div class="jumbotron">
+    <h2>Exames - Resultados</h2>
+
+
+    <table class="table">
+        <tr>
+            <td style="width:65%" valign="top">
+                @using (Html.BeginForm("Index", "EXAME_RESULTADO", FormMethod.Get))
+                {
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Pesquisar", @class = "TextBoxSearch" })
+                    <button type="submit" class="btn btn-default" id="Procurar">
+                        <i class="glyphicon glyphicon-search"></i> &nbsp; Procurar
+                    </button>
+                }
+            </td>
+        </tr>
+
+
+    </table>
+
+
+
+    <div class="panel panel-primary">
+        <table class="table  table-bordered">
+            <tr style="background-color:#d1d1d1;font-weight: bold;">
+                <td>
+                    @Html.ActionLink("PACIENTE", "Index", new { sortOrder = ViewBag.NameSortParm })
+                </td>
+                <td>EXAME</td>
+                <td>DATA</td>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EXAMES_SOLICITADOS.CONSULTAS.PACIENTES.USUARIOS.NOME)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EXAMES_SOLICITADOS.EXAMES.DESCRICAO)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DATA_CRIACAO.Date)
+                    </td>
+                    <td>
+                        @Html.ActionLink(" ", "Resultado", new { id = item.ID }, new { @class = "glyphicon glyphicon-play", @target = "_blank" })
+                        
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td align="right" colspan="3">
+
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+ new PagedListRenderOptions
+ {
+
+     LinkToFirstPageFormat = "Primeiro",
+     LinkToPreviousPageFormat = "Anterior",
+     LinkToNextPageFormat = "Próximo",
+     LinkToLastPageFormat = "Última"
+ })
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>

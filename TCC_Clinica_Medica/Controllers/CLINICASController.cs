@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using TCC_Clinica_Medica;
 using PagedList;
+using TCC_Clinica_Medica.App_Start;
 
 namespace TCC_Clinica_Medica.Controllers
 {
@@ -16,6 +17,7 @@ namespace TCC_Clinica_Medica.Controllers
     {
         private TCC_CLINICA_MEDICAEntities db = new TCC_CLINICA_MEDICAEntities();
 
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador})]
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             if (Session["Usuario"] == null)
@@ -69,7 +71,8 @@ namespace TCC_Clinica_Medica.Controllers
             int pageNumber = (page ?? 1);
             return View(clinicas.ToPagedList(pageNumber, pageSize));
         }
-        
+
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         public ActionResult Create()
         {
             if (Session["Usuario"] == null)
@@ -80,6 +83,7 @@ namespace TCC_Clinica_Medica.Controllers
             return View();
         }
 
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "ID,NOME,CNPJ,DATA_CRIACAO,DATA_MODIFICACAO,ATIVO")] CLINICAS cLINICAS)
@@ -98,7 +102,7 @@ namespace TCC_Clinica_Medica.Controllers
             return View(cLINICAS);
         }
 
-
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         public async Task<ActionResult> Edit(int? id)
         {
             if (Session["Usuario"] == null)
@@ -119,6 +123,7 @@ namespace TCC_Clinica_Medica.Controllers
             return View(cLINICAS);
         }
 
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "ID,NOME,CNPJ,DATA_CRIACAO,DATA_MODIFICACAO,ATIVO")] CLINICAS cLINICAS)
@@ -137,6 +142,7 @@ namespace TCC_Clinica_Medica.Controllers
             return View(cLINICAS);
         }
 
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         [HttpPost]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {

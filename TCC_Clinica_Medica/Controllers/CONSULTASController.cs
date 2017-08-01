@@ -17,7 +17,7 @@ namespace TCC_Clinica_Medica.Controllers
     {
         private TCC_CLINICA_MEDICAEntities db = new TCC_CLINICA_MEDICAEntities();
 
-        // GET: CONSULTAS
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         public ActionResult Agendadas(string sortOrder, string currentFilter, string searchString, int? page)
         {
             if (Session["Usuario"] == null)
@@ -143,6 +143,7 @@ namespace TCC_Clinica_Medica.Controllers
             return View(consultas.ToPagedList(pageNumber, pageSize));
         }
 
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         public ActionResult Finalizadas(string sortOrder, string currentFilter, string searchString, int? page)
         {
             if (Session["Usuario"] == null)
@@ -212,7 +213,7 @@ namespace TCC_Clinica_Medica.Controllers
             ViewBag.Doencas = db.DOENCAS.ToList().Where(x => x.ATIVO).ToList();
             ViewBag.Medicamentos = db.MEDICAMENTOS.ToList().Where(x => x.ATIVO).ToList();
             var d = (CONSULTAS)db.CONSULTAS.ToList().Where(x => x.ID == id).First();
-            ViewBag.ConsultaAnterior = (CONSULTAS)db.CONSULTAS.ToList().Where(x => x.ID == d.ID_CONSULTA_RETORNO).First();
+            ViewBag.ConsultaAnterior = (CONSULTAS)db.CONSULTAS.ToList().Where(x => x.ID == d.ID_CONSULTA_RETORNO).FirstOrDefault();
 
             return View();
         }
@@ -300,6 +301,7 @@ namespace TCC_Clinica_Medica.Controllers
                 cONSULTAS.ID_PACIENTE = int.Parse(IDPACIENTE);
                 cONSULTAS.DATA_INICIO = DateTime.Parse(DATA).AddHours(double.Parse(INICIO.Split(':').ToList()[0])).AddMinutes(double.Parse(INICIO.Split(':').ToList()[1]));
                 cONSULTAS.DATA_FIM = DateTime.Parse(DATA).AddHours(double.Parse(FIM.Split(':').ToList()[0])).AddMinutes(double.Parse(FIM.Split(':').ToList()[1]));
+
                 if(RETORNO == "1")
                 {
                     cONSULTAS.TIPO = 2;
@@ -352,13 +354,18 @@ namespace TCC_Clinica_Medica.Controllers
             {
                 var CONSULTA = db.CONSULTAS.Find(IDCONSULTA);
                 CONSULTA.REALIZADA = true;
-                CONSULTA.RETORNO = RETORNO == "1" ? true: false;
+
+                if (CONSULTA.ID_CONSULTA_RETORNO != null)
+                { 
+                    CONSULTA.RETORNO = RETORNO == "1" ? true: false;
+                }
 
                 db.SaveChanges();
 
                 var aNAMNESE = new ANAMNESE();
                 aNAMNESE.ID_CONSULTA = IDCONSULTA;
                 aNAMNESE.DESCRICAO = ANAMNESE;
+                db.ANAMNESE.Add(aNAMNESE);
 
                 db.SaveChanges();
 
@@ -372,6 +379,7 @@ namespace TCC_Clinica_Medica.Controllers
                         var cONSULTA_DOENCA = new CONSULTA_DOENCA();
                         cONSULTA_DOENCA.ID_CONSULTA = IDCONSULTA;
                         cONSULTA_DOENCA.ID_DOENCA = int.Parse(item);
+                        db.CONSULTA_DOENCA.Add(cONSULTA_DOENCA);
                         db.SaveChanges();
                     }
                 }
@@ -385,8 +393,10 @@ namespace TCC_Clinica_Medica.Controllers
                     {
                         var eXAMES = new EXAMES_SOLICITADOS();
                         eXAMES.ID_CONSULTA = IDCONSULTA;
-                        eXAMES.ID_CONSULTA = int.Parse(item);
+                        eXAMES.ID_EXAME = int.Parse(item);
                         eXAMES.OBSERVACOES = EXAME_OBSERVACOES;
+                        eXAMES.EXECUTADO = false;
+                        db.EXAMES_SOLICITADOS.Add(eXAMES);
                         db.SaveChanges();
                     }
                 }
@@ -402,12 +412,13 @@ namespace TCC_Clinica_Medica.Controllers
                         var rECEITAS = new RECEITAS();
                         rECEITAS.ID_CONSULTA = IDCONSULTA;
                         rECEITAS.ID_MEDICAMENTO = int.Parse(item);
+                        db.RECEITAS.Add(rECEITAS);
                         db.SaveChanges();
                     }
                 }
 
 
-                return RedirectToAction("ConsultaMedico", "CONSULTAS", new { mensagem = "Consulta finalizada com sucesso!" });
+                return RedirectToAction("ConsultasMedico", "CONSULTAS", new { mensagem = "Consulta finalizada com sucesso!" });
             }
 
             return View();

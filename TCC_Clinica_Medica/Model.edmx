@@ -77,6 +77,7 @@
           <Property Name="ID_EXAMES_SOLICITADO" Type="int" Nullable="false" />
           <Property Name="DATA_CRIACAO" Type="datetime" Nullable="false" />
           <Property Name="ENTREGUE_PACIENTE" Type="bit" />
+          <Property Name="GUID" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="EXAMES">
           <Key>
@@ -96,6 +97,7 @@
           <Property Name="ID_EXAME" Type="int" Nullable="false" />
           <Property Name="ID_CONSULTA" Type="int" Nullable="false" />
           <Property Name="OBSERVACOES" Type="varchar" MaxLength="500" />
+          <Property Name="EXECUTADO" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="HORARIOS_ATENDIMENTO">
           <Key>
@@ -741,6 +743,7 @@
           <Property Name="ID_EXAMES_SOLICITADO" Type="Int32" Nullable="false" />
           <Property Name="DATA_CRIACAO" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ENTREGUE_PACIENTE" Type="Boolean" />
+          <Property Name="GUID" Type="Guid" />
           <NavigationProperty Name="EXAMES_SOLICITADOS" Relationship="TCC_CLINICA_MEDICAModel.FK_EXAME_RESULTADO_EXAMES_SOLICITADOS" FromRole="EXAME_RESULTADO" ToRole="EXAMES_SOLICITADOS" />
         </EntityType>
         <EntityType Name="EXAMES">
@@ -762,6 +765,7 @@
           <Property Name="ID_EXAME" Type="Int32" Nullable="false" />
           <Property Name="ID_CONSULTA" Type="Int32" Nullable="false" />
           <Property Name="OBSERVACOES" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="EXECUTADO" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="CONSULTAS" Relationship="TCC_CLINICA_MEDICAModel.FK_EXAMES_SOLICITADOS_CONSULTAS" FromRole="EXAMES_SOLICITADOS" ToRole="CONSULTAS" />
           <NavigationProperty Name="EXAME_RESULTADO" Relationship="TCC_CLINICA_MEDICAModel.FK_EXAME_RESULTADO_EXAMES_SOLICITADOS" FromRole="EXAMES_SOLICITADOS" ToRole="EXAME_RESULTADO" />
           <NavigationProperty Name="EXAMES" Relationship="TCC_CLINICA_MEDICAModel.FK_EXAMES_SOLICITADOS_EXAMES" FromRole="EXAMES_SOLICITADOS" ToRole="EXAMES" />
@@ -1215,6 +1219,7 @@
           <EntitySetMapping Name="EXAME_RESULTADO">
             <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.EXAME_RESULTADO">
               <MappingFragment StoreEntitySet="EXAME_RESULTADO">
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
                 <ScalarProperty Name="ENTREGUE_PACIENTE" ColumnName="ENTREGUE_PACIENTE" />
                 <ScalarProperty Name="DATA_CRIACAO" ColumnName="DATA_CRIACAO" />
                 <ScalarProperty Name="ID_EXAMES_SOLICITADO" ColumnName="ID_EXAMES_SOLICITADO" />
@@ -1237,6 +1242,7 @@
           <EntitySetMapping Name="EXAMES_SOLICITADOS">
             <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.EXAMES_SOLICITADOS">
               <MappingFragment StoreEntitySet="EXAMES_SOLICITADOS">
+                <ScalarProperty Name="EXECUTADO" ColumnName="EXECUTADO" />
                 <ScalarProperty Name="OBSERVACOES" ColumnName="OBSERVACOES" />
                 <ScalarProperty Name="ID_CONSULTA" ColumnName="ID_CONSULTA" />
                 <ScalarProperty Name="ID_EXAME" ColumnName="ID_EXAME" />

@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using TCC_Clinica_Medica;
 using PagedList;
+using TCC_Clinica_Medica.App_Start;
 
 namespace TCC_Clinica_Medica.Controllers
 {
@@ -16,6 +17,7 @@ namespace TCC_Clinica_Medica.Controllers
     {
         private TCC_CLINICA_MEDICAEntities db = new TCC_CLINICA_MEDICAEntities();
 
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador})]
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             
@@ -82,6 +84,7 @@ namespace TCC_Clinica_Medica.Controllers
             return View(medicamentos.ToPagedList(pageNumber, pageSize));
         }
 
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         public ActionResult Create()
         {
             if (Session["Usuario"] == null)
@@ -91,7 +94,8 @@ namespace TCC_Clinica_Medica.Controllers
 
             return View();
         }
-        
+
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "NOME_GENERICO,FABRICA,FABRICANTE")] MEDICAMENTOS mEDICAMENTOS)
@@ -113,7 +117,7 @@ namespace TCC_Clinica_Medica.Controllers
             return View(mEDICAMENTOS);
         }
 
-        // GET: MEDICAMENTOS/Edit/5
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         public async Task<ActionResult> Edit(int? id)
         {
             if (Session["Usuario"] == null)
@@ -133,6 +137,7 @@ namespace TCC_Clinica_Medica.Controllers
             return View(mEDICAMENTOS);
         }
 
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "ID,NOME_GENERICO,FABRICA,FABRICANTE,DATA_CRIACAO,DATA_MODIFICACAO,ATIVO")] MEDICAMENTOS mEDICAMENTOS)
@@ -150,22 +155,7 @@ namespace TCC_Clinica_Medica.Controllers
             return View(mEDICAMENTOS);
         }
 
-        // GET: MEDICAMENTOS/Delete/5
-        public async Task<ActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            MEDICAMENTOS mEDICAMENTOS = await db.MEDICAMENTOS.FindAsync(id);
-            if (mEDICAMENTOS == null)
-            {
-                return HttpNotFound();
-            }
-            return View(mEDICAMENTOS);
-        }
-
-        // POST: MEDICAMENTOS/Delete/5
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         [HttpPost]
         public ActionResult DeleteConfirmed(int id)
         {

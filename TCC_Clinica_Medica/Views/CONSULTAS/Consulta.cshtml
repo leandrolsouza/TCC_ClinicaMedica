@@ -42,12 +42,15 @@
     @Html.AntiForgeryToken()
     <h2>Consulta</h2>
     <div class="form-horizontal">
+        @if ((CONSULTAS)ViewBag.ConsultaAnterior != null)
+        {
         <div class="form-group">
             <span class="control-label col-md-2"> Consulta anterior</span>
             <div class="col-md-10">
                @Html.Partial("DetalhesConsulta", (CONSULTAS)ViewBag.ConsultaAnterior)
             </div>
         </div>
+        }
         <div class="form-group">
             <span class="control-label col-md-2"> Anamnese</span>
             <div class="col-md-10">
@@ -81,7 +84,6 @@
                 @Html.Partial("MedicamentosPartial", (List<MEDICAMENTOS>)ViewBag.Medicamentos)
             </div>
         </div>
-
         <div class="form-group">
             <span class="control-label col-md-2">Necessario retorno?</span>
             <div class="col-md-10">

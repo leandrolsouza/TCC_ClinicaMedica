@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.Mvc;
 using TCC_Clinica_Medica;
 using TCC_Clinica_Medica.App_Start;
+using PagedList;
+using System.IO;
 
 namespace TCC_Clinica_Medica.Controllers
 {
@@ -16,108 +18,106 @@ namespace TCC_Clinica_Medica.Controllers
     {
         private TCC_CLINICA_MEDICAEntities db = new TCC_CLINICA_MEDICAEntities();
 
-        // GET: EXAMES
-        public async Task<ActionResult> Index()
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(await db.EXAMES.ToListAsync());
-        }
-
-        // GET: EXAMES/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
+            if (Session["Usuario"] == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "LOGIN");
             }
-            EXAMES eXAMES = await db.EXAMES.FindAsync(id);
-            if (eXAMES == null)
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            if (searchString != null)
             {
-                return HttpNotFound();
+                page = 1;
             }
-            return View(eXAMES);
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var planos = db.EXAMES_SOLICITADOS.ToList().AsEnumerable();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                planos = planos.Where(s => s.EXAMES.DESCRICAO.ToUpper().Contains(searchString.ToUpper()));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    planos = planos.OrderByDescending(s => s.EXAMES.DESCRICAO);
+                    break;
+                default:
+                    planos = planos.OrderBy(s => s.EXAMES.DESCRICAO);
+                    break;
+            }
+
+            planos = planos.Where(x => x.EXAME_RESULTADO.Count == 0);
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(planos.ToPagedList(pageNumber, pageSize));
         }
 
-        // GET: EXAMES/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: EXAMES/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "ID,DESCRICAO,DATA_CRIAÇÃO,DATA_MODIFICACAO,ATIVO")] EXAMES eXAMES)
+        public ActionResult DeleteConfirmed(int id)
         {
-            if (ModelState.IsValid)
-            {
-                db.EXAMES.Add(eXAMES);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            return View(eXAMES);
+            EXAMES_SOLICITADOS eXAMES_SOLICITADOS = db.EXAMES_SOLICITADOS.Find(id);
+            eXAMES_SOLICITADOS.EXECUTADO = true;
+            db.SaveChanges();
+            return Json(Url.Action("Index", new { mensagem = "Exame cancelado com sucesso!" }));
         }
 
-        // GET: EXAMES/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Execucao(int? id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            EXAMES eXAMES = await db.EXAMES.FindAsync(id);
-            if (eXAMES == null)
-            {
-                return HttpNotFound();
-            }
-            return View(eXAMES);
-        }
+            var eXAMES_SOLICITADOS = db.EXAMES_SOLICITADOS.Find(id);
+            eXAMES_SOLICITADOS.EXECUTADO = true;
+            db.SaveChanges();
 
-        // POST: EXAMES/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ID,DESCRICAO,DATA_CRIAÇÃO,DATA_MODIFICACAO,ATIVO")] EXAMES eXAMES)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(eXAMES).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-            return View(eXAMES);
-        }
+            EXAME_RESULTADO eXAME_RESULTADO = new EXAME_RESULTADO();
+            Random rnd = new Random();
 
-        // GET: EXAMES/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+                string[] adjetivos = new string[] { "PESSIMO", "RUIM", "NORMAL", "BOM", "EXCELENTE", "SUPER MAN :)" };
+                 
+            
+
+            string text = adjetivos[rnd.Next(0, adjetivos.Length)];
+    
+          
+
+            eXAME_RESULTADO.DESCRICAO = "O RESULTADO DO EXAME FOI: " + text;
+            eXAME_RESULTADO.ENTREGUE_PACIENTE = true;
+            eXAME_RESULTADO.ID_EXAMES_SOLICITADO = id.Value;
+            eXAME_RESULTADO.DATA_CRIACAO = DateTime.Now ;
+            eXAME_RESULTADO.GUID = Guid.NewGuid();
+            db.EXAME_RESULTADO.Add(eXAME_RESULTADO);
+            db.SaveChanges();
+
+
+
+
+            return RedirectToAction("Resultado", new { id = eXAME_RESULTADO.ID });
+        }
+        
+    public ActionResult Resultado(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            EXAMES eXAMES = await db.EXAMES.FindAsync(id);
-            if (eXAMES == null)
+            EXAME_RESULTADO eXAME_RESULTADO = db.EXAME_RESULTADO.Find(id);
+            if (eXAME_RESULTADO == null)
             {
                 return HttpNotFound();
             }
-            return View(eXAMES);
-        }
 
-        // POST: EXAMES/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
-        {
-            EXAMES eXAMES = await db.EXAMES.FindAsync(id);
-            db.EXAMES.Remove(eXAMES);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return View(eXAME_RESULTADO);
         }
-
-       
 
         protected override void Dispose(bool disposing)
         {
