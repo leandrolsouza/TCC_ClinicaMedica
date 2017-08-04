@@ -1,51 +1,68 @@
-﻿@model IEnumerable<TCC_Clinica_Medica.PACIENTES>
-
+﻿@model PagedList.IPagedList<PACIENTES>
+@using PagedList.Mvc;
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Pacientes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<br />
+<br />
+<div class="jumbotron">
+    <h2>Pacientes</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ENDERECO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TELEFONE)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PLANO_SAUDE.DESCRICAO)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.USUARIOS.NOME)
-        </th>
-        <th></th>
-    </tr>
+    <table class="table">
+        <tr>
+            <td style="width:65%" valign="top">
+                @using (Html.BeginForm("Index", "PACIENTE", FormMethod.Get))
+                {
+                    @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @placeholder = "Pesquisar", @class = "TextBoxSearch" })
+                    <button type="submit" class="btn btn-default" id="Procurar">
+                        <i class="glyphicon glyphicon-search"></i> &nbsp; Procurar
+                    </button>
+                }
+            </td>
+        </tr>
+    </table>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ENDERECO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TELEFONE)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PLANO_SAUDE.DESCRICAO)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.USUARIOS.NOME)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    <div class="panel panel-primary">
+        <table class="table  table-bordered">
+            <tr style="background-color:#d1d1d1;font-weight: bold;">
+                <td>
+                    @Html.ActionLink("NOME", "Index", new { sortOrder = ViewBag.NameSortParm })
+                </td>
+                <td>@Html.ActionLink("CPF", "Index", new { sortOrder = ViewBag.CpfSortParm })</td>
+            </tr>
 
-</table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.USUARIOS.NOME)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.USUARIOS.CPF)
+                    </td>
+                    <td>
+                        @Html.ActionLink(" ", "Details", new { id = item.ID }, new { @class = "glyphicon glyphicon-play" }) &nbsp;
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td align="right" colspan="3">
+
+                    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+ new PagedListRenderOptions
+ {
+
+     LinkToFirstPageFormat = "Primeiro",
+     LinkToPreviousPageFormat = "Anterior",
+     LinkToNextPageFormat = "Próximo",
+     LinkToLastPageFormat = "Última"
+ })
+                </td>
+            </tr>
+
+        </table>
+    </div>
+ </div>

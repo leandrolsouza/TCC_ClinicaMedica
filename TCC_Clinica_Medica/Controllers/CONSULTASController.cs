@@ -209,6 +209,11 @@ namespace TCC_Clinica_Medica.Controllers
         [CustomAuthorize(Roles = new UserType[] { UserType.Medico })]
         public ActionResult Consulta(int id)
         {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
             ViewBag.Exames = db.EXAMES.ToList().Where(x=> x.ATIVO).ToList();
             ViewBag.Doencas = db.DOENCAS.ToList().Where(x => x.ATIVO).ToList();
             ViewBag.Medicamentos = db.MEDICAMENTOS.ToList().Where(x => x.ATIVO).ToList();
@@ -348,7 +353,7 @@ namespace TCC_Clinica_Medica.Controllers
         [CustomAuthorize(Roles = new UserType[] { UserType.Medico })]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Consulta(int IDCONSULTA, string[] IDDOENCAS, string[] IDEXAMES, string[] IDMEDICAMENTO, string EXAME_OBSERVACOES, string ANAMNESE, string RETORNO)
+        public ActionResult Consulta(int IDCONSULTA, string[] IDDOENCAS, string[] IDEXAMES, string[] IDMEDICAMENTO, string EXAME_OBSERVACOES, string ANAMNESE, string RETORNO, string[] OBSERVACOES_MEDICAMENTO)
         {
             if (ModelState.IsValid)
             {
@@ -412,17 +417,59 @@ namespace TCC_Clinica_Medica.Controllers
                         var rECEITAS = new RECEITAS();
                         rECEITAS.ID_CONSULTA = IDCONSULTA;
                         rECEITAS.ID_MEDICAMENTO = int.Parse(item);
+                        rECEITAS.OBSERVACOES = OBSERVACOES_MEDICAMENTO[int.Parse(item) - 1];
                         db.RECEITAS.Add(rECEITAS);
                         db.SaveChanges();
                     }
                 }
 
 
-                return RedirectToAction("ConsultasMedico", "CONSULTAS", new { mensagem = "Consulta finalizada com sucesso!" });
+                return RedirectToAction("ConsultaFinalizada", "CONSULTAS", new { id = IDCONSULTA, mensagem = "Consulta finalizada com sucesso!" });
             }
 
             return View();
         }
+
+        [CustomAuthorize(Roles = new UserType[] { UserType.Medico })]
+        public ActionResult ConsultaFinalizada(int? id)
+        {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
+            var CONSULTA = db.CONSULTAS.Find(id);
+            return View(CONSULTA);
+
+        }
+
+        [CustomAuthorize(Roles = new UserType[] { UserType.Medico , UserType.Administrador })]
+        public ActionResult Receita(int? id)
+        {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
+            var CONSULTA = db.CONSULTAS.Find(id);
+            return View(CONSULTA);
+
+        }
+
+        [CustomAuthorize(Roles = new UserType[] { UserType.Medico, UserType.Administrador })]
+        public ActionResult Atestado(int? id)
+        {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
+            var CONSULTA = db.CONSULTAS.Find(id);
+            return View(CONSULTA);
+
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

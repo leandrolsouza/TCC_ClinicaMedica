@@ -453,6 +453,12 @@
     <Content Include="Views\CONSULTAS\DetalhesConsulta.cshtml" />
     <Content Include="Views\EXAMES\Execucao.cshtml" />
     <Content Include="Views\EXAMES\Resultado.cshtml" />
+    <Content Include="Views\CONSULTAS\Receita.cshtml" />
+    <Content Include="Views\CONSULTAS\Atestado.cshtml" />
+    <Content Include="Views\CONSULTAS\ConsultaFinalizada.cshtml" />
+    <Content Include="Views\PACIENTES\ExamesPartial.cshtml" />
+    <Content Include="Views\PACIENTES\ConsultasPartial.cshtml" />
+    <Content Include="Views\PACIENTES\ReceitaPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

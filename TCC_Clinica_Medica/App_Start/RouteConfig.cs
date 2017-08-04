@@ -18,6 +18,12 @@ namespace TCC_Clinica_Medica
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "LOGIN", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+               "ErrorHandler",
+               "Error/AccessDenied",
+               new { controller = "Error", action = "Unauthorised", errMsg = UrlParameter.Optional }
+               );
         }
     }
 }

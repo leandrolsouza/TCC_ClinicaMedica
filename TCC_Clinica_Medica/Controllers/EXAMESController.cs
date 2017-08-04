@@ -80,16 +80,11 @@ namespace TCC_Clinica_Medica.Controllers
             db.SaveChanges();
 
             EXAME_RESULTADO eXAME_RESULTADO = new EXAME_RESULTADO();
+
             Random rnd = new Random();
-
-                string[] adjetivos = new string[] { "PESSIMO", "RUIM", "NORMAL", "BOM", "EXCELENTE", "SUPER MAN :)" };
-                 
-            
-
+            string[] adjetivos = new string[] { "PESSIMO", "RUIM", "NORMAL", "BOM", "EXCELENTE", "SUPER MAN :)" };
             string text = adjetivos[rnd.Next(0, adjetivos.Length)];
     
-          
-
             eXAME_RESULTADO.DESCRICAO = "O RESULTADO DO EXAME FOI: " + text;
             eXAME_RESULTADO.ENTREGUE_PACIENTE = true;
             eXAME_RESULTADO.ID_EXAMES_SOLICITADO = id.Value;
@@ -97,9 +92,7 @@ namespace TCC_Clinica_Medica.Controllers
             eXAME_RESULTADO.GUID = Guid.NewGuid();
             db.EXAME_RESULTADO.Add(eXAME_RESULTADO);
             db.SaveChanges();
-
-
-
+            
 
             return RedirectToAction("Resultado", new { id = eXAME_RESULTADO.ID });
         }

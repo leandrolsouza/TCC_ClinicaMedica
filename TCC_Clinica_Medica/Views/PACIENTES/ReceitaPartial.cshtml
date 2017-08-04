@@ -1,0 +1,60 @@
+﻿
+@model CONSULTAS
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <br />
+        <br />
+        <div>
+            <img src="~/Imagens/logo.png" />
+        </div>
+        <div class="well-sm">
+            <h3>Receita</h3><br />
+            <table class="table-condensed">
+                <tr>
+                    <td>Paciente:</td>
+                    <td>@Model.PACIENTES.USUARIOS.NOME</td>
+                </tr>
+                <tr>
+                    <td>Medico:</td>
+                    <td>@Model.MEDICOS.USUARIOS.NOME (CRM:@Model.MEDICOS.CRM)</td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                </tr>
+            </table>
+            <table class="table table-striped">
+                @foreach (var item in Model.RECEITAS)
+            {
+                    <tr>
+                        <td><h4>Nome medicamento:</h4></td>
+                        <td>@item.MEDICAMENTOS.NOME_GENERICO (@item.MEDICAMENTOS.FABRICANTE)</td>
+                    </tr>
+                    <tr>
+                        <td><h4>Instruções:</h4></td>
+                        <td>@item.OBSERVACOES</td>
+                    </tr>
+                }
+
+            </table>
+            <table class="table">
+                <tr>
+                    <td><h4>_______________________________________________</h4><br />@Model.MEDICOS.USUARIOS.NOME (CRM:@Model.MEDICOS.CRM)</td>
+                    <td></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</body>
+</html>

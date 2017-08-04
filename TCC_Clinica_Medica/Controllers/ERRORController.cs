@@ -16,6 +16,11 @@ namespace TCC_Clinica_Medica.Controllers
 
         public ActionResult AccessDenied()
         {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
             return View();
         }
     }

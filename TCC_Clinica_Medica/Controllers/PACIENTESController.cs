@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TCC_Clinica_Medica;
+using TCC_Clinica_Medica.App_Start;
+using PagedList;
 
 namespace TCC_Clinica_Medica.Controllers
 {
@@ -15,16 +17,62 @@ namespace TCC_Clinica_Medica.Controllers
     {
         private TCC_CLINICA_MEDICAEntities db = new TCC_CLINICA_MEDICAEntities();
 
-        // GET: PACIENTES
-        public async Task<ActionResult> Index()
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            var pACIENTES = db.PACIENTES.Include(p => p.PLANO_SAUDE).Include(p => p.USUARIOS);
-            return View(await pACIENTES.ToListAsync());
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.CpfSortParm = String.IsNullOrEmpty(sortOrder) ? "cpf_desc" : "";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var pacientes = db.PACIENTES.ToList().AsEnumerable();
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                pacientes = pacientes.Where(s => s.USUARIOS.NOME.ToUpper().Contains(searchString.ToUpper()));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    pacientes = pacientes.OrderByDescending(s => s.USUARIOS.NOME);
+                    break;
+                case "cpf_desc":
+                    pacientes = pacientes.OrderByDescending(s => s.USUARIOS.CPF);
+                    break;
+                default:
+                    pacientes = pacientes.OrderBy(s => s.USUARIOS.NOME);
+                    break;
+            }
+
+            
+
+            pacientes = pacientes.Where(x => x.USUARIOS.ATIVO);
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(pacientes.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: PACIENTES/Details/5
         public async Task<ActionResult> Details(int? id)
         {
+            ViewBag.Exames = new List<EXAMES_SOLICITADOS>();
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -125,6 +173,19 @@ namespace TCC_Clinica_Medica.Controllers
             return RedirectToAction("Index");
         }
 
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]
+        [HttpPost]
+        public ActionResult MudarExames(int id)
+        {
+            ViewBag.Exames = (from u in db.EXAMES_SOLICITADOS
+                               join c in db.CONSULTAS on u.ID_CONSULTA equals c.ID
+                               join e in db.EXAMES on u.ID_EXAME equals e.ID
+                               where c.ID == id
+                               select u).ToList();
+
+
+            return PartialView("ExamesPartial", ViewBag.Exames);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

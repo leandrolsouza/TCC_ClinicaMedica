@@ -1,0 +1,50 @@
+﻿@model CONSULTAS
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <br />
+        <br />
+        <div>
+            <img src="~/Imagens/logo.png" />
+        </div>
+        <div class="well-sm">
+            <h3>Atestado</h3><br />
+            <table class="table-condensed">
+                <tr>
+                    <td>Paciente:</td>
+                    <td>@Model.PACIENTES.USUARIOS.NOME</td>
+                </tr>
+                <tr>
+                    <td>Medico:</td>
+                    <td>@Model.MEDICOS.USUARIOS.NOME (CRM:@Model.MEDICOS.CRM)</td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                </tr>
+            </table>
+            <table class="table table-striped">
+                    <tr>
+                        <td><h4>Atesto para os devidos fins, a pedido, que o(a) Sr(a). @Model.PACIENTES.USUARIOS.NOME, inscrito(a) no CPF sob o nº @Model.PACIENTES.USUARIOS.CPF, paciente sob meus cuidados, foi atendido(a) no dia @DateTime.Now.ToShortDateString() às @DateTime.Now.ToShortTimeString(), e necessitando de _____ dias de repouso.</h4></td>
+                    </tr>
+            </table>
+            <table class="table">
+                <tr>
+                    <td><h4>_______________________________________________</h4><br />@Model.MEDICOS.USUARIOS.NOME (CRM:@Model.MEDICOS.CRM)</td>
+                    <td></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</body>
+</html>

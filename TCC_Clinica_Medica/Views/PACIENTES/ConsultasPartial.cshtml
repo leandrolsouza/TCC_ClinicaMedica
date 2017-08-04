@@ -1,0 +1,42 @@
+﻿@model List<CONSULTAS>
+
+<div class="panel panel-primary" style="height: 200px; overflow-y: scroll;">
+    <table class="table  table-bordered">
+        <tr style="background-color:#d1d1d1;font-weight: bold;">
+            <td style="min-width: 30px; max-width: 30px">
+            <td>DATA</td>
+            <td>MEDICO</td>
+            <td>RETORNO</td>
+        </tr>
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <input type="radio" id="IDCONSULTA" name="IDCONSULTA" value="@item.ID" onclick="javascript:SelecionarConsulta('@item.ID')" />
+                    </td>
+                    <td>
+                        @item.DATA_INICIO.ToShortDateString()
+                    </td>
+                    <td>
+                       @item.MEDICOS.USUARIOS.NOME
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RETORNO)
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">
+                    <div class="alert alert-success" role="alert"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;NÃO EXISTEM CONSULTAS CADASTRADOS</div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+

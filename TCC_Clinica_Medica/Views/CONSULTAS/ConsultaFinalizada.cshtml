@@ -1,0 +1,37 @@
+﻿@model CONSULTAS
+@{
+    ViewBag.Title = "ConsultaFinalizada";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(function ()
+    {
+        $('#IMPRECEITA').click(function () {
+            window.open('@Url.Action("Receita", "CONSULTAS",new { id = @Model.ID })', 'Receita', '_blank');
+            return false;
+        });
+        $('#IMPATESTADO').click(function () {
+            window.open('@Url.Action("Atestado", "CONSULTAS", new { id = @Model.ID })', 'Atestado', '_blank');
+            return false;
+        });
+    });
+</script>
+<br /><br />
+<div class="jumbotron">
+    <h2>Consulta Finalizada.</h2>
+
+    <h4>Favor imprimir a receita e o atestado (caso necessario)</h4>
+    <br />
+    <button type="button" class="btn btn-default" id="IMPRECEITA">
+        <i class="glyphicon glyphicon-floppy-disk"></i> &nbsp; Imprimir Receita
+    </button>
+    <button type="button" class="btn btn-default" id="IMPATESTADO">
+        <i class="glyphicon glyphicon-floppy-disk"></i> &nbsp; Imprimir Atestado
+    </button>
+    <br />
+    <br />
+    <div>
+        @Html.ActionLink("<<< Voltar", "ConsultasMedico")
+    </div>
+</div>

@@ -183,6 +183,7 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_MEDICAMENTO" Type="int" />
           <Property Name="ID_CONSULTA" Type="int" />
+          <Property Name="OBSERVACOES" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -871,6 +872,7 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_MEDICAMENTO" Type="Int32" />
           <Property Name="ID_CONSULTA" Type="Int32" />
+          <Property Name="OBSERVACOES" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="CONSULTAS" Relationship="TCC_CLINICA_MEDICAModel.FK_RECEITAS_CONSULTAS" FromRole="RECEITAS" ToRole="CONSULTAS" />
           <NavigationProperty Name="MEDICAMENTOS" Relationship="TCC_CLINICA_MEDICAModel.FK_RECEITAS_MEDICAMENTOS" FromRole="RECEITAS" ToRole="MEDICAMENTOS" />
         </EntityType>
@@ -1338,6 +1340,7 @@
           <EntitySetMapping Name="RECEITAS">
             <EntityTypeMapping TypeName="TCC_CLINICA_MEDICAModel.RECEITAS">
               <MappingFragment StoreEntitySet="RECEITAS">
+                <ScalarProperty Name="OBSERVACOES" ColumnName="OBSERVACOES" />
                 <ScalarProperty Name="ID_CONSULTA" ColumnName="ID_CONSULTA" />
                 <ScalarProperty Name="ID_MEDICAMENTO" ColumnName="ID_MEDICAMENTO" />
                 <ScalarProperty Name="ID" ColumnName="ID" />

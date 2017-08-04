@@ -17,6 +17,7 @@ namespace TCC_Clinica_Medica
         public int ID { get; set; }
         public Nullable<int> ID_MEDICAMENTO { get; set; }
         public Nullable<int> ID_CONSULTA { get; set; }
+        public string OBSERVACOES { get; set; }
     
         public virtual CONSULTAS CONSULTAS { get; set; }
         public virtual MEDICAMENTOS MEDICAMENTOS { get; set; }

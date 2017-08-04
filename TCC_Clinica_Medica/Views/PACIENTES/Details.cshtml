@@ -1,50 +1,81 @@
 ﻿@model TCC_Clinica_Medica.PACIENTES
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Historico";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script>
 
-<h2>Details</h2>
+    $(document).ready(function () {
+        $('#IMPRECEITA').click(function () {
+            var x = $('#IDCONSULTA').val()
+            window.open('@Url.Action("Receita", "CONSULTAS",new { id = @Model.ID })', 'Receita', '_blank');
+            return false;
+        });
+        $('#IMPATESTADO').click(function () {
+            window.open('@Url.Action("Atestado", "CONSULTAS", new { id = @Model.ID })', 'Atestado', '_blank');
+            return false;
+        });
+    });
 
-<div>
-    <h4>PACIENTES</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ENDERECO)
-        </dt>
+    function SelecionarConsulta(id) {
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            url: '@(Url.Action("MudarExames", "PACIENTES", null, Request.Url.Scheme))?id=' + id,
+            success: function (result) {
+                $('#divExames').html(result);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $.simplyToast(xhr.status);
+                $.simplyToast(thrownError);
+                // alert(xhr.status);
+                // alert(thrownError);
+                alert(xhr.responseText);
+            },
+            cache: false
+        });
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.ENDERECO)
-        </dd>
+</script>
+<br />
+<br />
+<div class="jumbotron">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TELEFONE)
-        </dt>
+    <h2>Historico</h2>
 
-        <dd>
-            @Html.DisplayFor(model => model.TELEFONE)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PLANO_SAUDE.DESCRICAO)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PLANO_SAUDE.DESCRICAO)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.USUARIOS.NOME)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.USUARIOS.NOME)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <div class="form-horizontal">
+        <h4>PACIENTES</h4>
+        <hr />
+        <div class="form-group">
+            <span class="control-label col-md-2">Nome</span>
+            <div class="col-md-10">
+                @Model.USUARIOS.NOME
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">Consultas</span>
+            <div class="col-md-10">
+               @Html.Partial("ConsultasPartial",Model.CONSULTAS.ToList())
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">Exames</span>
+            <div class="col-md-10" id="divExames">
+                @Html.Partial("ExamesPartial", (List<EXAMES_SOLICITADOS>)ViewBag.Exames)
+            </div>
+        </div>
+        <div class="form-group">
+            <span class="control-label col-md-2">Receita e Atestado</span>
+            <div class="col-md-10" id="divExames">
+                <button type="button" class="btn btn-default" id="IMPRECEITA">
+                    <i class="glyphicon glyphicon-floppy-disk"></i> &nbsp; Imprimir Receita
+                </button>
+                <button type="button" class="btn btn-default" id="IMPATESTADO">
+                    <i class="glyphicon glyphicon-floppy-disk"></i> &nbsp; Imprimir Atestado
+                </button>
+            </div>
+        </div>
+    </div>
+ </div>

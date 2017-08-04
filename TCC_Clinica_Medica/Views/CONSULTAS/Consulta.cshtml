@@ -31,6 +31,15 @@
                 cache: false
             });
         });
+
+        $('#IMPRECEITA').click(function () {
+            window.open('@Url.Action("Receita", "CONSULTAS")', 'Receita', '_blank');
+            return false;
+        });
+        $('#IMPATESTADO').click(function () {
+            window.open('@Url.Action("Action", "Controller")', 'Atestado', '_blank');
+            return false;
+        });
     });
 </script>
 
@@ -74,13 +83,13 @@
         </div>
         <div class="form-group">
             <span class="control-label col-md-2">Doença</span>
-            <div class="col-md-10" style="height: 150px; overflow-y: scroll;">
+            <div class="col-md-10" style="height: 200px; overflow-y: scroll;">
                 @Html.Partial("DoencasPartial", (List<DOENCAS>)ViewBag.Doencas)
             </div>
         </div>
         <div class="form-group">
             <span class="control-label col-md-2">RECEITA</span>
-            <div class="col-md-10" style="height: 150px; overflow-y: scroll;">
+            <div class="col-md-10" style="height: 200px; overflow-y: scroll;">
                 @Html.Partial("MedicamentosPartial", (List<MEDICAMENTOS>)ViewBag.Medicamentos)
             </div>
         </div>
@@ -92,8 +101,9 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
+
                 <button type="submit" class="btn btn-default" id="Finalizar">
-                    <i class="glyphicon glyphicon-floppy-disk"></i> &nbsp; Finalizar
+                    <i class="glyphicon glyphicon-floppy-disk"></i> &nbsp; Finalizar Consulta
                 </button>
                @Html.Hidden("IDCONSULTA", ViewContext.RouteData.Values["ID"])
             </div>
