@@ -95,9 +95,6 @@
                     @Html.ActionLink("NOME", "Index", new { sortOrder = ViewBag.NomeSortParm })
                 </td>
                 <td>
-                    @Html.ActionLink("EMAIL", "Index", new { sortOrder = ViewBag.EmailSortParm })
-                </td>
-                <td>
                     @Html.ActionLink("CPF", "Index", new { sortOrder = ViewBag.CPFSortParm })
                 </td>
                 <td>
@@ -110,9 +107,6 @@
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.NOME)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EMAIL)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.CPF)

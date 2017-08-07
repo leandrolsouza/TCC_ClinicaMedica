@@ -83,9 +83,7 @@
                 <th>
                    RETORNO
                 </th>
-                <th>
-                   N. RETORNO
-                </th>
+               
                 <th>
                     @Html.ActionLink("MEDICO", "Index", new { sortOrder = ViewBag.NedicoSortParm })
                 </th>
@@ -104,9 +102,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.RETORNO)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CONSULTAS2.ID)
-                    </td>
+
                     <td>
                         @Html.DisplayFor(modelItem => item.MEDICOS.USUARIOS.NOME)
                     </td>

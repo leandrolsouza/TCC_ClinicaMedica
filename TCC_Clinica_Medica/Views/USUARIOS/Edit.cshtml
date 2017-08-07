@@ -8,6 +8,10 @@
     <script>
         $(document).ready(function () {
 
+            $('#CPF').mask('00000000000');
+            $('#TELEFONE').mask('(00)00000-0000');
+            $('#NUMERO_PLANO').mask('0000000000');
+            $('#CRM').mask('00000');
 
         $('#Criar').click(function (e) {
             var CamposFaltando = false;
@@ -71,7 +75,7 @@
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.ID)
             <div class="form-group">
-                @Html.LabelFor(model => model.NOME, htmlAttributes: new { @class = "control-label col-md-2" })
+                <span class="control-label col-md-2">NOME</span>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.NOME, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.NOME, "", new { @class = "text-danger" })
@@ -79,21 +83,21 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
+                <span class="control-label col-md-2">EMAIL</span>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.CPF, htmlAttributes: new { @class = "control-label col-md-2" })
+                <span class="control-label col-md-2">CPF</span>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.CPF, new { htmlAttributes = new { @class = "form-control",maxlenght = "11" } })
                     @Html.ValidationMessageFor(model => model.CPF, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group paciente">
-                <span class="control-label col-md-2">Endereco</span>
+                <span class="control-label col-md-2">ENDEREÇO</span>
               
                 
                 <div class="col-md-10">
@@ -104,7 +108,7 @@
                 </div>
             </div>
             <div class="form-group paciente">
-                <span class="control-label col-md-2">Telefone</span>
+                <span class="control-label col-md-2">TELEFONE</span>
 
                 <div class="col-md-10">
 @if (Model.PACIENTES.Count > 0)
@@ -123,7 +127,7 @@
                 </div>
             </div>
             <div class="form-group paciente">
-                <span class="control-label col-md-2">Numero Carteirinha</span>
+                <span class="control-label col-md-2">N. CARTEIRINHA</span>
                 <div class="col-md-10">
                     @if (Model.PACIENTES.Count > 0)
                     {

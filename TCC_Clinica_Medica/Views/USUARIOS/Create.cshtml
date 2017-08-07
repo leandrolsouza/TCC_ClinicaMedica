@@ -7,6 +7,12 @@
 
     $(document).ready(function () {
 
+
+        $('#CPF').mask('00000000000');
+        $('#TELEFONE').mask('(00)00000-0000');
+        $('#NUMERO_PLANO').mask('0000000000');
+        $('#CRM').mask('00000');
+
         $('.paciente').hide();
         $('.medico').hide();
 
@@ -136,7 +142,7 @@
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.NOME, htmlAttributes: new { @class = "control-label col-md-2" })
+                <span class="control-label col-md-2">NOME</span>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.NOME, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.NOME, "", new { @class = "text-danger" })
@@ -144,7 +150,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.EMAIL, htmlAttributes: new { @class = "control-label col-md-2" })
+                <span class="control-label col-md-2">EMAIL</span>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.EMAIL, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.EMAIL, "", new { @class = "text-danger" })
@@ -152,21 +158,21 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.CPF, htmlAttributes: new { @class = "control-label col-md-2" })
+                <span class="control-label col-md-2">CPF</span>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.CPF, new { htmlAttributes = new { @class = "form-control", maxlength = "11" } })
                     @Html.ValidationMessageFor(model => model.CPF, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group paciente" >
-                <span class="control-label col-md-2">Endereco</span>
+                <span class="control-label col-md-2">ENDEREÇO</span>
               
                 <div class="col-md-10">
                     @Html.Editor("ENDERECO", new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
             <div class="form-group paciente">
-                <span class="control-label col-md-2">Telefone</span>
+                <span class="control-label col-md-2">TELEFONE</span>
             
                 <div class="col-md-10">
                     @Html.Editor("TELEFONE", new { htmlAttributes = new { @class = "form-control" } })
@@ -179,25 +185,25 @@
                 </div>
             </div>
             <div class="form-group paciente">
-                <span class="control-label col-md-2">Numero Carteirinha</span>
+                <span class="control-label col-md-2">N. CARTEIRINHA</span>
                 <div class="col-md-10">
                     @Html.Editor("NUMERO_PLANO", new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
             <div class="form-group medico">
-                <span class="control-label col-md-2">Clinica</span>
+                <span class="control-label col-md-2">CLINICA</span>
                 <div class="col-md-10">
                     @Html.ListBox("CLINICA", (IEnumerable<SelectListItem>)ViewBag.Clinicas, new { @class = "form-control" })
                 </div>
             </div>
             <div class="form-group medico">
-                <span class="control-label col-md-2">Especialidade</span>
+                <span class="control-label col-md-2">ESPECIALIDADE</span>
                 <div class="col-md-10">
                     @Html.ListBox("ESPECIALIDADE", (IEnumerable<SelectListItem>)ViewBag.Especialidades, new { @class = "form-control" })
                 </div>
             </div>
             <div class="form-group medico">
-                <span class="control-label col-md-2">Horario</span>
+                <span class="control-label col-md-2">HORARIO</span>
                 <div class="col-md-10">
                     @Html.ListBox("HORARIO", (IEnumerable<SelectListItem>)ViewBag.Horarios, new { @class = "form-control" })
                 </div>

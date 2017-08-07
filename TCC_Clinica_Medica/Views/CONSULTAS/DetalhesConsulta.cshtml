@@ -26,22 +26,13 @@
                         <li class="list-group-item">
                             <span> @item.EXAMES.DESCRICAO</span> -
                             <span> [@item.OBSERVACOES]</span>
+                            @foreach (var item2 in item.EXAME_RESULTADO)
+                            {
+                                <div> Resultado: @item2.DESCRICAO</div>
+                            }
                         </li>
                     }
                     </ul>
-            </div>
-        </div>
-        <div class="form-group">
-            <span class="control-label col-md-2"> Doenças</span>
-            <div class="col-md-10">
-                <ul class="list-group">
-                    @foreach (var item in Model.CONSULTA_DOENCA)
-                    {
-                        <li class="list-group-item">
-                            <span> @item.DOENCAS.DESCRICAO</span>
-                        </li>
-                    }
-                </ul>
             </div>
         </div>
         <div class="form-group">
@@ -51,7 +42,7 @@
                     @foreach (var item in Model.RECEITAS)
                     {
                         <li class="list-group-item">
-                            <span> [@item.MEDICAMENTOS.NOME_GENERICO [@item.MEDICAMENTOS.FABRICANTE]</span>
+                            <span> @item.MEDICAMENTOS.NOME_GENERICO [@item.MEDICAMENTOS.FABRICANTE]</span>
                         </li>
                     }
                 </ul>

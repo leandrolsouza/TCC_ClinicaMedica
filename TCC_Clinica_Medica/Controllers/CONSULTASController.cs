@@ -336,7 +336,7 @@ namespace TCC_Clinica_Medica.Controllers
             CONSULTAS consulta = db.CONSULTAS.Find(id);
             consulta.CANCELADA = true;
             db.SaveChanges();
-            return Json(Url.Action("Index", new { mensagem = "Registro cancelado com sucesso!" }));
+            return Json(Url.Action("Agendadas", new { mensagem = "Registro cancelado com sucesso!" }));
         }
 
         [CustomAuthorize(Roles = new UserType[] { UserType.Administrador, UserType.Medico })]

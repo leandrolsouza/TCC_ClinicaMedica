@@ -45,7 +45,7 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="menu-item">@Html.ActionLink("Inicio", "Index", "Home")</li>
+                    <li class="menu-item">@Html.ActionLink("Inicio", "Index", "Home", "", new { @class = "barnano" })</li>
                     <li class="menu-item dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             Consultas
@@ -81,7 +81,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li class="menu-item dropdown dropdown-submenu">
-                                @Html.ActionLink("Historico", "Index", "PACIENTES")
+                                @Html.ActionLink("Historico", "Index", "PACIENTES", "", new { @class = "barnano" })
                             </li>
                         </ul>
                     </li>
@@ -92,10 +92,10 @@
                         </a>
                          <ul class="dropdown-menu">
                             <li class="menu-item dropdown dropdown-submenu">
-                                @Html.ActionLink("Solicitados", "Index", "EXAMES")
+                                @Html.ActionLink("Solicitados", "Index", "EXAMES", "", new { @class = "barnano" })
                             </li>
                             <li class="menu-item dropdown dropdown-submenu">
-                                @Html.ActionLink("Resultados", "Index", "EXAME_RESULTADO")
+                                @Html.ActionLink("Resultados", "Index", "EXAME_RESULTADO", "", new { @class = "barnano" })
                             </li>
                             @*<li class="menu-item dropdown dropdown-submenu">
                             <a href="#" title="" class="dropdown-toggle" data-toggle="dropdown">Page 3.2</a>
@@ -115,22 +115,22 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li class="menu-item dropdown dropdown-submenu">
-                                @Html.ActionLink("Plano de Saude", "Index", "PLANO_SAUDE")
+                                @Html.ActionLink("Plano de Saude", "Index", "PLANO_SAUDE", "", new { @class = "barnano" })
                             </li>
                             <li class="menu-item dropdown dropdown-submenu">
-                                @Html.ActionLink("Medicamentos", "Index", "MEDICAMENTOS")
+                                @Html.ActionLink("Medicamentos", "Index", "MEDICAMENTOS", "", new { @class = "barnano" })
                             </li>
                             <li class="menu-item dropdown dropdown-submenu">
-                                @Html.ActionLink("Doenças", "Index", "DOENCAS")
+                                @Html.ActionLink("Doenças", "Index", "DOENCAS", "", new { @class = "barnano" })
                             </li>
                             <li class="menu-item dropdown dropdown-submenu">
-                                @Html.ActionLink("Clinicas", "Index", "CLINICAS")
+                                @Html.ActionLink("Clinicas", "Index", "CLINICAS", "", new { @class = "barnano" })
                             </li>
                             <li class="menu-item dropdown dropdown-submenu">
-                                @Html.ActionLink("Especialidades", "Index", "ESPECIALIDADES")
+                                @Html.ActionLink("Especialidades", "Index", "ESPECIALIDADES", "", new { @class = "barnano" })
                             </li>
                             <li class="menu-item dropdown dropdown-submenu">
-                                @Html.ActionLink("Usuarios", "Index", "USUARIOS")
+                                @Html.ActionLink("Usuarios", "Index", "USUARIOS", "", new { @class = "barnano" })
                             </li>
                            @* <li class="menu-item dropdown dropdown-submenu">
             @Html.ActionLink("Horarios Atendimentos", "Index", "HORARIOS_ATENDIMENTO")

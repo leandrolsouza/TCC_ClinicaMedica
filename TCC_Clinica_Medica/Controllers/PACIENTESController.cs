@@ -71,6 +71,11 @@ namespace TCC_Clinica_Medica.Controllers
         // GET: PACIENTES/Details/5
         public async Task<ActionResult> Details(int? id)
         {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
             ViewBag.Exames = new List<EXAMES_SOLICITADOS>();
 
             if (id == null)

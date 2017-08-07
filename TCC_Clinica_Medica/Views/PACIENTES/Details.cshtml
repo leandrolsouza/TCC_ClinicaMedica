@@ -7,15 +7,18 @@
 <script>
 
     $(document).ready(function () {
+
         $('#IMPRECEITA').click(function () {
             var x = $('#IDCONSULTA').val()
-            window.open('@Url.Action("Receita", "CONSULTAS",new { id = @Model.ID })', 'Receita', '_blank');
+
+            window.open('@Url.Action("Receita", "CONSULTAS")/'+x, 'Receita', '_blank') ;
             return false;
         });
         $('#IMPATESTADO').click(function () {
-            window.open('@Url.Action("Atestado", "CONSULTAS", new { id = @Model.ID })', 'Atestado', '_blank');
+            window.open('@Url.Action("Atestado", "CONSULTAS")/'+x, 'Atestado', '_blank');
             return false;
         });
+
     });
 
     function SelecionarConsulta(id) {
