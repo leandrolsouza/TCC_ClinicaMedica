@@ -93,7 +93,9 @@
                 <th></th>
             </tr>
 
-            @foreach (var item in Model)
+@if (Model.Count > 0)
+{
+            foreach (var item in Model)
             {
                 <tr>
                     <td>
@@ -113,6 +115,15 @@
                         <a href="#"><span class="glyphicon glyphicon-trash" id="trash" onclick="javascript:Apagar(@item.ID);"></span></a>
                     </td>
                 </tr>
+            }
+            }
+            else
+            {
+            <tr>
+                <td colspan="5">
+                    <div class="alert alert-success" role="alert"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;NÃO EXISTEM REGISTROS CADASTRADOS!</div>
+                </td>
+            </tr>
             }
             <tr>
                 <td align="right" colspan="6">

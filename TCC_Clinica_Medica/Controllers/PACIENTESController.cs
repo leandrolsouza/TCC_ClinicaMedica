@@ -25,47 +25,58 @@ namespace TCC_Clinica_Medica.Controllers
                 return RedirectToAction("Index", "LOGIN");
             }
 
-            ViewBag.CurrentSort = sortOrder;
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.CpfSortParm = String.IsNullOrEmpty(sortOrder) ? "cpf_desc" : "";
-
-            if (searchString != null)
+            try
             {
-                page = 1;
+
+         
+
+                ViewBag.CurrentSort = sortOrder;
+                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewBag.CpfSortParm = String.IsNullOrEmpty(sortOrder) ? "cpf_desc" : "";
+
+                if (searchString != null)
+                {
+                    page = 1;
+                }
+                else
+                {
+                    searchString = currentFilter;
+                }
+
+                ViewBag.CurrentFilter = searchString;
+
+                var pacientes = db.PACIENTES.ToList().AsEnumerable();
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    pacientes = pacientes.Where(s => s.USUARIOS.NOME.ToUpper().Contains(searchString.ToUpper()));
+                }
+
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        pacientes = pacientes.OrderByDescending(s => s.USUARIOS.NOME);
+                        break;
+                    case "cpf_desc":
+                        pacientes = pacientes.OrderByDescending(s => s.USUARIOS.CPF);
+                        break;
+                    default:
+                        pacientes = pacientes.OrderBy(s => s.USUARIOS.NOME);
+                        break;
+                }
+
+                pacientes = pacientes.Where(x => x.USUARIOS.ATIVO);
+                int pageSize = 5;
+                int pageNumber = (page ?? 1);
+                return View(pacientes.ToPagedList(pageNumber, pageSize));
+
             }
-            else
+            catch (Exception ex)
             {
-                searchString = currentFilter;
+                throw ex;
             }
 
-            ViewBag.CurrentFilter = searchString;
 
-            var pacientes = db.PACIENTES.ToList().AsEnumerable();
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                pacientes = pacientes.Where(s => s.USUARIOS.NOME.ToUpper().Contains(searchString.ToUpper()));
-            }
-
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    pacientes = pacientes.OrderByDescending(s => s.USUARIOS.NOME);
-                    break;
-                case "cpf_desc":
-                    pacientes = pacientes.OrderByDescending(s => s.USUARIOS.CPF);
-                    break;
-                default:
-                    pacientes = pacientes.OrderBy(s => s.USUARIOS.NOME);
-                    break;
-            }
-
-            
-
-            pacientes = pacientes.Where(x => x.USUARIOS.ATIVO);
-            int pageSize = 5;
-            int pageNumber = (page ?? 1);
-            return View(pacientes.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: PACIENTES/Details/5

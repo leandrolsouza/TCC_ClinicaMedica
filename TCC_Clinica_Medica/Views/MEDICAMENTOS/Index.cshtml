@@ -99,7 +99,9 @@
                 </td>
             </tr>
 
-            @foreach (var item in Model)
+@if (Model.Count > 0)
+{
+            foreach (var item in Model)
             {
                 <tr>
                     <td>
@@ -112,12 +114,21 @@
                         @Html.DisplayFor(modelItem => item.FABRICANTE)
                     </td>
                     <td>
-                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit" }) &nbsp; | &nbsp;
+                        @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit barnano" }) &nbsp; | &nbsp;
                         @*@Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "glyphicon glyphicon-trash" })*@
                         <a href="#"><span class="glyphicon glyphicon-trash" id="trash" onclick="javascript:Apagar(@item.ID);"></span></a>
                     </td>
                 </tr>
-            }
+    }
+}
+else
+{
+    <tr>
+        <td colspan="5">
+            <div class="alert alert-success" role="alert"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;&nbsp;NÃO EXISTEM REGISTROS CADASTRADOS!</div>
+        </td>
+    </tr>
+}
             <tr>
                 <td align="right" colspan="3">
 

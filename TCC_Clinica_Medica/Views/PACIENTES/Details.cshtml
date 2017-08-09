@@ -14,7 +14,9 @@
             window.open('@Url.Action("Receita", "CONSULTAS")/'+x, 'Receita', '_blank') ;
             return false;
         });
+
         $('#IMPATESTADO').click(function () {
+            var x = $('#IDCONSULTA').val()
             window.open('@Url.Action("Atestado", "CONSULTAS")/'+x, 'Atestado', '_blank');
             return false;
         });

@@ -34,7 +34,9 @@
             </table>
             <table class="table table-striped">
                     <tr>
-                        <td><h4>Atesto para os devidos fins, a pedido, que o(a) Sr(a). @Model.PACIENTES.USUARIOS.NOME, inscrito(a) no CPF sob o nº @Model.PACIENTES.USUARIOS.CPF, paciente sob meus cuidados, foi atendido(a) no dia @DateTime.Now.ToShortDateString() às @DateTime.Now.ToShortTimeString(), e necessitando de _____ dias de repouso.</h4></td>
+                        <td>
+                            <h4>Atesto para os devidos fins, a pedido, que o(a) Sr(a). @Model.PACIENTES.USUARIOS.NOME, inscrito(a) no CPF sob o nº @Model.PACIENTES.USUARIOS.CPF, paciente sob meus cuidados, foi atendido(a) no dia @DateTime.Now.ToShortDateString() às @DateTime.Now.ToShortTimeString(), e necessitando de _____ dias de repouso.</h4>
+                       </td>
                     </tr>
             </table>
             <table class="table">
@@ -42,6 +44,15 @@
                     <td><h4>_______________________________________________</h4><br />@Model.MEDICOS.USUARIOS.NOME (CRM:@Model.MEDICOS.CRM)</td>
                     <td></td>
                 </tr>
+            </table>
+            <table class="table">
+                @foreach (var item in Model.CONSULTA_DOENCA)
+                {
+                <tr>
+                    <td>CID:&nbsp;@item.DOENCAS.CID</td>
+                    <td></td>
+                </tr>
+                }
             </table>
 
         </div>
