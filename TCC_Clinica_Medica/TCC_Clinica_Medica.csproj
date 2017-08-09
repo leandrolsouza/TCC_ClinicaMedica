@@ -338,6 +338,8 @@
     <Content Include="Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\tccclinicamedica - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\tccclinicamedica - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\WEB.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
