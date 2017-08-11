@@ -21,6 +21,17 @@ namespace TCC_Clinica_Medica.Controllers
         }
 
         [CustomAuthorize(Roles = new UserType[] { UserType.Administrador, UserType.Medico })]
+        public ActionResult About()
+        {
+            if (Session["Usuario"] == null)
+            {
+                return RedirectToAction("Index", "LOGIN");
+            }
+
+            return View();
+        }
+
+        [CustomAuthorize(Roles = new UserType[] { UserType.Administrador, UserType.Medico })]
         public ActionResult Exit()
         {
             Session["Usuario"] = null;

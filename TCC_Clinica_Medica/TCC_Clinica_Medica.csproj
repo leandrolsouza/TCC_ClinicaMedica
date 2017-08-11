@@ -302,6 +302,7 @@
     <Content Include="Imagens\Calendar_Icon.png" />
     <Content Include="Imagens\colba_medical_18047.png" />
     <Content Include="Imagens\banner1.jpg" />
+    <Content Include="Imagens\linkedin.png" />
     <Content Include="Imagens\user2.png" />
     <Content Include="Imagens\grid-edit.png" />
     <Content Include="Imagens\ico_lupa.gif" />
@@ -394,10 +395,6 @@
     <Content Include="Views\PACIENTES\Details.cshtml" />
     <Content Include="Views\PACIENTES\Edit.cshtml" />
     <Content Include="Views\PACIENTES\Index.cshtml" />
-    <Content Include="Views\EXAMES\Create.cshtml" />
-    <Content Include="Views\EXAMES\Delete.cshtml" />
-    <Content Include="Views\EXAMES\Details.cshtml" />
-    <Content Include="Views\EXAMES\Edit.cshtml" />
     <Content Include="Views\EXAMES\Index.cshtml" />
     <Content Include="Views\RECEITAS\Create.cshtml" />
     <Content Include="Views\RECEITAS\Delete.cshtml" />
@@ -455,7 +452,6 @@
     <Content Include="Views\CONSULTAS\DoencasPartial.cshtml" />
     <Content Include="Views\CONSULTAS\MedicamentosPartial.cshtml" />
     <Content Include="Views\CONSULTAS\DetalhesConsulta.cshtml" />
-    <Content Include="Views\EXAMES\Execucao.cshtml" />
     <Content Include="Views\EXAMES\Resultado.cshtml" />
     <Content Include="Views\CONSULTAS\Receita.cshtml" />
     <Content Include="Views\CONSULTAS\Atestado.cshtml" />
