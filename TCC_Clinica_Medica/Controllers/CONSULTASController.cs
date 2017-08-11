@@ -273,7 +273,7 @@ namespace TCC_Clinica_Medica.Controllers
             ViewBag.Agenda = (from c in db.CONSULTAS
                                join m in db.MEDICOS on c.ID_MEDICO equals m.ID
                                join pa in db.PACIENTES on c.ID_PACIENTE equals pa.ID
-                               where c.ID_MEDICO == id && !c.REALIZADA && !c.RETORNO
+                               where c.ID_MEDICO == id && !c.REALIZADA && !c.RETORNO && !c.CANCELADA
                                select c).ToList();
 
 
@@ -318,6 +318,15 @@ namespace TCC_Clinica_Medica.Controllers
                     cONSULTAS.TIPO = 1;
                     cONSULTAS.ID_CONSULTA_RETORNO = null;
                     cONSULTAS.RETORNO = false;
+                }
+
+                var consulta = from c in db.CONSULTAS
+                               where c.DATA_INICIO >= cONSULTAS.DATA_INICIO && c.DATA_INICIO <= cONSULTAS.DATA_FIM && c.ID_MEDICO == cONSULTAS.ID_MEDICO && c.RETORNO == false && c.CANCELADA == false
+                               select c;
+
+                if(consulta.Count() > 0)
+                {
+                    return RedirectToAction("Marcacao", "CONSULTAS", new { mensagem = "Já existe uma consulta marcada para esse horario!" });
                 }
 
                 db.CONSULTAS.Add(cONSULTAS);
