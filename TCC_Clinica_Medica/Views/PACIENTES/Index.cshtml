@@ -24,7 +24,7 @@
         </tr>
     </table>
 
-    <div class="panel panel-primary">
+    <div class="panel panel-primary" style="overflow:scroll">
         <table class="table  table-bordered">
             <tr style="background-color:#d1d1d1;font-weight: bold;">
                 <td>
@@ -57,10 +57,14 @@ else
         </td>
     </tr>
 }
-            <tr>
-                <td align="right" colspan="3">
+            </table>
+          
+    </div>
+    <table class="table">
+        <tr>
+            <td align="right" colspan="3">
 
-                    @Html.PagedListPager(Model, page => Url.Action("Index",
+                @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
  new PagedListRenderOptions
  {
@@ -70,9 +74,8 @@ else
      LinkToNextPageFormat = "Próximo",
      LinkToLastPageFormat = "Última"
  })
-                </td>
-            </tr>
+            </td>
+        </tr>
 
-        </table>
-    </div>
+    </table>
  </div>

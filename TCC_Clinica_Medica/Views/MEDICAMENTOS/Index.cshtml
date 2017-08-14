@@ -76,7 +76,7 @@
                 @using (Html.BeginForm("Create", "MEDICAMENTOS", FormMethod.Get))
                 {
                     <button type="submit" class="btn btn-default">
-                        <i class="glyphicon glyphicon-file"></i> &nbsp; Novo medicamento
+                        <i class="glyphicon glyphicon-file"></i> &nbsp; Novo
                     </button>
                 }
             </td>
@@ -85,7 +85,7 @@
 
     </table>
 
-    <div class="panel panel-primary">
+    <div class="panel panel-primary" style="overflow:scroll">
         <table class="table  table-bordered">
             <tr style="background-color:#d1d1d1;font-weight: bold;">
                 <td>
@@ -129,24 +129,28 @@ else
         </td>
     </tr>
 }
-            <tr>
-                <td align="right" colspan="3">
+            </table>
+       
 
-                    @Html.PagedListPager(Model, page => Url.Action("Index",
+    </div>
+    <table class="table">
+        <tr>
+            <td align="right" colspan="3">
+
+                @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
  new PagedListRenderOptions
  {
      UlElementClasses = new[] { "pagination" },
-                        LinkToFirstPageFormat = "Primeiro",
+     LinkToFirstPageFormat = "Primeiro",
      LinkToPreviousPageFormat = "Anterior",
      LinkToNextPageFormat = "Próximo",
      LinkToLastPageFormat = "Última"
  })
-                </td>
-            </tr>
+            </td>
+        </tr>
 
-        </table>
-    </div>
+    </table>
     <div id="dialog-confirm" title="">
         <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja apagar esse item?</p>
     </div>

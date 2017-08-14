@@ -239,7 +239,7 @@ namespace TCC_Clinica_Medica.Controllers
             ViewBag.Pacientes = new SelectList((from p in db.PACIENTES
                                  join usu in db.USUARIOS on p.ID_USUARIO equals usu.ID
                                  where usu.ATIVO
-                                 select new { NOME = usu.NOME, ID = p.ID }
+                                 select new { NOME = usu.NOME +" ("+ usu.CPF + ")", ID = p.ID }
                                  ).ToList(), "ID", "NOME");
 
             ViewBag.ConsultasAntigas = from s in db.CONSULTAS

@@ -74,11 +74,11 @@
 
 
     </table>
-    <div class="panel panel-primary">
+    <div class="panel panel-primary" style="overflow-y:scroll;">
         <table class="table">
-            <tr>
+            <tr style="background-color:#d1d1d1;font-weight: bold;">
                 <th>
-                   @Html.ActionLink("DATA INICIO", "Index", new { sortOrder = ViewBag.DataSortParm })
+                   @Html.ActionLink("DATA INICIO", "Finalizadas", new { sortOrder = ViewBag.DataSortParm })
                 </th>
                 <th>
                    TIPO
@@ -87,10 +87,10 @@
                    N. RETORNO
                 </th>
                 <th>
-                    @Html.ActionLink("MEDICO", "Index", new { sortOrder = ViewBag.NedicoSortParm })
+                    @Html.ActionLink("MEDICO", "Finalizadas", new { sortOrder = ViewBag.NedicoSortParm })
                 </th>
                 <th>
-                    @Html.ActionLink("PACIENTE", "Index", new { sortOrder = ViewBag.PacienteSortParm })
+                    @Html.ActionLink("PACIENTE", "Finalizadas", new { sortOrder = ViewBag.PacienteSortParm })
                 </th>
             </tr>
 @if (Model.Count > 0)
@@ -99,7 +99,7 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.DATA_INICIO)
+                        @item.DATA_INICIO.ToShortDateString() - @item.DATA_INICIO.ToShortTimeString()
                     </td>
                     @if (item.TIPO == 1)
                     {
@@ -129,10 +129,15 @@
                 </td>
             </tr>
             }
-            <tr>
-                <td align="right" colspan="6">
+            </table>
+     
 
-                    @Html.PagedListPager(Model, page => Url.Action("Index",
+    </div>
+    <table class="table">
+        <tr>
+            <td align="right">
+
+                @Html.PagedListPager(Model, page => Url.Action("Finalizadas",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
  new PagedListRenderOptions
  {
@@ -142,12 +147,10 @@
      LinkToNextPageFormat = "Próximo",
      LinkToLastPageFormat = "Última"
  })
-                </td>
-            </tr>
+            </td>
+        </tr>
 
-        </table>
-
-    </div>
+    </table>
     <div id="dialog-confirm" title="">
         <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja cancelar esse item?</p>
     </div>

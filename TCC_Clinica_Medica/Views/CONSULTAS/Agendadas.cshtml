@@ -60,7 +60,7 @@
 <div class="jumbotron">
     <h2>Consultas agendadas</h2>
     <table class="table">
-        <tr>
+        <tr >
             <td style="width:65%" valign="top">
                 @using (Html.BeginForm("Agendadas", "CONSULTAS", FormMethod.Get))
                 {
@@ -74,9 +74,9 @@
 
 
     </table>
-    <div class="panel panel-primary">
+    <div class="panel panel-primary" style="overflow-y:scroll;">
         <table class="table">
-            <tr>
+            <tr style="background-color:#d1d1d1;font-weight: bold;">
                 <th>
                    @Html.ActionLink("DATA INICIO", "Index", new { sortOrder = ViewBag.DataSortParm })
                 </th>
@@ -99,7 +99,7 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.DATA_INICIO)
+                       @item.DATA_INICIO.ToShortDateString() - @item.DATA_INICIO.ToString("HH:mm")
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.RETORNO)

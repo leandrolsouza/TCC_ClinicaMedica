@@ -74,7 +74,7 @@
                 @using (Html.BeginForm("Create", "PLANO_SAUDE", FormMethod.Get))
                 {
                     <button type="submit" class="btn btn-default">
-                        <i class="glyphicon glyphicon-file"></i> &nbsp; Novo plano
+                        <i class="glyphicon glyphicon-file"></i> &nbsp; Novo
                     </button>
                 }
             </td>
@@ -85,13 +85,12 @@
 
 
 
-    <div class="panel panel-primary">
+    <div class="panel panel-primary" style="overflow:scroll">
         <table class="table  table-bordered">
             <tr style="background-color:#d1d1d1;font-weight: bold;">
                 <td>
                     @Html.ActionLink("DESCRIÇÃO", "Index", new { sortOrder = ViewBag.NameSortParm })
                 </td>
-                <td>ATIVO</td>
             </tr>
 @if (Model.Count > 0)
 {
@@ -101,9 +100,6 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.DESCRICAO)
                     </td>
-                    <td>
-                            @Html.DisplayFor(modelItem => item.ATIVO)
-                        </td>
                     <td>
                         @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit barnano" }) &nbsp; | &nbsp;
                         @*@Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "glyphicon glyphicon-trash" })*@
@@ -120,10 +116,14 @@
                 </td>
             </tr>
             }
-            <tr>
-                <td align="right" colspan="3">
+            </table>
+      
+    </div>
+    <table class="table">
+        <tr>
+            <td align="right" colspan="3">
 
-                    @Html.PagedListPager(Model, page => Url.Action("Index",
+                @Html.PagedListPager(Model, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
  new PagedListRenderOptions
  {
@@ -133,11 +133,10 @@
      LinkToNextPageFormat = "Próximo",
      LinkToLastPageFormat = "Última"
  })
-                </td>
-            </tr>
+            </td>
+        </tr>
 
-        </table>
-    </div>
+    </table>
     <div id="dialog-confirm" title="">
         <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja apagar esse item?</p>
     </div>
