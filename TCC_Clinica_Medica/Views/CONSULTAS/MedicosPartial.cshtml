@@ -8,7 +8,6 @@
                 </td>
                 <td>NOME</td>
                 <td>CRM</td>
-                <td>CLINICAS</td>
                 <td>HORARIOS</td>
             </tr>
             @if (Model.Count > 0)
@@ -24,15 +23,6 @@
                 </td>
                 <td>
                     @item.MEDICOS.ToList()[0].CRM
-                </td>
-                <td>
-                @foreach (var item2 in item.MEDICOS.Where(x => x.ID == @item.MEDICOS.ToList()[0].ID))
-                {
-                    foreach (var item3 in item2.MEDICO_CLINICA)
-                    {
-                     <span>@item3.CLINICAS.NOME</span>
-                    }
-                }
                 </td>
                 <td>
                     @foreach (var item2 in item.MEDICOS.Where(x => x.ID == @item.MEDICOS.ToList()[0].ID))

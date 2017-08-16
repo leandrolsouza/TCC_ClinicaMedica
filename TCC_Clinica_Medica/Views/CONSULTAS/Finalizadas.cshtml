@@ -99,7 +99,7 @@
             {
                 <tr>
                     <td>
-                        @item.DATA_INICIO.ToShortDateString() - @item.DATA_INICIO.ToShortTimeString()
+                        @item.DATA_INICIO.ToString("dd/MM/yyyy") - @item.DATA_INICIO.ToString("HH:mm")
                     </td>
                     @if (item.TIPO == 1)
                     {
