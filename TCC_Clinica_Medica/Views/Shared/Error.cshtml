@@ -1,13 +1,37 @@
-﻿<!DOCTYPE html>
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    Layout = "_Layout.cshtml";
+    ViewBag.Title = "Error";
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Error</title>
+    <title>AH NÃO!!! PROBLEMAS NO SISTEMA! DESCULPAS! :(</title>
 </head>
 <body>
-    <hgroup>
-        <h1>Error.</h1>
-        <h2>An error occurred while processing your request.</h2>
-    </hgroup>
+    <br /><br />
+    <div class="jumbotron">
+        <hgroup>
+            <h2>Opa! algo deu errado! :(</h2>
+            <h4>Ocorreu um erro ao processar essa requisção.</h4>
+            <h4>Contate o administrador e reporte o erro.</h4>
+          
+        </hgroup>
+        <br /><br />
+            <div>
+                <p>
+                    <b>Exception:</b> @Model.Exception.Message<br />
+                    <b>Controller:</b> @Model.ControllerName<br />
+                    <b>Action:</b> @Model.ActionName<br />
+                    <b>InnerException :</b> @Model.ActionName@Model.Exception.InnerException
+                </p>
+                <div style="overflow:scroll">
+                    <pre>
+                    @Model.Exception.StackTrace
+                </pre>
+                </div>
+            </div>
+    </div>
 </body>
 </html>

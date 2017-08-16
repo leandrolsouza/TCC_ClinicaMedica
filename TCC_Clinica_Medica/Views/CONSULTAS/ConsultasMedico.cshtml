@@ -13,7 +13,7 @@
         $("#dialog-confirm").hide();
     });
 
- 
+
 
 </script>
 
@@ -37,69 +37,53 @@
 
 
     </table>
-    <div class="panel panel-primary">
-        <table class="table table-bordered">
-            @if(Model.Count > 0)
-            {
-
-          
-            <tr>
-                <th>
-                   @Html.ActionLink("DATA INICIO", "Index", new { sortOrder = ViewBag.DataSortParm })
-                </th>
-                <th>
-                   RETORNO
-                </th>
-                <th>
-                   N. RETORNO
-                </th>
-                <th>
-                    @Html.ActionLink("MEDICO", "Index", new { sortOrder = ViewBag.NedicoSortParm })
-                </th>
-                <th>
-                    @Html.ActionLink("PACIENTE", "Index", new { sortOrder = ViewBag.PacienteSortParm })
-                </th>
-                <th></th>
-            </tr>
-
-            foreach (var item in Model)
+    <div class="panel panel-primary" style="overflow:scroll">
+        <table class="table">
+            @if (Model.Count > 0)
             {
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DATA_INICIO)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RETORNO)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CONSULTAS2.ID)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.MEDICOS.USUARIOS.NOME)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PACIENTES.USUARIOS.NOME)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Iniciar","Consulta",new { ID = item.ID })
-                    </td>
+                    <th>
+                        @Html.ActionLink("DATA INICIO", "Index", new { sortOrder = ViewBag.DataSortParm })
+                    </th>
+                    <th>
+                        RETORNO
+                    </th>
+                    <th>
+                        N. RETORNO
+                    </th>
+                    <th>
+                        @Html.ActionLink("MEDICO", "Index", new { sortOrder = ViewBag.NedicoSortParm })
+                    </th>
+                    <th>
+                        @Html.ActionLink("PACIENTE", "Index", new { sortOrder = ViewBag.PacienteSortParm })
+                    </th>
+                    <th></th>
                 </tr>
-            }
-            <tr>
-                <td align="right" colspan="6">
 
-                    @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
- new PagedListRenderOptions
- {
-
-     LinkToFirstPageFormat = "Primeiro",
-     LinkToPreviousPageFormat = "Anterior",
-     LinkToNextPageFormat = "Próximo",
-     LinkToLastPageFormat = "Última"
- })
-                </td>
-            </tr>
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.DATA_INICIO.ToShortDateString() - @item.DATA_INICIO.ToString("HH:mm")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RETORNO)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CONSULTAS2.ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MEDICOS.USUARIOS.NOME)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PACIENTES.USUARIOS.NOME)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Iniciar", "Consulta", new { ID = item.ID })
+                        </td>
+                    </tr>
+                }
+               
             }
             else
             {
@@ -109,9 +93,26 @@
                     </td>
                 </tr>
             }
+         
         </table>
-
+       
     </div>
+    <table class="table">
+        <tr>
+            <td align="right" colspan="6">
+                @Html.PagedListPager(Model, page => Url.Action("Index",
+                            new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }),
+                         new PagedListRenderOptions
+                         {
+
+                             LinkToFirstPageFormat = "Primeiro",
+                             LinkToPreviousPageFormat = "Anterior",
+                             LinkToNextPageFormat = "Próximo",
+                             LinkToLastPageFormat = "Última"
+                         })
+            </td>
+        </tr>
+    </table>
     <div id="dialog-confirm" title="">
         <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>Tem certeza que deseja cancelar esse item?</p>
     </div>

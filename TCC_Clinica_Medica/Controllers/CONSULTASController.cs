@@ -299,43 +299,54 @@ namespace TCC_Clinica_Medica.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Marcacao(string IDMEDICO,string IDPACIENTE, string DATA, string INICIO, string FIM,string RETORNO,string IDCONSULTARETORNO)
         {
-            if (ModelState.IsValid)
+            try
             {
-                CONSULTAS cONSULTAS = new CONSULTAS();
-                cONSULTAS.ID_MEDICO = int.Parse(IDMEDICO);
-                cONSULTAS.ID_PACIENTE = int.Parse(IDPACIENTE);
-                cONSULTAS.DATA_INICIO = DateTime.Parse(DATA).AddHours(double.Parse(INICIO.Split(':').ToList()[0])).AddMinutes(double.Parse(INICIO.Split(':').ToList()[1]));
-                cONSULTAS.DATA_FIM = DateTime.Parse(DATA).AddHours(double.Parse(FIM.Split(':').ToList()[0])).AddMinutes(double.Parse(FIM.Split(':').ToList()[1]));
-
-                if(RETORNO == "1")
+                 if (ModelState.IsValid)
                 {
-                    cONSULTAS.TIPO = 2;
-                    cONSULTAS.RETORNO = true;
-                    cONSULTAS.ID_CONSULTA_RETORNO = int.Parse(IDCONSULTARETORNO);
+                    CONSULTAS cONSULTAS = new CONSULTAS();
+                    cONSULTAS.ID_MEDICO = int.Parse(IDMEDICO);
+                    cONSULTAS.ID_PACIENTE = int.Parse(IDPACIENTE);
+
+                    DATA = DATA.Substring(6, 4) + "-" + DATA.Substring(3, 2) + "-" + DATA.Substring(0, 2);
+                    DateTime data = DateTime.Parse(DATA);
+                    cONSULTAS.DATA_INICIO = data.AddHours(double.Parse(INICIO.Split(':').ToList()[0])).AddMinutes(double.Parse(INICIO.Split(':').ToList()[1]));
+                    cONSULTAS.DATA_FIM = data.AddHours(double.Parse(FIM.Split(':').ToList()[0])).AddMinutes(double.Parse(FIM.Split(':').ToList()[1]));
+
+                    if(RETORNO == "1")
+                    {
+                        cONSULTAS.TIPO = 2;
+                        cONSULTAS.RETORNO = true;
+                        cONSULTAS.ID_CONSULTA_RETORNO = int.Parse(IDCONSULTARETORNO);
+                    }
+                    else
+                    {
+                        cONSULTAS.TIPO = 1;
+                        cONSULTAS.ID_CONSULTA_RETORNO = null;
+                        cONSULTAS.RETORNO = false;
+                    }
+
+                    var consulta = from c in db.CONSULTAS
+                                   where c.DATA_INICIO >= cONSULTAS.DATA_INICIO && c.DATA_INICIO <= cONSULTAS.DATA_FIM && c.ID_MEDICO == cONSULTAS.ID_MEDICO && c.RETORNO == false && c.CANCELADA == false
+                                   select c;
+
+                    if(consulta.Count() > 0)
+                    {
+                        return RedirectToAction("Marcacao", "CONSULTAS", new { mensagem = "Já existe uma consulta marcada para esse horario!" });
+                    }
+
+                    db.CONSULTAS.Add(cONSULTAS);
+                    await db.SaveChangesAsync();
+
+                    return RedirectToAction("Agendadas", "CONSULTAS", new { mensagem = "Marcação criada com sucesso!" });
                 }
-                else
-                {
-                    cONSULTAS.TIPO = 1;
-                    cONSULTAS.ID_CONSULTA_RETORNO = null;
-                    cONSULTAS.RETORNO = false;
-                }
 
-                var consulta = from c in db.CONSULTAS
-                               where c.DATA_INICIO >= cONSULTAS.DATA_INICIO && c.DATA_INICIO <= cONSULTAS.DATA_FIM && c.ID_MEDICO == cONSULTAS.ID_MEDICO && c.RETORNO == false && c.CANCELADA == false
-                               select c;
+                return View();
 
-                if(consulta.Count() > 0)
-                {
-                    return RedirectToAction("Marcacao", "CONSULTAS", new { mensagem = "Já existe uma consulta marcada para esse horario!" });
-                }
-
-                db.CONSULTAS.Add(cONSULTAS);
-                await db.SaveChangesAsync();
-
-                return RedirectToAction("Agendadas", "CONSULTAS", new { mensagem = "Marcação criada com sucesso!" });
             }
-
-            return View();
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         [CustomAuthorize(Roles = new UserType[] { UserType.Administrador })]

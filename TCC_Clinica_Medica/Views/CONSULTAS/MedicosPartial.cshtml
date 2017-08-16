@@ -39,7 +39,7 @@
                 {
                         foreach (var item3 in item2.MEDICO_HORARIO_ATENDIMENTO)
                     {
-                            <span class="label label-danger">@item3.HORARIOS_ATENDIMENTO.HORA_INICIO.Value.ToShortTimeString()/ @item3.HORARIOS_ATENDIMENTO.HORA_FIM.Value.ToShortTimeString()</span>
+                            <span class="label label-danger">@item3.HORARIOS_ATENDIMENTO.HORA_INICIO.Value.ToString("HH:mm")/ @item3.HORARIOS_ATENDIMENTO.HORA_FIM.Value.ToString("HH:mm")</span>
                         }
                     }
                 </td>

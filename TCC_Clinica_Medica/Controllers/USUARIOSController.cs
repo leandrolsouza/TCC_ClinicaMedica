@@ -118,7 +118,7 @@ namespace TCC_Clinica_Medica.Controllers
                     new SelectListItem
                     {
                         Value = x.ID.ToString(),
-                        Text = x.HORA_INICIO.Value.ToShortTimeString() + " - " +x.HORA_FIM.Value.ToShortTimeString()
+                        Text = x.HORA_INICIO.Value.ToString("HH:mm") + " - " +x.HORA_FIM.Value.ToString("HH:mm")
                     }); ;
 
 
@@ -270,10 +270,14 @@ namespace TCC_Clinica_Medica.Controllers
                     selectedValues.Add(item.ID_HORARIO_ATENDIMENTO.ToString());
                 }
 
-                ViewBag.Horarios =
-                  new MultiSelectList(db.HORARIOS_ATENDIMENTO.ToList().OrderBy(s => s.DESCRICAO).ToList(), "ID", "DESCRICAO", selectedValues);
+                ViewBag.Horarios = db.HORARIOS_ATENDIMENTO.ToList().AsEnumerable().Select(x =>
+                      new SelectListItem
+                      {
+                          Value = x.ID.ToString(),
+                          Text = x.HORA_INICIO.Value.ToString("HH:mm") + " - " + x.HORA_FIM.Value.ToString("HH:mm")
+                      }); ;
 
-               
+
             }
 
           
