@@ -53,7 +53,7 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                <span class="control-label col-md-2"> Nome Generico</span>
+                <span class="control-label col-md-2">NOME GENÉRICO</span>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.NOME_GENERICO, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.NOME_GENERICO, "", new { @class = "text-danger" })
@@ -61,7 +61,7 @@
             </div>
 
             <div class="form-group">
-                <span class="control-label col-md-2">Fabrica</span>
+                <span class="control-label col-md-2">FÁBRICA</span>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.FABRICA, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.FABRICA, "", new { @class = "text-danger" })
@@ -69,7 +69,7 @@
             </div>
 
             <div class="form-group">
-                <span class="control-label col-md-2">Fabricante</span>
+                <span class="control-label col-md-2">FABRICANTE</span>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.FABRICANTE, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.FABRICANTE, "", new { @class = "text-danger" })

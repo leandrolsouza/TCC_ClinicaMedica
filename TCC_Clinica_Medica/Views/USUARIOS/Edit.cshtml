@@ -1,7 +1,7 @@
 ﻿@model TCC_Clinica_Medica.USUARIOS
 
 @{
-    ViewBag.Title = "Usuarios - Editar";
+    ViewBag.Title = "Usuários - Editar";
 }
 
 
@@ -62,7 +62,7 @@
 <br />
 <br />
 <div class="jumbotron">
-    <h2>Usuarios</h2>
+    <h2>Usuários</h2>
 
 
     @using (Html.BeginForm())
@@ -136,19 +136,19 @@
                 </div>
             </div>
             <div class="form-group medico">
-                <span class="control-label col-md-2">Clinica</span>
+                <span class="control-label col-md-2">CLINICA</span>
                 <div class="col-md-10">
                     @Html.ListBox("CLINICA", (IEnumerable<SelectListItem>)ViewBag.Clinicas, new { @class = "form-control" })
                 </div>
             </div>
             <div class="form-group medico">
-                <span class="control-label col-md-2">Especialidade</span>
+                <span class="control-label col-md-2">ESPECIALIDADE</span>
                 <div class="col-md-10">
                     @Html.ListBox("ESPECIALIDADE", (IEnumerable<SelectListItem>)ViewBag.Especialidades, new { @class = "form-control" })
                 </div>
             </div>
             <div class="form-group medico">
-                <span class="control-label col-md-2">Horario</span>
+                <span class="control-label col-md-2">HORARIO</span>
                 <div class="col-md-10">
                     @Html.ListBox("HORARIO", (IEnumerable<SelectListItem>)ViewBag.Horarios, new { @class = "form-control" })
                 </div>

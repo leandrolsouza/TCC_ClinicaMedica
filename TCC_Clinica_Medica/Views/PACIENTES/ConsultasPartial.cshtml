@@ -17,7 +17,7 @@
                         <input type="radio" id="IDCONSULTA" name="IDCONSULTA" value="@item.ID" onclick="javascript:SelecionarConsulta('@item.ID')" />
                     </td>
                     <td>
-                        @item.DATA_INICIO.ToShortDateString()
+                        @item.DATA_INICIO.ToString("dd/MM/yyyy")
                     </td>
                     <td>
                        @item.MEDICOS.USUARIOS.NOME

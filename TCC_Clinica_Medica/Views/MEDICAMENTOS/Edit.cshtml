@@ -54,7 +54,7 @@
             @Html.HiddenFor(model => model.ID)
 
             <div class="form-group">
-                <span class="control-label col-md-2">Nome Generico</span>
+                <span class="control-label col-md-2">NOME GENÉRICO</span>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.NOME_GENERICO, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.NOME_GENERICO, "", new { @class = "text-danger" })
@@ -62,7 +62,7 @@
             </div>
 
             <div class="form-group">
-                <span class="control-label col-md-2">Fabrica</span>
+                <span class="control-label col-md-2">FÁBRICA</span>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.FABRICA, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.FABRICA, "", new { @class = "text-danger" })
@@ -70,19 +70,10 @@
             </div>
 
             <div class="form-group">
-                <span class="control-label col-md-2">Fabricante</span>
+                <span class="control-label col-md-2">FABRICANTE</span>
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.FABRICANTE, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.FABRICANTE, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.ATIVO, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.ATIVO)
-                        @Html.ValidationMessageFor(model => model.ATIVO, "", new { @class = "text-danger" })
-                    </div>
                 </div>
             </div>
             @Html.HiddenFor(model => model.DATA_CRIACAO)

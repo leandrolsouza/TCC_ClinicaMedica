@@ -57,7 +57,7 @@
                         @Html.DisplayFor(modelItem => item.EXAMES_SOLICITADOS.EXAMES.DESCRICAO)
                     </td>
                     <td>
-                        @item.DATA_CRIACAO.ToShortDateString() - @item.DATA_CRIACAO.ToShortTimeString()
+                       @item.DATA_CRIACAO.ToString("dd/MM/yyyy") - @item.DATA_CRIACAO.ToString("HH:mm")
                     </td>
                     <td>
                         @Html.ActionLink(" ", "Resultado", new { id = item.ID }, new { @class = "glyphicon glyphicon-play", @target = "_blank" })

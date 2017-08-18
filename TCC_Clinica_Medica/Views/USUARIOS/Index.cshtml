@@ -2,7 +2,7 @@
 @using PagedList.Mvc;
 
 @{
-    ViewBag.Title = "Usuarios";
+    ViewBag.Title = "Usuários";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -59,7 +59,7 @@
 <br />
 <br />
 <div class="jumbotron">
-    <h2>Usuarios</h2>
+    <h2>Usuários</h2>
 
 
     <table class="table">
@@ -118,7 +118,7 @@
                         }
                         else if (item.TIPO_ACESSO == 2)
                         {
-                            <span>Medico</span>
+                            <span>Médico</span>
                         }
                         else
                         {
@@ -127,7 +127,6 @@
                     </td>
                     <td>
                         @Html.ActionLink(" ", "Edit", new { id = item.ID }, new { @class = "glyphicon glyphicon-edit barnano" }) &nbsp; | &nbsp;
-                        @*@Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "glyphicon glyphicon-trash" })*@
                         <a href="#"><span class="glyphicon glyphicon-trash" id="trash" onclick="javascript:Apagar(@item.ID);"></span></a>
                     </td>
                 </tr>

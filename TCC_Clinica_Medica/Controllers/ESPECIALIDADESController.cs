@@ -124,6 +124,7 @@ namespace TCC_Clinica_Medica.Controllers
             if (ModelState.IsValid)
             {
                 eSPECIALIDADES.DATA_MODIFICACAO = DateTime.Now;
+                eSPECIALIDADES.ATIVO = true;
                 eSPECIALIDADES.DESCRICAO = eSPECIALIDADES.DESCRICAO.ToUpper();
                 db.Entry(eSPECIALIDADES).State = EntityState.Modified;
                 await db.SaveChangesAsync();

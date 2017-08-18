@@ -17,7 +17,7 @@
                     <td>
                         @foreach (var item2 in item.EXAME_RESULTADO)
                         {
-                            <span>@item2.DATA_CRIACAO</span>
+                            <span>@item2.DATA_CRIACAO.ToString("dd/MM/yyyy") - @item2.DATA_CRIACAO.ToString("HH:mm")</span>
                         }
                     </td>
                     <td>

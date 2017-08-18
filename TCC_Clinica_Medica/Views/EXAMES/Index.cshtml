@@ -88,6 +88,9 @@
                 <td>
                     MEDICO
                 </td>
+                <td>
+                    PACIENTE
+                </td>
             </tr>
 @if (Model.Count > 0)
 {
@@ -99,6 +102,9 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.OBSERVACOES)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CONSULTAS.PACIENTES.USUARIOS.NOME)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.CONSULTAS.MEDICOS.USUARIOS.NOME)

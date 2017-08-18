@@ -1,7 +1,7 @@
 ﻿@model TCC_Clinica_Medica.USUARIOS
 
 @{
-    ViewBag.Title = "Usuarios - Novo";
+    ViewBag.Title = "Usuários - Novo";
 }
 <script>
 
@@ -120,7 +120,7 @@
 <br />
 <br />
 <div class="jumbotron">
-    <h2>Usuarios</h2>
+    <h2>Usuários</h2>
 
 
     @using (Html.BeginForm())
@@ -132,11 +132,11 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
-                <span class="control-label col-md-2">Tipo Acesso</span>
+                <span class="control-label col-md-2">TIPO</span>
                 <div class="col-md-10">
                     <select id="TIPO_ACESSO" name="TIPO_ACESSO" class="form-control">
                         <option value="1">Administrador</option>
-                        <option value="2">Medico</option>
+                        <option value="2">Médico</option>
                         <option value="3">Paciente</option>
                     </select>
                 </div>

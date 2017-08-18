@@ -16,7 +16,10 @@
         <br />
         <div>
             <img src="~/Imagens/logo.png" />
+            <p>Av. do Contorno, 4747 - Serra, Belo Horizonte - MG, 30110-921</p>
+            <p>(31) 3431-0000</p>
         </div>
+        <hr />
         <div class="well-sm">
             <h3>Atestado</h3><br />
             <table class="table-condensed">
@@ -35,7 +38,7 @@
             <table class="table table-striped">
                     <tr>
                         <td>
-                            <h4>Atesto para os devidos fins, a pedido, que o(a) Sr(a). @Model.PACIENTES.USUARIOS.NOME, inscrito(a) no CPF sob o nº @Model.PACIENTES.USUARIOS.CPF, paciente sob meus cuidados, foi atendido(a) no dia @DateTime.Now.ToShortDateString() às @DateTime.Now.ToShortTimeString(), e necessitando de _____ dias de repouso.</h4>
+                            <h4>Atesto para os devidos fins, a pedido, que o(a) Sr(a). @Model.PACIENTES.USUARIOS.NOME, inscrito(a) no CPF sob o nº @Model.PACIENTES.USUARIOS.CPF, paciente sob meus cuidados, foi atendido(a) no dia @DateTime.Now.ToString("dd/MM/yyyy") às @DateTime.Now.ToString("HH:mm"), e necessitando de _____ dias de repouso.</h4>
                        </td>
                     </tr>
             </table>
@@ -45,6 +48,7 @@
                     <td></td>
                 </tr>
             </table>
+            <br />
             <table class="table">
                 @foreach (var item in Model.CONSULTA_DOENCA)
                 {
