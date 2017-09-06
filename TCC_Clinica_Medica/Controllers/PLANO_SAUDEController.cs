@@ -124,6 +124,7 @@ namespace TCC_Clinica_Medica.Controllers
             {
                 pLANO_SAUDE.DATA_MODIFICACAO = DateTime.Now;
                 pLANO_SAUDE.DESCRICAO = pLANO_SAUDE.DESCRICAO.ToUpper();
+                pLANO_SAUDE.ATIVO = true;
                 db.Entry(pLANO_SAUDE).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index", new { mensagem = "Registro editado com sucesso!" });

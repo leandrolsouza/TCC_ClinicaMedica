@@ -335,6 +335,8 @@
     <Content Include="Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="ClassDiagram.cd" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\tccclinicamedica - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\tccclinicamedica - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\WEB.pubxml" />

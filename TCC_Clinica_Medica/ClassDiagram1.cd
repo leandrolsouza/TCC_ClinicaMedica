@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="TCC_Clinica_Medica.App_Start.CustomAuthorizeAttribute">
+    <Position X="7.75" Y="9.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAEAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\AuthConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.BundleConfig">
+    <Position X="5.5" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\BundleConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.FilterConfig">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\FilterConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.TCC_CLINICA_MEDICAEntities">
+    <Position X="0.5" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AECACAAAAACAECIAAABACEAAkBAAAAEAEABAGQIAAAA=</HashCode>
+      <FileName>Model.Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.ANAMNESE">
+    <Position X="4.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAgAAAAAAAAAAAgAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ANAMNESE.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.CLINICAS">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAgAAAAQAAAAAAAQAIAAABAAAAAAIAAAA=</HashCode>
+      <FileName>CLINICAS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.CONSULTA_DOENCA">
+    <Position X="14.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAEAAIAgAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CONSULTA_DOENCA.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.CONSULTAS">
+    <Position X="16.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAIAAAEIiKAEAAAACEACABAgAAEAAAAACAIAAAA=</HashCode>
+      <FileName>CONSULTAS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.DOENCAS">
+    <Position X="12.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAgAAAAAAACAAAAQABAAABAAAAAAAAAEA=</HashCode>
+      <FileName>DOENCAS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.ESPECIALIDADES">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQCAgAAAAAAAAAAAAQABAAABAAAAAAAAAAA=</HashCode>
+      <FileName>ESPECIALIDADES.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.EXAME_RESULTADO">
+    <Position X="3" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAQAAgAAAAAAAAAAAABABAAEAAAAAAAAAIAA=</HashCode>
+      <FileName>EXAME_RESULTADO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.EXAMES">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAQABAAEBAAAAAAAAQAA=</HashCode>
+      <FileName>EXAMES.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.EXAMES_SOLICITADOS">
+    <Position X="7.75" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAEAAAAkAAAEAAAQAAAgAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>EXAMES_SOLICITADOS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.HORARIOS_ATENDIMENTO">
+    <Position X="3" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AEQAAAAAAQAAgAAAAAAAAAAAAQABAAAhAAAAAAAAAAA=</HashCode>
+      <FileName>HORARIOS_ATENDIMENTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.MEDICAMENTOS">
+    <Position X="10.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAwAAgCAAAAAAAAAAAQAAAAABAAAAABAAAQA=</HashCode>
+      <FileName>MEDICAMENTOS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.MEDICO_CLINICA">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAAAiAAAAAAAAAAAAAAAAAAAAAAAAQIAAAA=</HashCode>
+      <FileName>MEDICO_CLINICA.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.MEDICO_ESPECIALIDADE">
+    <Position X="7.75" Y="11.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAiAAAAAAAAAAAAAAAAAAAEAAAAAIAAAA=</HashCode>
+      <FileName>MEDICO_ESPECIALIDADE.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.MEDICO_HORARIO_ATENDIMENTO">
+    <Position X="0.5" Y="11.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAiAAAAABAAAAAIAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>MEDICO_HORARIO_ATENDIMENTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.MEDICOS">
+    <Position X="5.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AECAAAAAAACAgAIAAAAAAAAAgACAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>MEDICOS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.PACIENTES">
+    <Position X="16.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAEAAAAAAAgAIAABIAAAAAgCAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>PACIENTES.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.PLANO_SAUDE">
+    <Position X="3.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAgAAAAAAAAAAAARABAAABAAAAAAAAAAA=</HashCode>
+      <FileName>PLANO_SAUDE.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.RECEITAS">
+    <Position X="6" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAgAAAEAAAAABAgAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>RECEITAS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.USUARIOS">
+    <Position X="16.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAgABAAQAAAAiAARAIACABAAAAAAIAAAA=</HashCode>
+      <FileName>USUARIOS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.Controllers.CLINICASController">
+    <Position X="8.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAQAACAAAAAAAAAAAAAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\CLINICASController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.Controllers.CONSULTASController">
+    <Position X="12" Y="11" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAiAQAAAQAACAAAgACBAAAAQAIRAAIAAEQAA=</HashCode>
+      <FileName>Controllers\CONSULTASController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.Controllers.DOENCASController">
+    <Position X="14.25" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAQAACAAAAAAAAAAAAAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\DOENCASController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.Controllers.ERRORController">
+    <Position X="14.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\ERRORController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.Controllers.ESPECIALIDADESController">
+    <Position X="0.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAQAACAAAAAAAAAAAAAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\ESPECIALIDADESController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.Controllers.EXAME_RESULTADOController">
+    <Position X="3" Y="9" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAQAAAAAAAAAAAAAAAAAAAAAAEAAAAIAAA=</HashCode>
+      <FileName>Controllers\EXAME_RESULTADOController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.Controllers.EXAMESController">
+    <Position X="10.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAQAACAAAAAAAAAAAAAAAAAAAEACAAIAAA=</HashCode>
+      <FileName>Controllers\EXAMESController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.Controllers.HomeController">
+    <Position X="2.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAQAAAAAAAAIAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.Controllers.LOGINController">
+    <Position X="12.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAEQAAAAAAA=</HashCode>
+      <FileName>Controllers\LOGINController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.Controllers.MEDICAMENTOSController">
+    <Position X="10" Y="4.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAQAACAAAAAAAAAAAAAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\MEDICAMENTOSController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.Controllers.PACIENTESController">
+    <Position X="10" Y="10.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACARAACAAAAAAAAAABEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\PACIENTESController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.Controllers.PLANO_SAUDEController">
+    <Position X="14" Y="11" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAQAACAAAAAAAAAAAAAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\PLANO_SAUDEController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.Controllers.RECEITASController">
+    <Position X="8" Y="6.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACARAACAAAAAAAAAAAEAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\RECEITASController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.Controllers.USUARIOSController">
+    <Position X="14.25" Y="7.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAQAAiAAAAAAAAAAAAAAEACAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\USUARIOSController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.Crypto.Crypto">
+    <Position X="16.25" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAQAAAEAAQAAAAASgAAAAAAAQAAAAA=</HashCode>
+      <FileName>Crypto\Crypto.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TCC_Clinica_Medica.Models.Medico">
+    <Position X="12.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Models\Medico.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="TCC_Clinica_Medica.App_Start.UserType">
+    <Position X="5.5" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAARAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>App_Start\AuthConfig.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="TCC_Clinica_Medica.App_Start.ErrorAccess">
+    <Position X="5.5" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\AuthConfig.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

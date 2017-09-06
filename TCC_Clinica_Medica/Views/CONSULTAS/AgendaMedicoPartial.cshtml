@@ -14,7 +14,7 @@
                     @item.PACIENTES.USUARIOS.NOME
                 </td>
                 <td>
-                    <span class="label label-success">@item.DATA_INICIO.Date.ToShortDateString()</span><span class="label label-danger">@item.DATA_INICIO.ToString("HH:mm") / @item.DATA_FIM.ToString("HH:mm")</span> 
+                    <span class="label label-success">@item.DATA_INICIO.Date.ToString("dd/MM/yyyy")</span><span class="label label-danger">@item.DATA_INICIO.ToString("HH:mm") / @item.DATA_FIM.ToString("HH:mm")</span> 
                 </td>
             </tr>
            }

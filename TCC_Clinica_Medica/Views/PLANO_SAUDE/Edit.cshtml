@@ -60,15 +60,6 @@
                     @Html.ValidationMessageFor(model => model.DESCRICAO, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.ATIVO, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.ATIVO)
-                        @Html.ValidationMessageFor(model => model.ATIVO, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
             @Html.HiddenFor(model => model.DATA_CRIACAO)
             @Html.HiddenFor(model => model.DATA_MODIFICACAO)
             <div class="form-group">
